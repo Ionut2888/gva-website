@@ -1,0 +1,140 @@
+    <section class="hero">
+      <div class="container">
+        <div class="hero-content">
+          <div class="hero-text">
+            <div class="hero-badge">
+              <span class="badge-text">Transport Auto Profesional</span>
+            </div>
+            <h1>
+              Soluții de Transport Auto 
+              <span class="gradient-text">Sigure și Eficiente</span>
+            </h1>
+            <p class="hero-subtitle">
+              Cu peste 7 ani de experiență în transportul de automobile, GVA Verkaufer oferă soluții 
+              sigure și eficiente pentru mutarea vehiculelor dumneavoastră în toată România.
+            </p>
+            
+            <div class="hero-features">
+              <div class="feature">
+                <div class="feature-icon">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                    <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </div>
+                <span>Transport sigur cu platforme specializate</span>
+              </div>
+              <div class="feature">
+                <div class="feature-icon">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                    <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </div>
+                <span>Asigurare completă pentru vehicule</span>
+              </div>
+              <div class="feature">
+                <div class="feature-icon">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                    <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </div>
+                <span>Acoperire națională cu tracking GPS</span>
+              </div>
+            </div>
+            
+            <div class="hero-buttons">
+              <button class="btn btn-primary">
+                <span>Solicită Transport Auto</span>
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                  <path d="M5 12h14m-7-7l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </button>
+              <button class="btn btn-secondary">
+                <span>Vezi Tarifele</span>
+              </button>
+            </div>
+          </div>
+          
+          <div class="hero-slideshow">
+            <div class="slideshow-container">
+              <button class="nav-button nav-prev" (click)="previousSlide()" [disabled]="!canNavigate()">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                  <path d="M15 18l-6-6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </button>
+              
+              <div class="slides-wrapper">
+                @for (image of images(); track image.id) {
+                  <div class="slide" 
+                       [class.active]="image.id === currentSlide()"
+                       [class.prev]="image.id === getPreviousSlide()"
+                       [class.next]="image.id === getNextSlide()">
+                    <img [src]="image.src" [alt]="image.alt" loading="lazy">
+                    <div class="slide-overlay"></div>
+                  </div>
+                }
+              </div>
+              
+              <button class="nav-button nav-next" (click)="nextSlide()" [disabled]="!canNavigate()">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                  <path d="M9 18l6-6-6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </button>
+            </div>
+            
+            <div class="slideshow-controls">
+              <div class="slideshow-dots">
+                @for (image of images(); track image.id) {
+                  <button 
+                    class="dot" 
+                    [class.active]="image.id === currentSlide()"
+                    (click)="goToSlide(image.id)"
+                    [attr.aria-label]="'Go to slide ' + (image.id + 1)">
+                  </button>
+                }
+              </div>
+              
+              <div class="slideshow-progress">
+                <div class="progress-bar" [style.width.%]="getProgressPercentage()"></div>
+              </div>
+              
+              <button class="play-pause-btn" (click)="toggleAutoplay()" [attr.aria-label]="isPlaying() ? 'Pause slideshow' : 'Play slideshow'">
+                @if (isPlaying()) {
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                    <rect x="6" y="4" width="4" height="16" fill="currentColor"/>
+                    <rect x="14" y="4" width="4" height="16" fill="currentColor"/>
+                  </svg>
+                } @else {
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                    <polygon points="5,3 19,12 5,21" fill="currentColor"/>
+                  </svg>
+                }
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Quick Stats Section -->
+    <section class="quick-stats">
+      <div class="container">
+        <div class="stats-grid">
+          <div class="stat-item">
+            <div class="stat-number">7+</div>
+            <div class="stat-label">Ani în Transport Auto</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-number">2</div>
+            <div class="stat-label">Platforme Auto Proprii</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-number">1000+</div>
+            <div class="stat-label">Vehicule Transportate</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-number">24/7</div>
+            <div class="stat-label">Servicii Disponibile</div>
+          </div>
+        </div>
+      </div>
+    </section>

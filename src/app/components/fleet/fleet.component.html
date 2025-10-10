@@ -1,0 +1,124 @@
+    <section class="fleet">
+      <div class="container">
+        <div class="section-header">
+          <h2>Flota Noastră de Transport Auto</h2>
+          <p class="section-subtitle">
+            Platforme auto moderne și echipate special pentru transportul sigur al vehiculelor. 
+            Fiecare platformă din flota noastră este echipată cu sisteme avansate de fixare și protecție.
+          </p>
+        </div>
+
+        <div class="fleet-stats">
+          <div class="stat-card">
+            <div class="stat-icon">
+              <mat-icon>directions_car</mat-icon>
+            </div>
+            <div class="stat-content">
+              <h3>2</h3>
+              <p>Platforme Auto Proprii</p>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon">
+              <mat-icon>build</mat-icon>
+            </div>
+            <div class="stat-content">
+              <h3>100%</h3>
+              <p>Întreținere Profesională</p>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon">
+              <mat-icon>gps_fixed</mat-icon>
+            </div>
+            <div class="stat-content">
+              <h3>24/7</h3>
+              <p>Tracking GPS Vehicule</p>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon">
+              <mat-icon>verified_user</mat-icon>
+            </div>
+            <div class="stat-content">
+              <h3>CASCO</h3>
+              <p>Asigurare Completă</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="fleet-gallery">
+          <div class="gallery-header">
+            <h3>Galeria Platformelor Auto</h3>
+            <p>Explorați platformele noastre specializate în transportul auto</p>
+          </div>
+          
+          <div class="gallery-grid">
+            @for (image of fleetImages(); track image.id) {
+              <div class="gallery-item" (click)="openLightbox(image)">
+                <img [src]="image.src" [alt]="image.alt" loading="lazy">
+                <div class="gallery-overlay">
+                  <div class="overlay-content">
+                    <h4>{{ image.title }}</h4>
+                    <p>{{ image.description }}</p>
+                    <mat-icon>zoom_in</mat-icon>
+                  </div>
+                </div>
+              </div>
+            }
+          </div>
+        </div>
+
+        <div class="fleet-features">
+          <h3>Caracteristici Platforme Auto</h3>
+          <div class="features-grid">
+            <div class="feature-card">
+              <mat-icon>anchor</mat-icon>
+              <h4>Sisteme de Fixare</h4>
+              <p>Chingi și sisteme de ancorare specializate pentru fixarea sigură a vehiculelor</p>
+            </div>
+            <div class="feature-card">
+              <mat-icon>shield</mat-icon>
+              <h4>Protecție Vehicule</h4>
+              <p>Sisteme de protecție împotriva intemperiilor și a deteriorărilor în transport</p>
+            </div>
+            <div class="feature-card">
+              <mat-icon>precision_manufacturing</mat-icon>
+              <h4>Rampe Hidraulice</h4>
+              <p>Rampe hidraulice pentru încărcarea și descărcarea sigură a vehiculelor</p>
+            </div>
+            <div class="feature-card">
+              <mat-icon>straighten</mat-icon>
+            <h4>Platforme Ajustabile</h4>
+              <p>Platforme cu înălțime reglabilă pentru diferite tipuri de vehicule</p>
+            </div>
+            <div class="feature-card">
+              <mat-icon>satellite_alt</mat-icon>
+              <h4>Tracking Avansat</h4>
+              <p>Sisteme GPS pentru monitorizarea în timp real a vehiculelor transportate</p>
+            </div>
+            <div class="feature-card">
+              <mat-icon>contact_support</mat-icon>
+              <h4>Suport Tehnic</h4>
+              <p>Echipă tehnică specializată disponibilă 24/7 pentru orice probleme</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Lightbox Modal -->
+        @if (selectedImage()) {
+          <div class="lightbox-overlay" (click)="closeLightbox()">
+            <div class="lightbox-content" (click)="$event.stopPropagation()">
+              <button class="close-btn" (click)="closeLightbox()">
+                <mat-icon>close</mat-icon>
+              </button>
+              <img [src]="selectedImage()!.src" [alt]="selectedImage()!.alt">
+              <div class="lightbox-info">
+                <h4>{{ selectedImage()!.title }}</h4>
+                <p>{{ selectedImage()!.description }}</p>
+              </div>
+            </div>
+          </div>
+        }
+      </div>
+    </section>

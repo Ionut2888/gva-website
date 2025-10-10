@@ -1,0 +1,220 @@
+    <section class="contact">
+      <div class="container">
+        <div class="section-header">
+          <h2>Contactează-ne pentru Transport Auto</h2>
+          <p class="section-subtitle">
+            Suntem gata să discutăm despre nevoile dumneavoastră de transport auto. 
+            Contactați-ne pentru o ofertă personalizată sau pentru orice întrebări despre transportul vehiculelor.
+          </p>
+        </div>
+
+        <div class="contact-content">
+          <div class="contact-info">
+            <div class="info-card">
+              <div class="info-icon">
+                <mat-icon>location_on</mat-icon>
+              </div>
+              <div class="info-content">
+                <h3>Zona de Acoperire</h3>
+                <p>România - Acoperire Națională</p>
+                <p>Transport auto pe întreg teritoriul țării</p>
+              </div>
+            </div>
+
+            <div class="info-card">
+              <div class="info-icon">
+                <mat-icon>phone</mat-icon>
+              </div>
+              <div class="info-content">
+                <h3>Telefon Transport Auto</h3>
+                <p><a href="tel:+40XXXXXXXXX">+40 XXX XXX XXX</a></p>
+                <p>Disponibil 24/7 pentru urgențe auto</p>
+              </div>
+            </div>
+
+            <div class="info-card">
+              <div class="info-icon">
+                <mat-icon>email</mat-icon>
+              </div>
+              <div class="info-content">
+                <h3>Email Transport Auto</h3>
+                <p><a href="mailto:auto@gvaverkaufer.ro">auto&#64;gvaverkaufer.ro</a></p>
+                <p>Răspundem în maximum 2 ore</p>
+              </div>
+            </div>
+
+            <div class="info-card">
+              <div class="info-icon">
+                <mat-icon>schedule</mat-icon>
+              </div>
+              <div class="info-content">
+                <h3>Program Transport</h3>
+                <p>Luni - Duminică: 06:00 - 22:00</p>
+                <p>Urgențe auto: 24/7</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="contact-form-container">
+            <div class="form-header">
+              <h3>Solicită Transport Auto</h3>
+              <p>Completează formularul cu detaliile vehiculului pentru o ofertă rapidă</p>
+            </div>
+
+            <form class="contact-form" (ngSubmit)="submitForm()" #contactForm="ngForm">
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="name">Nume Complet *</label>
+                  <input 
+                    type="text" 
+                    id="name"
+                    name="name"
+                    [(ngModel)]="formData().name"
+                    required
+                    placeholder="Numele dumneavoastră"
+                    #name="ngModel">
+                  @if (name.invalid && name.touched) {
+                    <span class="error">Numele este obligatoriu</span>
+                  }
+                </div>
+                <div class="form-group">
+                  <label for="company">Companie / Dealer</label>
+                  <input 
+                    type="text" 
+                    id="company"
+                    name="company"
+                    [(ngModel)]="formData().company"
+                    placeholder="Numele companiei (opțional)">
+                </div>
+              </div>
+
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="email">Email *</label>
+                  <input 
+                    type="email" 
+                    id="email"
+                    name="email"
+                    [(ngModel)]="formData().email"
+                    required
+                    email
+                    placeholder="adresa@email.ro"
+                    #email="ngModel">
+                  @if (email.invalid && email.touched) {
+                    <span class="error">
+                      @if (email.errors?.['required']) {
+                        Email-ul este obligatoriu
+                      } @else if (email.errors?.['email']) {
+                        Format email invalid
+                      }
+                    </span>
+                  }
+                </div>
+                <div class="form-group">
+                  <label for="phone">Telefon *</label>
+                  <input 
+                    type="tel" 
+                    id="phone"
+                    name="phone"
+                    [(ngModel)]="formData().phone"
+                    required
+                    placeholder="+40 XXX XXX XXX"
+                    #phone="ngModel">
+                  @if (phone.invalid && phone.touched) {
+                    <span class="error">Telefonul este obligatoriu</span>
+                  }
+                </div>
+              </div>
+
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="service">Tip Serviciu *</label>
+                  <select 
+                    id="service"
+                    name="service"
+                    [(ngModel)]="formData().service"
+                    required
+                    #service="ngModel">
+                    <option value="">Selectează tipul de serviciu</option>
+                    <option value="transport">Transport Auto</option>
+                    <option value="comercial">Vehicul Comercial</option>
+                    <option value="lux">Vehicul de Lux</option>
+                    <option value="express">Transport Express</option>
+                    <option value="multiple">Transport Multiple Vehicule</option>
+                  </select>
+                  @if (service.invalid && service.touched) {
+                    <span class="error">Tipul de serviciu este obligatoriu</span>
+                  }
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="message">Detalii Suplimentare</label>
+                <textarea 
+                  id="message"
+                  name="message"
+                  [(ngModel)]="formData().message"
+                  rows="4"
+                  placeholder="Detalii despre vehicul, condiția acestuia, cerințe speciale...">
+                </textarea>
+              </div>
+
+              @if (submitMessage()) {
+                <div class="submit-message" [class]="submitMessage()?.type">
+                  {{ submitMessage()?.text }}
+                </div>
+              }
+
+              <button 
+                type="submit" 
+                class="btn btn-primary"
+                [disabled]="contactForm.invalid || isSubmitting()"
+                [class.loading]="isSubmitting()">
+                @if (isSubmitting()) {
+                  <span class="loading-spinner"></span>
+                  Se trimite...
+                } @else {
+                  Solicită Ofertă Transport Auto
+                }
+              </button>
+            </form>
+          </div>
+        </div>
+
+        <div class="additional-info">
+          <div class="info-section">
+            <h3>De Ce GVA Verkaufer pentru Transport Auto?</h3>
+            <div class="benefits-grid">
+              <div class="benefit">
+                <mat-icon>directions_car</mat-icon>
+                <div>
+                  <h4>Specializare Auto</h4>
+                  <p>Peste 7 ani de experiență exclusiv în transportul auto</p>
+                </div>
+              </div>
+              <div class="benefit">
+                <mat-icon>security</mat-icon>
+                <div>
+                  <h4>Transport Sigur</h4>
+                  <p>Zero daune în transporturile efectuate până acum</p>
+                </div>
+              </div>
+              <div class="benefit">
+                <mat-icon>verified_user</mat-icon>
+                <div>
+                  <h4>Asigurare CASCO</h4>
+                  <p>Toate vehiculele sunt asigurate pe perioada transportului</p>
+                </div>
+              </div>
+              <div class="benefit">
+                <mat-icon>gps_fixed</mat-icon>
+                <div>
+                  <h4>Tracking Real-Time</h4>
+                  <p>Monitorizați vehiculul dumneavoastră în timp real</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
