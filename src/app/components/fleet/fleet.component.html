@@ -59,7 +59,12 @@
           
           <div class="gallery-grid">
             @for (image of fleetImages(); track image.id) {
-              <div class="gallery-item" (click)="openLightbox(image)">
+              <div class="gallery-item"
+                   role="button"
+                   tabindex="0"
+                   (click)="openLightbox(image)"
+                   (keyup.enter)="openLightbox(image)"
+                   (keyup.space)="openLightbox(image)">
                 <img [src]="image.src" [alt]="image.alt" loading="lazy">
               </div>
             }
@@ -104,8 +109,16 @@
 
         <!-- Lightbox Modal -->
         @if (selectedImage()) {
-          <div class="lightbox-overlay" (click)="closeLightbox()">
-            <div class="lightbox-content" (click)="$event.stopPropagation()">
+          <div class="lightbox-overlay"
+               role="button"
+               tabindex="0"
+               (click)="closeLightbox()"
+               (keyup.escape)="closeLightbox()">
+            <div class="lightbox-content"
+                 role="document"
+                 tabindex="0"
+                 (click)="$event.stopPropagation()"
+                 (keyup)="$event.stopPropagation()">
               <button class="close-btn" (click)="closeLightbox()">
                 <mat-icon>close</mat-icon>
               </button>
