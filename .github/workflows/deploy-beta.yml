@@ -1,33 +1,104 @@
-name: Deploy — Beta Preview
+name: Deploy — Beta Environment
 
-# Triggered when:
-#   - A PR is labeled with "beta"  → first deploy for that PR
-#   - New commits are pushed to a PR that already has the "beta" label → redeploy
+# Environment-branch pattern (similar to Jenkins staging/beta branches):
 #
-# Builds the PR branch and deploys it to a unique Firebase Hosting preview
-# channel (pr-<number>). The Firebase action automatically posts (or updates)
-# a comment on the PR with the live preview URL.
+#   There is a dedicated "beta" branch that always reflects the current set
+#   of PRs that carry the "beta" label.  On every relevant PR event the branch
+#   is rebuilt from scratch:
 #
-# Preview URL pattern: https://gvawebsite-b74d4--pr-<number>-<hash>.web.app
-# Channels expire after 7 days. See cleanup-beta.yml for early teardown.
+#     1. Reset `beta` to the tip of `main`
+#     2. Fetch every open PR that still carries the "beta" label
+#     3. Merge each one in (no-ff, skip on conflict with a warning)
+#     4. Force-push the rebuilt branch
+#     5. Build & deploy to the fixed Firebase "beta" channel
+#
+# Triggers:
+#   labeled   — "beta" label was just added to a PR
+#   unlabeled — "beta" label was just removed from a PR  (branch rebuilt without it)
+#   closed    — a PR that had the "beta" label was merged/abandoned (same rebuild)
 
 on:
   pull_request:
-    types: [labeled, synchronize]
+    types: [labeled, unlabeled, closed]
 
 jobs:
-  deploy-beta:
-    name: Build & Deploy Beta Preview
+  rebuild-and-deploy-beta:
+    name: Rebuild beta branch & deploy
     runs-on: ubuntu-latest
-    # Run when the label just added is "beta"  OR  the PR already carries the "beta" label
+
+    # Guard: only run when the beta label is involved
     if: |
-      github.event.label.name == 'beta' ||
-      contains(github.event.pull_request.labels.*.name, 'beta')
+      (github.event.action == 'labeled'   && github.event.label.name == 'beta') ||
+      (github.event.action == 'unlabeled' && github.event.label.name == 'beta') ||
+      (github.event.action == 'closed'    && contains(github.event.pull_request.labels.*.name, 'beta'))
+
+    permissions:
+      contents: write        # push the rebuilt beta branch
+      pull-requests: write   # post deployment comment
 
     steps:
-      - name: Checkout PR branch
+      # ── 1. Checkout main (full history so we can reset/merge freely) ──────
+      - name: Checkout main
         uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: Configure Git identity
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+      # ── 2. Rebuild the beta branch ────────────────────────────────────────
+      - name: Rebuild beta branch from main + labeled PRs
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+
+          # Start fresh: reset beta to the current tip of main
+          git fetch --all --prune
+          git checkout -B beta origin/main
+          echo "✔ beta reset to $(git rev-parse --short HEAD) (origin/main)"
+
+          # Collect all open PRs that carry the "beta" label
+          PR_NUMBERS=$(gh pr list \
+            --repo "${{ github.repository }}" \
+            --label beta \
+            --state open \
+            --json number \
+            --jq '.[].number')
+
+          if [ -z "$PR_NUMBERS" ]; then
+            echo "ℹ No open PRs with the 'beta' label — beta branch stays at main."
+          else
+            for PR_NUMBER in $PR_NUMBERS; do
+              HEAD_REF=$(gh pr view "$PR_NUMBER" \
+                --repo "${{ github.repository }}" \
+                --json headRefName \
+                --jq '.headRefName')
+
+              echo "→ Merging PR #$PR_NUMBER ($HEAD_REF)…"
+              git fetch origin "$HEAD_REF"
+
+              if git merge "origin/$HEAD_REF" \
+                  --no-ff \
+                  -m "chore: merge PR #$PR_NUMBER ($HEAD_REF) into beta"; then
+                echo "  ✔ merged"
+              else
+                echo "  ✖ merge conflict — aborting this PR, continuing with others"
+                git merge --abort
+                echo "::warning::PR #$PR_NUMBER ($HEAD_REF) has a merge conflict and was skipped."
+              fi
+            done
+          fi
+
+          # Force-push so the branch always reflects the current label set
+          git push --force origin beta
+          echo "✔ beta branch updated"
+
+      # ── 3. Set up toolchain (uses the now-checked-out beta branch code) ───
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
@@ -40,17 +111,18 @@ jobs:
       - name: Lint
         run: npm run lint
 
-      - name: Unit tests (with coverage)
-        run: npm run test -- --watch=false --browsers=ChromeHeadless --no-progress --code-coverage
+      - name: Unit tests
+        run: npm run test -- --watch=false --browsers=ChromeHeadless --no-progress
 
       - name: Build
         run: npm run build
 
-      - name: Deploy to Firebase Hosting (PR preview channel)
+      # ── 4. Deploy beta branch to the fixed "beta" Firebase channel ────────
+      - name: Deploy to Firebase Hosting (beta channel)
         uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: '${{ secrets.GITHUB_TOKEN }}'
           firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT }}'
           projectId: gvawebsite-b74d4
-          channelId: pr-${{ github.event.pull_request.number }}
-          expires: 7d
+          channelId: beta
+          expires: 30d
