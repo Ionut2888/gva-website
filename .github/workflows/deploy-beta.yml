@@ -66,7 +66,7 @@ jobs:
             --repo "${{ github.repository }}" \
             --label beta \
             --state open \
-            --json number,title,author,headRefName)
+            --json number,title,author,headRefName,url)
 
           PR_NUMBERS=$(echo "$PR_JSON" | jq -r '.[].number')
           SKIPPED_LIST=""
@@ -108,7 +108,7 @@ jobs:
 
           # ── Format PR list for email ──
           PR_LINES=$(echo "$PR_JSON" | \
-            jq -r '.[] | "  • #\(.number) — \(.title) (@\(.author.login))"')
+            jq -r '.[] | "  • #\(.number) — \(.title) (@\(.author.login))\n    \(.url)"')
 
           if [ -z "$PR_LINES" ]; then
             PR_LINES="  (none — beta is at main)"
@@ -176,6 +176,7 @@ jobs:
 
             Triggered by:  ${{ steps.rebuild.outputs.trigger }}
             PR:            #${{ github.event.pull_request.number }} — ${{ github.event.pull_request.title }}
+                           ${{ github.event.pull_request.html_url }}
             Beta URL:      https://gvawebsite-b74d4--beta.web.app
 
             PRs currently in beta
