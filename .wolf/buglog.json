@@ -1,0 +1,31 @@
+{
+  "version": 1,
+  "bugs": [
+    {
+      "id": "bug-001",
+      "timestamp": "2026-05-10T20:30:00Z",
+      "error_message": "NG0500: During hydration Angular expected a text node but the node was not found in <textarea> inside ContactComponent. Mat-icons also rendered as plain text strings.",
+      "file": "src/app/components/contact/contact.component.html",
+      "root_cause": "Textarea had whitespace (newline + spaces) between its opening and closing tags. SSR prerender creates a text node for this whitespace, but Angular hydration on the client doesn't expect it — mismatch causes NG0500 and cascading re-render that breaks mat-icon ligature rendering.",
+      "fix": "Collapsed textarea to a single line: changed `placeholder='...'>\\n                </textarea>` to `placeholder='...'></textarea>` (no whitespace between tags).",
+      "tags": ["ssr", "hydration", "ng0500", "textarea", "mat-icon", "contact"],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-05-10"
+    }
+  ],
+  "bugs_continued": [
+    {
+      "id": "bug-002",
+      "timestamp": "2026-05-14T00:00:00Z",
+      "error_message": "Mobile view shows padding on left but not right on contact page and potentially other pages",
+      "file": "src/app/components/contact/contact.component.scss, about.component.scss, fleet.component.scss, styles.scss",
+      "root_cause": "CSS Grid children default to min-width: auto. The .contact-info and .contact-form-container grid children of .contact-content could grow wider than their grid cell, pushing past the container's padding. Also, .form-row breakpoint was 560px (too narrow) — at 560-768px it stayed 2-column but the parent was already single-column, creating cramped fields that looked like no right padding.",
+      "fix": "1) Added min-width: 0 to .contact-info and .contact-form-container in contact.component.scss. 2) Changed .form-row breakpoint from max-width:560px to max-width:768px. 3) Applied same min-width:0 and 560px→768px fixes to about and fleet components. 4) Added overflow-x: hidden to body in styles.scss as safety net.",
+      "tags": ["responsive", "mobile", "css-grid", "min-width", "overflow", "padding", "contact", "about", "fleet"],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-05-14"
+    }
+  ]
+}

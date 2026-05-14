@@ -1,6 +1,7 @@
-import { Component, signal } from '@angular/core';
+import { Component, signal, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
+import { DOCUMENT } from '@angular/common';
 
 interface FleetImage {
   id: number;
@@ -18,6 +19,7 @@ interface FleetImage {
   styleUrls: ['./fleet.component.scss']
 })
 export class FleetComponent {
+  private doc = inject(DOCUMENT);
   protected selectedImage = signal<FleetImage | null>(null);
   
   protected fleetImages = signal<FleetImage[]>([
@@ -88,11 +90,11 @@ export class FleetComponent {
 
   protected openLightbox(image: FleetImage) {
     this.selectedImage.set(image);
-    document.body.style.overflow = 'hidden';
+    if (this.doc.body) this.doc.body.style.overflow = 'hidden';
   }
 
   protected closeLightbox() {
     this.selectedImage.set(null);
-    document.body.style.overflow = 'auto';
+    if (this.doc.body) this.doc.body.style.overflow = 'auto';
   }
 }

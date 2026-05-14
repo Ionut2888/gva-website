@@ -1,13 +1,17 @@
     <section class="fleet">
-      <div class="container">
-        <div class="section-header">
-          <h2>Flota Noastră de Transport Auto</h2>
-          <p class="section-subtitle">
-            Platforme auto moderne și echipate special pentru transportul sigur al vehiculelor. 
-            Fiecare platformă din flota noastră este echipată cu sisteme avansate de fixare și protecție.
-          </p>
+      <div class="page-banner">
+        <div class="container">
+          <div class="section-header">
+            <h2>Capacitatea Noastră de Transport</h2>
+            <p class="section-subtitle">
+              Două platforme proprii, fiecare cu capacitate de 7–8 vehicule per cursă.
+              Echipate cu sisteme profesionale de ancorare, GPS și asigurate CASCO integral.
+            </p>
+          </div>
         </div>
+      </div>
 
+      <div class="container">
         <div class="fleet-stats">
           <div class="stat-card">
             <div class="stat-icon">
@@ -20,11 +24,11 @@
           </div>
           <div class="stat-card">
             <div class="stat-icon">
-              <mat-icon>build</mat-icon>
+              <mat-icon>inventory_2</mat-icon>
             </div>
             <div class="stat-content">
-              <h3>100%</h3>
-              <p>Întreținere Profesională</p>
+              <h3>7–8</h3>
+              <p>Vehicule per Cursă</p>
             </div>
           </div>
           <div class="stat-card">
@@ -33,7 +37,7 @@
             </div>
             <div class="stat-content">
               <h3>24/7</h3>
-              <p>Tracking GPS Vehicule</p>
+              <p>Tracking GPS Activ</p>
             </div>
           </div>
           <div class="stat-card">
@@ -42,65 +46,58 @@
             </div>
             <div class="stat-content">
               <h3>CASCO</h3>
-              <p>Asigurare Completă</p>
+              <p>Asigurare Completă Inclusă</p>
             </div>
           </div>
         </div>
 
         <div class="fleet-gallery">
           <div class="gallery-header">
-            <h3>Galeria Platformelor Auto</h3>
-            <p>Explorați platformele noastre specializate în transportul auto</p>
+            <h3>Platformele Noastre în Acțiune</h3>
+            <p>Capacitate verificată pe teren — curse reale, loturi complete</p>
           </div>
           
           <div class="gallery-grid">
             @for (image of fleetImages(); track image.id) {
               <div class="gallery-item" (click)="openLightbox(image)">
                 <img [src]="image.src" [alt]="image.alt" loading="lazy">
-                <div class="gallery-overlay">
-                  <div class="overlay-content">
-                    <h4>{{ image.title }}</h4>
-                    <p>{{ image.description }}</p>
-                    <mat-icon>zoom_in</mat-icon>
-                  </div>
-                </div>
               </div>
             }
           </div>
         </div>
 
         <div class="fleet-features">
-          <h3>Caracteristici Platforme Auto</h3>
+          <h3>De Ce Contează Echipamentul Nostru pentru Partenerul B2B</h3>
           <div class="features-grid">
             <div class="feature-card">
               <mat-icon>anchor</mat-icon>
-              <h4>Sisteme de Fixare</h4>
-              <p>Chingi și sisteme de ancorare specializate pentru fixarea sigură a vehiculelor</p>
-            </div>
-            <div class="feature-card">
-              <mat-icon>shield</mat-icon>
-              <h4>Protecție Vehicule</h4>
-              <p>Sisteme de protecție împotriva intemperiilor și a deteriorărilor în transport</p>
+              <h4>Ancorare Profesională per Vehicul</h4>
+              <p>Fiecare mașină este fixată individual cu chingi certificate — stabilitate garantată pe toată durata transportului</p>
             </div>
             <div class="feature-card">
               <mat-icon>precision_manufacturing</mat-icon>
               <h4>Rampe Hidraulice</h4>
-              <p>Rampe hidraulice pentru încărcarea și descărcarea sigură a vehiculelor</p>
+              <p>Încărcare și descărcare fără stres pentru vehicule cu gardă joasă sau cu probleme de mobilitate</p>
             </div>
             <div class="feature-card">
               <mat-icon>straighten</mat-icon>
-            <h4>Platforme Ajustabile</h4>
-              <p>Platforme cu înălțime reglabilă pentru diferite tipuri de vehicule</p>
+              <h4>Capacitate 7–8 Mașini</h4>
+              <p>Platforme dimensionate pentru loturi complete — costul per unitate scade cu fiecare mașină adăugată</p>
             </div>
             <div class="feature-card">
               <mat-icon>satellite_alt</mat-icon>
-              <h4>Tracking Avansat</h4>
-              <p>Sisteme GPS pentru monitorizarea în timp real a vehiculelor transportate</p>
+              <h4>GPS Live pentru Fleet Manager</h4>
+              <p>Partenerul poate urmări în timp real poziția lotului — transparență totală pe durata transportului</p>
             </div>
             <div class="feature-card">
-              <mat-icon>contact_support</mat-icon>
-              <h4>Suport Tehnic</h4>
-              <p>Echipă tehnică specializată disponibilă 24/7 pentru orice probleme</p>
+              <mat-icon>shield</mat-icon>
+              <h4>Protecție Completă în Transit</h4>
+              <p>Sisteme de protecție împotriva intemperiilor și impacturilor minore pe toată durata drumului</p>
+            </div>
+            <div class="feature-card">
+              <mat-icon>build</mat-icon>
+              <h4>Întreținere Programată</h4>
+              <p>Platformele noastre sunt menținute conform unui program riguros — fără pene surpriză, fără întârzieri tehnice</p>
             </div>
           </div>
         </div>
@@ -113,10 +110,6 @@
                 <mat-icon>close</mat-icon>
               </button>
               <img [src]="selectedImage()!.src" [alt]="selectedImage()!.alt">
-              <div class="lightbox-info">
-                <h4>{{ selectedImage()!.title }}</h4>
-                <p>{{ selectedImage()!.description }}</p>
-              </div>
             </div>
           </div>
         }

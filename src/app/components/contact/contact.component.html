@@ -1,23 +1,27 @@
     <section class="contact">
-      <div class="container">
-        <div class="section-header">
-          <h2>Contactează-ne pentru Transport Auto</h2>
-          <p class="section-subtitle">
-            Suntem gata să discutăm despre nevoile dumneavoastră de transport auto. 
-            Contactați-ne pentru o ofertă personalizată sau pentru orice întrebări despre transportul vehiculelor.
-          </p>
+      <div class="page-banner">
+        <div class="container">
+          <div class="section-header">
+            <h2>Hai să Discutăm despre Lotul Tău</h2>
+            <p class="section-subtitle">
+              Partenerii noștri sunt dealeri, importatori și companii de flotă care au nevoie
+              de transport regulat, contractual și fără surprize. Trimiteți-ne detaliile și revenim în 4 ore.
+            </p>
+          </div>
         </div>
+      </div>
 
+      <div class="container">
         <div class="contact-content">
           <div class="contact-info">
             <div class="info-card">
               <div class="info-icon">
-                <mat-icon>location_on</mat-icon>
+                <mat-icon>inventory_2</mat-icon>
               </div>
               <div class="info-content">
-                <h3>Zona de Acoperire</h3>
-                <p>România - Acoperire Națională</p>
-                <p>Transport auto pe întreg teritoriul țării</p>
+                <h3>Specializare Comercială</h3>
+                <p>Loturi de 7–8 vehicule per cursă</p>
+                <p>Capacitate dedicată businessului dvs.</p>
               </div>
             </div>
 
@@ -26,9 +30,9 @@
                 <mat-icon>phone</mat-icon>
               </div>
               <div class="info-content">
-                <h3>Telefon Transport Auto</h3>
-                <p><a href="tel:+40XXXXXXXXX">+40 XXX XXX XXX</a></p>
-                <p>Disponibil 24/7 pentru urgențe auto</p>
+                <h3>Telefon B2B</h3>
+                <p><a href="tel:+40745852977">+40 745 852 977</a></p>
+                <p>Luni–Vineri, 08:00–18:00</p>
               </div>
             </div>
 
@@ -37,28 +41,28 @@
                 <mat-icon>email</mat-icon>
               </div>
               <div class="info-content">
-                <h3>Email Transport Auto</h3>
+                <h3>Email Oferte</h3>
                 <p><a href="mailto:auto@gvaverkaufer.ro">auto&#64;gvaverkaufer.ro</a></p>
-                <p>Răspundem în maximum 2 ore</p>
+                <p>Răspuns ofertă în maximum 4 ore</p>
               </div>
             </div>
 
             <div class="info-card">
               <div class="info-icon">
-                <mat-icon>schedule</mat-icon>
+                <mat-icon>location_on</mat-icon>
               </div>
               <div class="info-content">
-                <h3>Program Transport</h3>
-                <p>Luni - Duminică: 06:00 - 22:00</p>
-                <p>Urgențe auto: 24/7</p>
+                <h3>Acoperire</h3>
+                <p>România + Europa de Vest</p>
+                <p>Germania, Franța, Spania și altele</p>
               </div>
             </div>
           </div>
 
           <div class="contact-form-container">
             <div class="form-header">
-              <h3>Solicită Transport Auto</h3>
-              <p>Completează formularul cu detaliile vehiculului pentru o ofertă rapidă</p>
+              <h3>Solicită Ofertă de Lot</h3>
+              <p>Completează formularul cu detaliile lotului — număr vehicule, origine, destinație — și revenim în 4 ore</p>
             </div>
 
             <form class="contact-form" (ngSubmit)="submitForm()" #contactForm="ngForm">
@@ -78,13 +82,14 @@
                   }
                 </div>
                 <div class="form-group">
-                  <label for="company">Companie / Dealer</label>
-                  <input 
-                    type="text" 
+                  <label for="company">Companie / Dealer *</label>
+                  <input
+                    type="text"
                     id="company"
                     name="company"
                     [(ngModel)]="formData().company"
-                    placeholder="Numele companiei (opțional)">
+                    required
+                    placeholder="Numele companiei">
                 </div>
               </div>
 
@@ -135,12 +140,13 @@
                     [(ngModel)]="formData().service"
                     required
                     #service="ngModel">
-                    <option value="">Selectează tipul de serviciu</option>
-                    <option value="transport">Transport Auto</option>
-                    <option value="comercial">Vehicul Comercial</option>
-                    <option value="lux">Vehicul de Lux</option>
-                    <option value="express">Transport Express</option>
-                    <option value="multiple">Transport Multiple Vehicule</option>
+                    <option value="">Selectează tipul de parteneriat</option>
+                    <option value="dealer">Transport Lot Dealeri</option>
+                    <option value="import">Transport Import Auto</option>
+                    <option value="fleet">Transport Parc Corporativ</option>
+                    <option value="producator">Distribuție Producători</option>
+                    <option value="licitatie">Transport Licitații / Remarketing</option>
+                    <option value="contract">Contract Recurent</option>
                   </select>
                   @if (service.invalid && service.touched) {
                     <span class="error">Tipul de serviciu este obligatoriu</span>
@@ -150,13 +156,12 @@
 
               <div class="form-group">
                 <label for="message">Detalii Suplimentare</label>
-                <textarea 
+                <textarea
                   id="message"
                   name="message"
                   [(ngModel)]="formData().message"
                   rows="4"
-                  placeholder="Detalii despre vehicul, condiția acestuia, cerințe speciale...">
-                </textarea>
+                  placeholder="Ex: 8 autoturisme, preluare Frankfurt, livrare București, frecvență lunară..."></textarea>
               </div>
 
               @if (submitMessage()) {
@@ -174,7 +179,7 @@
                   <span class="loading-spinner"></span>
                   Se trimite...
                 } @else {
-                  Solicită Ofertă Transport Auto
+                  Solicită Ofertă de Lot
                 }
               </button>
             </form>
@@ -183,34 +188,34 @@
 
         <div class="additional-info">
           <div class="info-section">
-            <h3>De Ce GVA Verkaufer pentru Transport Auto?</h3>
+            <h3>De Ce Partenerii B2B Aleg GVA Verkaufer</h3>
             <div class="benefits-grid">
               <div class="benefit">
-                <mat-icon>directions_car</mat-icon>
+                <mat-icon>handshake</mat-icon>
                 <div>
-                  <h4>Specializare Auto</h4>
-                  <p>Peste 7 ani de experiență exclusiv în transportul auto</p>
+                  <h4>Dedicați Partenerilor Comerciali</h4>
+                  <p>100% din capacitate și atenție merg spre partenerii cu loturi complete — transport la nivel de business</p>
+                </div>
+              </div>
+              <div class="benefit">
+                <mat-icon>trending_down</mat-icon>
+                <div>
+                  <h4>Cost Optim per Unitate</h4>
+                  <p>Platforma plină înseamnă prețul cel mai bun per mașină — eficiență reală, calculată per cursă</p>
+                </div>
+              </div>
+              <div class="benefit">
+                <mat-icon>assignment</mat-icon>
+                <div>
+                  <h4>Contract Clar, Prețuri Fixe</h4>
+                  <p>Termene definite, prețuri fixe, factură lunară consolidată — o relație comercială profesională</p>
                 </div>
               </div>
               <div class="benefit">
                 <mat-icon>security</mat-icon>
                 <div>
-                  <h4>Transport Sigur</h4>
-                  <p>Zero daune în transporturile efectuate până acum</p>
-                </div>
-              </div>
-              <div class="benefit">
-                <mat-icon>verified_user</mat-icon>
-                <div>
-                  <h4>Asigurare CASCO</h4>
-                  <p>Toate vehiculele sunt asigurate pe perioada transportului</p>
-                </div>
-              </div>
-              <div class="benefit">
-                <mat-icon>gps_fixed</mat-icon>
-                <div>
-                  <h4>Tracking Real-Time</h4>
-                  <p>Monitorizați vehiculul dumneavoastră în timp real</p>
+                  <h4>Zero Daune din 2018</h4>
+                  <p>Record impecabil de 7 ani — fiecare vehicul livrat în aceeași stare în care a fost preluat</p>
                 </div>
               </div>
             </div>

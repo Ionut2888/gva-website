@@ -44,3 +44,9 @@ Thumbs.db
 
 # Exclude embedded git repository
 GVA/
+
+# Claude Code session data
+.claude/
+
+# OpenWolf design captures (generated, not source)
+.wolf/designqc-captures/

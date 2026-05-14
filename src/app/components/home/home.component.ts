@@ -1,15 +1,17 @@
-import { Component, OnInit, OnDestroy, signal } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Component, OnInit, OnDestroy, signal, inject, PLATFORM_ID } from '@angular/core';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
+import { RouterLink } from '@angular/router';
 import { interval, Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, RouterLink],
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit, OnDestroy {
+  private platformId = inject(PLATFORM_ID);
   private subscription?: Subscription;
   private navigationDisabled = false;
   
@@ -26,7 +28,9 @@ export class HomeComponent implements OnInit, OnDestroy {
   ]);
 
   ngOnInit() {
-    this.startSlideshow();
+    if (isPlatformBrowser(this.platformId)) {
+      this.startSlideshow();
+    }
   }
 
   ngOnDestroy() {
@@ -97,6 +101,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   private disableNavigation() {
+    if (!isPlatformBrowser(this.platformId)) return;
     this.navigationDisabled = true;
     setTimeout(() => {
       this.navigationDisabled = false;

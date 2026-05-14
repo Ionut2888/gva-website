@@ -1,140 +1,155 @@
     <section class="hero">
+
+      <!-- Full-bleed background slideshow -->
+      <div class="hero-bg">
+        @for (image of images(); track image.id) {
+          <div class="slide" [class.active]="image.id === currentSlide()">
+            <img [src]="image.src" [alt]="image.alt" loading="lazy">
+          </div>
+        }
+      </div>
+
+      <!-- Overlays: gradient + grid -->
+      <div class="hero-overlay"></div>
+
+      <!-- Content -->
       <div class="container">
         <div class="hero-content">
-          <div class="hero-text">
-            <div class="hero-badge">
-              <span class="badge-text">Transport Auto Profesional</span>
-            </div>
-            <h1>
-              Soluții de Transport Auto 
-              <span class="gradient-text">Sigure și Eficiente</span>
-            </h1>
-            <p class="hero-subtitle">
-              Cu peste 7 ani de experiență în transportul de automobile, GVA Verkaufer oferă soluții 
-              sigure și eficiente pentru mutarea vehiculelor dumneavoastră în toată România.
-            </p>
-            
-            <div class="hero-features">
-              <div class="feature">
-                <div class="feature-icon">
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-                    <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                  </svg>
-                </div>
-                <span>Transport sigur cu platforme specializate</span>
-              </div>
-              <div class="feature">
-                <div class="feature-icon">
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-                    <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                  </svg>
-                </div>
-                <span>Asigurare completă pentru vehicule</span>
-              </div>
-              <div class="feature">
-                <div class="feature-icon">
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-                    <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                  </svg>
-                </div>
-                <span>Acoperire națională cu tracking GPS</span>
-              </div>
-            </div>
-            
-            <div class="hero-buttons">
-              <button class="btn btn-primary">
-                <span>Solicită Transport Auto</span>
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-                  <path d="M5 12h14m-7-7l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+
+          <div class="hero-badge">
+            <span class="badge-text">Logistică Auto B2B · Loturi Complete</span>
+          </div>
+
+          <h1>
+            Transport Industrial de Lot<br>
+            <span class="gradient-text">pentru Dealeri și Importatori.</span>
+          </h1>
+
+          <p class="hero-subtitle">
+            Transportăm loturi de minimum 7–8 vehicule per cursă — platformă completă,
+            cost optim per unitate, livrare punctuală. Curse tur-retur RO ↔ DE · FR · ES
+            și transport intern pentru dealeri, importatori și exportatori.
+          </p>
+
+          <div class="hero-features">
+            <div class="feature">
+              <div class="feature-icon">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                  <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                 </svg>
-              </button>
-              <button class="btn btn-secondary">
-                <span>Vezi Tarifele</span>
-              </button>
+              </div>
+              <span>Minim 7–8 vehicule/cursă — platformă completă, cost optim</span>
+            </div>
+            <div class="feature">
+              <div class="feature-icon">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                  <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </div>
+              <span>Contracte B2B cu prețuri fixe și program regulat</span>
+            </div>
+            <div class="feature">
+              <div class="feature-icon">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                  <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </div>
+              <span>România și Europa de Vest — Germania, Franța, Spania și altele</span>
             </div>
           </div>
-          
-          <div class="hero-slideshow">
-            <div class="slideshow-container">
-              <button class="nav-button nav-prev" (click)="previousSlide()" [disabled]="!canNavigate()">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-                  <path d="M15 18l-6-6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-              </button>
-              
-              <div class="slides-wrapper">
-                @for (image of images(); track image.id) {
-                  <div class="slide" 
-                       [class.active]="image.id === currentSlide()"
-                       [class.prev]="image.id === getPreviousSlide()"
-                       [class.next]="image.id === getNextSlide()">
-                    <img [src]="image.src" [alt]="image.alt" loading="lazy">
-                    <div class="slide-overlay"></div>
-                  </div>
-                }
-              </div>
-              
-              <button class="nav-button nav-next" (click)="nextSlide()" [disabled]="!canNavigate()">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-                  <path d="M9 18l6-6-6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-              </button>
-            </div>
-            
-            <div class="slideshow-controls">
-              <div class="slideshow-dots">
-                @for (image of images(); track image.id) {
-                  <button 
-                    class="dot" 
-                    [class.active]="image.id === currentSlide()"
-                    (click)="goToSlide(image.id)"
-                    [attr.aria-label]="'Go to slide ' + (image.id + 1)">
-                  </button>
-                }
-              </div>
-              
-              <div class="slideshow-progress">
-                <div class="progress-bar" [style.width.%]="getProgressPercentage()"></div>
-              </div>
-              
-              <button class="play-pause-btn" (click)="toggleAutoplay()" [attr.aria-label]="isPlaying() ? 'Pause slideshow' : 'Play slideshow'">
-                @if (isPlaying()) {
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-                    <rect x="6" y="4" width="4" height="16" fill="currentColor"/>
-                    <rect x="14" y="4" width="4" height="16" fill="currentColor"/>
-                  </svg>
-                } @else {
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-                    <polygon points="5,3 19,12 5,21" fill="currentColor"/>
-                  </svg>
-                }
-              </button>
-            </div>
+
+          <div class="hero-buttons">
+            <a routerLink="/contact" class="btn btn-primary">
+              <span>Solicită Ofertă de Lot</span>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                <path d="M5 12h14m-7-7l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </a>
+            <a routerLink="/fleet" class="btn btn-secondary">
+              <span>Capacitatea Flotei</span>
+            </a>
           </div>
+
         </div>
       </div>
+
+
     </section>
 
-    <!-- Quick Stats Section -->
-    <section class="quick-stats">
-      <div class="container">
+    <!-- Floating Stats Card -->
+    <div class="stats-float-wrapper">
+      <section class="quick-stats">
         <div class="stats-grid">
           <div class="stat-item">
             <div class="stat-number">7+</div>
-            <div class="stat-label">Ani în Transport Auto</div>
+            <div class="stat-label">Ani de Parteneriate B2B</div>
           </div>
           <div class="stat-item">
-            <div class="stat-number">2</div>
-            <div class="stat-label">Platforme Auto Proprii</div>
+            <div class="stat-number">7–8</div>
+            <div class="stat-label">Vehicule per Cursă, Lot Complet</div>
           </div>
           <div class="stat-item">
-            <div class="stat-number">1000+</div>
-            <div class="stat-label">Vehicule Transportate</div>
+            <div class="stat-number">5.000+</div>
+            <div class="stat-label">Vehicule Livrate</div>
           </div>
           <div class="stat-item">
-            <div class="stat-number">24/7</div>
-            <div class="stat-label">Servicii Disponibile</div>
+            <div class="stat-number">0</div>
+            <div class="stat-label">Daune Înregistrate</div>
           </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- Efficiency Feature Section -->
+    <section class="efficiency">
+      <div class="container">
+        <div class="efficiency-grid">
+
+          <div class="efficiency-image">
+            <img
+              src="assets/1a36a54a-4837-43e0-bcea-ffa4dbe6f83d.png"
+              alt="Platformă de transport auto GVA Verkaufer — lot complet">
+          </div>
+
+          <div class="efficiency-text">
+            <span class="section-eyebrow">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                <path d="M1 17H3M21 17H23M3 17V13L5 9H15L19 13V17M3 17H19M19 17V13M5 9H15M6 13H10" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <circle cx="7" cy="19" r="1.5" stroke="currentColor" stroke-width="1.5"/>
+                <circle cx="16" cy="19" r="1.5" stroke="currentColor" stroke-width="1.5"/>
+              </svg>
+              Capacitate Ridicată
+            </span>
+            <h2>Inginerită pentru 7–8 Vehicule per Cursă.</h2>
+            <p>Nu transportăm doar mașini — optimizăm logistica. Platforma noastră este proiectată să maximizeze capacitatea la fiecare cursă, fără compromisuri privind siguranța vehiculelor. Transportând minim 7–8 unități per trip, reducem costul per unitate și accelerăm termenele de livrare pentru partenerii B2B.</p>
+            <ul class="efficiency-list">
+              <li>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                  <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span><strong>Dealeri:</strong> Reaprovizionare rapidă a parcului auto cu tarife de lot avantajoase.</span>
+              </li>
+              <li>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                  <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span><strong>Importatori:</strong> Transit port–destinație scalat pentru volume mari, documentație completă.</span>
+              </li>
+              <li>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                  <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span><strong>Producători:</strong> Pipeline constant, capacitate garantată, zero surprize în planificare.</span>
+              </li>
+            </ul>
+            <a routerLink="/contact" class="btn btn-primary efficiency-cta">
+              <span>Solicită Ofertă B2B</span>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                <path d="M5 12h14m-7-7l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </a>
+          </div>
+
         </div>
       </div>
     </section>
