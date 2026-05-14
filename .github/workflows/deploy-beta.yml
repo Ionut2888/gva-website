@@ -1,21 +1,31 @@
-name: Deploy — Beta
+name: Deploy — Beta Preview
 
-# Runs automatically when code lands on develop.
-# Deploys to Firebase Hosting beta channel (no approval needed).
-# Beta URL: https://gvawebsite-b74d4--beta.web.app
+# Triggered when:
+#   - A PR is labeled with "beta"  → first deploy for that PR
+#   - New commits are pushed to a PR that already has the "beta" label → redeploy
+#
+# Builds the PR branch and deploys it to a unique Firebase Hosting preview
+# channel (pr-<number>). The Firebase action automatically posts (or updates)
+# a comment on the PR with the live preview URL.
+#
+# Preview URL pattern: https://gvawebsite-b74d4--pr-<number>-<hash>.web.app
+# Channels expire after 7 days. See cleanup-beta.yml for early teardown.
 
 on:
-  push:
-    branches:
-      - develop
+  pull_request:
+    types: [labeled, synchronize]
 
 jobs:
   deploy-beta:
-    name: Build & Deploy to Beta
+    name: Build & Deploy Beta Preview
     runs-on: ubuntu-latest
+    # Run when the label just added is "beta"  OR  the PR already carries the "beta" label
+    if: |
+      github.event.label.name == 'beta' ||
+      contains(github.event.pull_request.labels.*.name, 'beta')
 
     steps:
-      - name: Checkout
+      - name: Checkout PR branch
         uses: actions/checkout@v4
 
       - name: Set up Node.js
@@ -36,11 +46,11 @@ jobs:
       - name: Build
         run: npm run build
 
-      - name: Deploy to Firebase Hosting (beta channel)
+      - name: Deploy to Firebase Hosting (PR preview channel)
         uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: '${{ secrets.GITHUB_TOKEN }}'
           firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT }}'
           projectId: gvawebsite-b74d4
-          channelId: beta
-          expires: 30d
+          channelId: pr-${{ github.event.pull_request.number }}
+          expires: 7d
