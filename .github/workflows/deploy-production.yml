@@ -32,8 +32,8 @@ jobs:
       - name: Lint
         run: npm run lint
 
-      - name: Unit tests
-        run: npm run test -- --watch=false --browsers=ChromeHeadless --no-progress
+      - name: Unit tests (with coverage)
+        run: npm run test -- --watch=false --browsers=ChromeHeadless --no-progress --code-coverage
 
       - name: Build
         run: npm run build
