@@ -1,21 +1,21 @@
 name: Deploy — Beta Environment
 
-# Environment-branch pattern (similar to Jenkins staging/beta branches):
-#
-#   There is a dedicated "beta" branch that always reflects the current set
-#   of PRs that carry the "beta" label.  On every relevant PR event the branch
-#   is rebuilt from scratch:
-#
-#     1. Reset `beta` to the tip of `main`
-#     2. Fetch every open PR that still carries the "beta" label
-#     3. Merge each one in (no-ff, skip on conflict with a warning)
-#     4. Force-push the rebuilt branch
-#     5. Build & deploy to the fixed Firebase "beta" channel
+# Environment-branch pattern:
+#   The "beta" branch is rebuilt from main + every open PR carrying the "beta"
+#   label on every relevant event, then deployed to the Firebase beta channel.
+#   A summary email is sent after each successful deployment.
 #
 # Triggers:
-#   labeled   — "beta" label was just added to a PR
-#   unlabeled — "beta" label was just removed from a PR  (branch rebuilt without it)
-#   closed    — a PR that had the "beta" label was merged/abandoned (same rebuild)
+#   labeled   — "beta" label added to a PR
+#   unlabeled — "beta" label removed from a PR  (branch rebuilt without it)
+#   closed    — a PR that had "beta" was merged/abandoned (rebuilt from new main)
+#
+# Required secrets (Settings → Secrets → Actions):
+#   FIREBASE_SERVICE_ACCOUNT  — Firebase service account JSON
+#   EMAIL_USERNAME            — Gmail address used to send (e.g. you@gmail.com)
+#   EMAIL_PASSWORD            — Gmail App Password (16-char, not your real password)
+#                               Generate at: myaccount.google.com/apppasswords
+#   NOTIFY_EMAIL              — Recipient address(es), comma-separated
 
 on:
   pull_request:
@@ -26,18 +26,17 @@ jobs:
     name: Rebuild beta branch & deploy
     runs-on: ubuntu-latest
 
-    # Guard: only run when the beta label is involved
     if: |
       (github.event.action == 'labeled'   && github.event.label.name == 'beta') ||
       (github.event.action == 'unlabeled' && github.event.label.name == 'beta') ||
       (github.event.action == 'closed'    && contains(github.event.pull_request.labels.*.name, 'beta'))
 
     permissions:
-      contents: write        # push the rebuilt beta branch
-      pull-requests: write   # post deployment comment
+      contents: write
+      pull-requests: write
 
     steps:
-      # ── 1. Checkout main (full history so we can reset/merge freely) ──────
+      # ── 1. Checkout main ──────────────────────────────────────────────────
       - name: Checkout main
         uses: actions/checkout@v4
         with:
@@ -50,35 +49,33 @@ jobs:
           git config user.name  "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
 
-      # ── 2. Rebuild the beta branch ────────────────────────────────────────
+      # ── 2. Rebuild beta branch + capture PR details for the email ─────────
       - name: Rebuild beta branch from main + labeled PRs
+        id: rebuild
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           set -euo pipefail
 
-          # Start fresh: reset beta to the current tip of main
           git fetch --all --prune
           git checkout -B beta origin/main
           echo "✔ beta reset to $(git rev-parse --short HEAD) (origin/main)"
 
-          # Collect all open PRs that carry the "beta" label
-          PR_NUMBERS=$(gh pr list \
+          # ── Collect open PRs with "beta" label ──
+          PR_JSON=$(gh pr list \
             --repo "${{ github.repository }}" \
             --label beta \
             --state open \
-            --json number \
-            --jq '.[].number')
+            --json number,title,author,headRefName)
+
+          PR_NUMBERS=$(echo "$PR_JSON" | jq -r '.[].number')
+          SKIPPED_LIST=""
 
           if [ -z "$PR_NUMBERS" ]; then
             echo "ℹ No open PRs with the 'beta' label — beta branch stays at main."
           else
             for PR_NUMBER in $PR_NUMBERS; do
-              HEAD_REF=$(gh pr view "$PR_NUMBER" \
-                --repo "${{ github.repository }}" \
-                --json headRefName \
-                --jq '.headRefName')
-
+              HEAD_REF=$(echo "$PR_JSON" | jq -r ".[] | select(.number==$PR_NUMBER) | .headRefName")
               echo "→ Merging PR #$PR_NUMBER ($HEAD_REF)…"
               git fetch origin "$HEAD_REF"
 
@@ -87,18 +84,52 @@ jobs:
                   -m "chore: merge PR #$PR_NUMBER ($HEAD_REF) into beta"; then
                 echo "  ✔ merged"
               else
-                echo "  ✖ merge conflict — aborting this PR, continuing with others"
                 git merge --abort
-                echo "::warning::PR #$PR_NUMBER ($HEAD_REF) has a merge conflict and was skipped."
+                SKIPPED_LIST="$SKIPPED_LIST #$PR_NUMBER"
+                echo "::warning::PR #$PR_NUMBER skipped (merge conflict)"
               fi
             done
           fi
 
-          # Force-push so the branch always reflects the current label set
           git push --force origin beta
-          echo "✔ beta branch updated"
+          echo "✔ beta branch force-pushed"
 
-      # ── 3. Set up toolchain (uses the now-checked-out beta branch code) ───
+          # ── Build trigger description ──
+          ACTION="${{ github.event.action }}"
+          PR_NUM="${{ github.event.pull_request.number }}"
+          ACTOR="${{ github.actor }}"
+          if [ "$ACTION" = "labeled" ]; then
+            TRIGGER="\"beta\" label added to PR #${PR_NUM} by @${ACTOR}"
+          elif [ "$ACTION" = "unlabeled" ]; then
+            TRIGGER="\"beta\" label removed from PR #${PR_NUM} by @${ACTOR}"
+          else
+            TRIGGER="PR #${PR_NUM} closed/merged by @${ACTOR}"
+          fi
+
+          # ── Format PR list for email ──
+          PR_LINES=$(echo "$PR_JSON" | \
+            jq -r '.[] | "  • #\(.number) — \(.title) (@\(.author.login))"')
+
+          if [ -z "$PR_LINES" ]; then
+            PR_LINES="  (none — beta is at main)"
+          fi
+
+          if [ -n "$SKIPPED_LIST" ]; then
+            SKIPPED_OUT="⚠ Skipped due to merge conflict:${SKIPPED_LIST}"
+          else
+            SKIPPED_OUT=""
+          fi
+
+          # ── Write step outputs ──
+          echo "trigger=$TRIGGER" >> "$GITHUB_OUTPUT"
+          {
+            echo "pr_lines<<PREOF"
+            echo "$PR_LINES"
+            echo "PREOF"
+          } >> "$GITHUB_OUTPUT"
+          echo "skipped=$SKIPPED_OUT" >> "$GITHUB_OUTPUT"
+
+      # ── 3. Build ──────────────────────────────────────────────────────────
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
@@ -117,7 +148,7 @@ jobs:
       - name: Build
         run: npm run build
 
-      # ── 4. Deploy beta branch to the fixed "beta" Firebase channel ────────
+      # ── 4. Deploy ─────────────────────────────────────────────────────────
       - name: Deploy to Firebase Hosting (beta channel)
         uses: FirebaseExtended/action-hosting-deploy@v0
         with:
@@ -126,3 +157,32 @@ jobs:
           projectId: gvawebsite-b74d4
           channelId: beta
           expires: 30d
+
+      # ── 5. Email notification ─────────────────────────────────────────────
+      - name: Send deployment email
+        uses: dawidd6/action-send-mail@v3
+        with:
+          server_address: smtp.gmail.com
+          server_port: 465
+          secure: true
+          username: ${{ secrets.EMAIL_USERNAME }}
+          password: ${{ secrets.EMAIL_PASSWORD }}
+          subject: "🚀 Beta deployed — ${{ github.event.pull_request.title }}"
+          to: ${{ secrets.NOTIFY_EMAIL }}
+          from: "GVA CI <${{ secrets.EMAIL_USERNAME }}>"
+          body: |
+            🚀 Beta environment deployed
+            ══════════════════════════════════════════
+
+            Triggered by:  ${{ steps.rebuild.outputs.trigger }}
+            PR:            #${{ github.event.pull_request.number }} — ${{ github.event.pull_request.title }}
+            Beta URL:      https://gvawebsite-b74d4--beta.web.app
+
+            PRs currently in beta
+            ──────────────────────
+            ${{ steps.rebuild.outputs.pr_lines }}
+
+            ${{ steps.rebuild.outputs.skipped }}
+
+            ──────────────────────────────────────────
+            Workflow: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
