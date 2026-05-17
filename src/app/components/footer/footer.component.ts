@@ -16,7 +16,7 @@ import { MatIconModule } from '@angular/material/icon';
               <h3>GVA Verkaufer</h3>
             </div>
             <p class="company-description">
-              Partenerul de logistică auto B2B din 2018. Transportăm loturi de minimum 7–8 vehicule
+              Partenerul de logistică auto B2B din 2018. Transportăm loturi de minimum 8–9 vehicule
               pentru dealeri, importatori și companii de flotă — România și Europa de Vest.
             </p>
             <div class="social-links">
