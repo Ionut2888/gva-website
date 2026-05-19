@@ -1,6 +1,6 @@
-import { Component, signal, OnInit } from '@angular/core';
+import { Component, signal, OnInit, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, NgForm } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
 import emailjs from '@emailjs/browser';
 import { EMAILJS_CONFIG } from '../../emailjs.config';
@@ -22,6 +22,8 @@ interface ContactForm {
   styleUrls: ['./contact.component.scss']
 })
 export class ContactComponent implements OnInit {
+  @ViewChild('contactForm') private contactForm!: NgForm;
+
   protected formData = signal<ContactForm>({
     name: '',
     email: '',
@@ -66,13 +68,9 @@ export class ContactComponent implements OnInit {
         text: 'Mesajul a fost trimis cu succes! Vă vom contacta în cel mai scurt timp.'
       });
 
-      this.formData.set({
-        name: '',
-        email: '',
-        phone: '',
-        company: '',
-        service: '',
-        message: ''
+      // Reset values AND touched/dirty state so validation errors don't re-appear
+      this.contactForm.resetForm({
+        name: '', email: '', phone: '', company: '', service: '', message: ''
       });
 
       setTimeout(() => this.submitMessage.set(null), 5000);
