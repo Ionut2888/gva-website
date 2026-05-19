@@ -38,7 +38,7 @@ describe('FleetComponent', () => {
   it('openLightbox should set selectedImage', () => {
     const fixture = TestBed.createComponent(FleetComponent);
     const instance = fixture.componentInstance as unknown as {
-      fleetImages: () => Array<{ id: number; src: string; alt: string; title: string; description: string }>;
+      fleetImages: () => { id: number; src: string; alt: string; title: string; description: string }[];
       selectedImage: () => unknown;
       openLightbox: (img: unknown) => void;
     };
@@ -52,7 +52,7 @@ describe('FleetComponent', () => {
   it('openLightbox should set body overflow to hidden', () => {
     const fixture = TestBed.createComponent(FleetComponent);
     const instance = fixture.componentInstance as unknown as {
-      fleetImages: () => Array<{ id: number; src: string; alt: string; title: string; description: string }>;
+      fleetImages: () => { id: number; src: string; alt: string; title: string; description: string }[];
       openLightbox: (img: unknown) => void;
     };
 
@@ -64,7 +64,7 @@ describe('FleetComponent', () => {
   it('closeLightbox should clear selectedImage', () => {
     const fixture = TestBed.createComponent(FleetComponent);
     const instance = fixture.componentInstance as unknown as {
-      fleetImages: () => Array<{ id: number; src: string; alt: string; title: string; description: string }>;
+      fleetImages: () => { id: number; src: string; alt: string; title: string; description: string }[];
       selectedImage: () => unknown;
       openLightbox: (img: unknown) => void;
       closeLightbox: () => void;
@@ -79,7 +79,7 @@ describe('FleetComponent', () => {
   it('closeLightbox should reset body overflow to auto', () => {
     const fixture = TestBed.createComponent(FleetComponent);
     const instance = fixture.componentInstance as unknown as {
-      fleetImages: () => Array<{ id: number; src: string; alt: string; title: string; description: string }>;
+      fleetImages: () => { id: number; src: string; alt: string; title: string; description: string }[];
       openLightbox: (img: unknown) => void;
       closeLightbox: () => void;
     };
