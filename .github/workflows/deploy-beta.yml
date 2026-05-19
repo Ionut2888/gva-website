@@ -6,9 +6,10 @@ name: Deploy — Beta Environment
 #   A summary email is sent after each successful deployment.
 #
 # Triggers:
-#   labeled   — "beta" label added to a PR
-#   unlabeled — "beta" label removed from a PR  (branch rebuilt without it)
-#   closed    — a PR that had "beta" was merged/abandoned (rebuilt from new main)
+#   labeled     — "beta" label added to a PR
+#   unlabeled   — "beta" label removed from a PR  (branch rebuilt without it)
+#   closed      — a PR that had "beta" was merged/abandoned (rebuilt from new main)
+#   synchronize — new commits pushed to a PR that already carries the "beta" label
 #
 # Required secrets (Settings → Secrets → Actions):
 #   FIREBASE_SERVICE_ACCOUNT  — Firebase service account JSON
@@ -19,7 +20,7 @@ name: Deploy — Beta Environment
 
 on:
   pull_request:
-    types: [labeled, unlabeled, closed]
+    types: [labeled, unlabeled, closed, synchronize]
 
 jobs:
   rebuild-and-deploy-beta:
@@ -27,9 +28,10 @@ jobs:
     runs-on: ubuntu-latest
 
     if: |
-      (github.event.action == 'labeled'   && github.event.label.name == 'beta') ||
-      (github.event.action == 'unlabeled' && github.event.label.name == 'beta') ||
-      (github.event.action == 'closed'    && contains(github.event.pull_request.labels.*.name, 'beta'))
+      (github.event.action == 'labeled'     && github.event.label.name == 'beta') ||
+      (github.event.action == 'unlabeled'   && github.event.label.name == 'beta') ||
+      (github.event.action == 'closed'      && contains(github.event.pull_request.labels.*.name, 'beta')) ||
+      (github.event.action == 'synchronize' && contains(github.event.pull_request.labels.*.name, 'beta'))
 
     permissions:
       contents: write
