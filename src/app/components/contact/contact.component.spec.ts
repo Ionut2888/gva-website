@@ -1,8 +1,15 @@
-import { TestBed, fakeAsync, tick } from '@angular/core/testing';
+import { TestBed, fakeAsync, tick, flushMicrotasks } from '@angular/core/testing';
+import emailjs from '@emailjs/browser';
 import { ContactComponent } from './contact.component';
 
 describe('ContactComponent', () => {
   beforeEach(async () => {
+    // Prevent real EmailJS initialisation and network calls
+    spyOn(emailjs, 'init').and.stub();
+    spyOn(emailjs, 'send').and.returnValue(
+      Promise.resolve({ status: 200, text: 'OK' })
+    );
+
     await TestBed.configureTestingModule({
       imports: [ContactComponent],
     }).compileComponents();
@@ -37,7 +44,8 @@ describe('ContactComponent', () => {
     instance.submitForm();
     expect(instance.isSubmitting()).toBeTrue();
 
-    tick(7000); // drain all timers
+    flushMicrotasks(); // resolve the emailjs.send promise
+    tick(5000);        // drain the cleanup timer
   }));
 
   it('submitForm should be a no-op while already submitting', fakeAsync(() => {
@@ -52,11 +60,12 @@ describe('ContactComponent', () => {
     instance.submitForm(); // second call — must be ignored
     expect(instance.isSubmitting()).toBeTrue();
 
-    tick(7000); // one success, not two
+    flushMicrotasks();
+    tick(5000);
     expect(instance.submitMessage()).toBeNull(); // message cleared after 5 s
   }));
 
-  it('after 2 s isSubmitting should be false and a success message set', fakeAsync(() => {
+  it('after send resolves isSubmitting should be false and a success message set', fakeAsync(() => {
     const fixture = TestBed.createComponent(ContactComponent);
     const instance = fixture.componentInstance as unknown as {
       isSubmitting: () => boolean;
@@ -65,7 +74,7 @@ describe('ContactComponent', () => {
     };
 
     instance.submitForm();
-    tick(2000);
+    flushMicrotasks(); // emailjs.send promise resolves
 
     expect(instance.isSubmitting()).toBeFalse();
     expect(instance.submitMessage()).toBeTruthy();
@@ -82,14 +91,14 @@ describe('ContactComponent', () => {
     };
 
     instance.submitForm();
-    tick(2000);
+    flushMicrotasks();
 
     const data = instance.formData();
     expect(data['name']).toBe('');
     expect(data['email']).toBe('');
     expect(data['message']).toBe('');
 
-    tick(5000); // drain cleanup timer
+    tick(5000);
   }));
 
   it('success message should be cleared after 5 s', fakeAsync(() => {
@@ -100,9 +109,26 @@ describe('ContactComponent', () => {
     };
 
     instance.submitForm();
-    tick(2000); // form submits
-    tick(5000); // cleanup fires
+    flushMicrotasks(); // success message set
+    tick(5000);        // cleanup fires
 
     expect(instance.submitMessage()).toBeNull();
+  }));
+
+  it('should show error message when emailjs.send rejects', fakeAsync(() => {
+    (emailjs.send as jasmine.Spy).and.returnValue(Promise.reject(new Error('network error')));
+
+    const fixture = TestBed.createComponent(ContactComponent);
+    const instance = fixture.componentInstance as unknown as {
+      isSubmitting: () => boolean;
+      submitMessage: () => { type: string; text: string } | null;
+      submitForm: () => void;
+    };
+
+    instance.submitForm();
+    flushMicrotasks();
+
+    expect(instance.isSubmitting()).toBeFalse();
+    expect(instance.submitMessage()?.type).toBe('error');
   }));
 });
