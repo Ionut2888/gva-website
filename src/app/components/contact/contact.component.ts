@@ -68,10 +68,11 @@ export class ContactComponent implements OnInit {
         text: 'Mesajul a fost trimis cu succes! Vă vom contacta în cel mai scurt timp.'
       });
 
-      // Reset values AND touched/dirty state so validation errors don't re-appear
-      this.contactForm.resetForm({
-        name: '', email: '', phone: '', company: '', service: '', message: ''
-      });
+      // Reset signal values (always works, including in unit tests)
+      const empty = { name: '', email: '', phone: '', company: '', service: '', message: '' };
+      this.formData.set(empty);
+      // Also reset Angular form state (touched/dirty) when the view is available
+      this.contactForm?.resetForm(empty);
 
       setTimeout(() => this.submitMessage.set(null), 5000);
     } catch {
