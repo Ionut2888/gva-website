@@ -12,7 +12,7 @@ import { MatIconModule } from '@angular/material/icon';
         <div class="footer-content">
           <div class="footer-section company-info">
             <div class="logo-section">
-              <img src="assets/logo.png" alt="GVA Verkaufer Logo" class="footer-logo">
+              <img src="assets/logo.png" alt="GVA Verkaufer Logo" class="footer-logo" width="34" height="34">
               <h3>GVA Verkaufer</h3>
             </div>
             <p class="company-description">
