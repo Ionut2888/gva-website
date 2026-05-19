@@ -18,7 +18,7 @@ const PAGE_SEO: Record<string, PageSeoConfig> = {
   '/home': {
     title: 'GVA Verkaufer — Transport Auto în Europa | Loturi B2B RO ↔ DE · FR · ES',
     description:
-      'Transport auto profesional în Europa pentru dealeri, importatori și producători. Loturi de 7–8 vehicule per cursă. Curse regulate RO ↔ Germania, Franța, Spania. Ofertă în 4 ore.',
+      'Transport auto profesional în Europa pentru dealeri, importatori și producători. Loturi de 8–9 vehicule per cursă. Curse regulate RO ↔ Germania, Franța, Spania. Ofertă în 4 ore.',
     keywords:
       'transport auto europa, auto transport europe, car transport Romania Germany, transport masini Europa, transport lot auto, dealer car transport',
     canonical: 'https://www.gvaverkaufer.ro/home',
@@ -37,13 +37,13 @@ const PAGE_SEO: Record<string, PageSeoConfig> = {
   '/fleet': {
     title: 'Flotă Transport Auto | GVA Verkaufer — Platforme Auto Dedicate B2B',
     description:
-      'Flota GVA Verkaufer: platforme auto specializate pentru 7–8 vehicule per cursă. Utilaje omologate, asigurate și GPS-tracked pentru parteneriat comercial sigur.',
+      'Flota GVA Verkaufer: platforme auto specializate pentru 8–9 vehicule per cursă. Utilaje omologate, asigurate și GPS-tracked pentru parteneriat comercial sigur.',
     keywords:
       'platforma auto, camion transport masini, flota transport auto, car carrier romania, auto transporter',
     canonical: 'https://www.gvaverkaufer.ro/fleet',
     ogTitle: 'Flotă Transport Auto — GVA Verkaufer',
     ogDescription:
-      'Platforme auto specializate pentru 7–8 vehicule/cursă. Omologate, asigurate, GPS-tracked.',
+      'Platforme auto specializate pentru 8–9 vehicule/cursă. Omologate, asigurate, GPS-tracked.',
   },
   '/about': {
     title: 'Despre GVA Verkaufer | 7+ Ani Transport Auto B2B în Europa',
