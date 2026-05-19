@@ -8,6 +8,7 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "serve:ssr:gva-website": "node dist/gva-website/server/server.mjs",
+    "optimize-images": "node scripts/optimize-images.mjs",
     "lint": "ng lint",
     "prepare": "husky"
   },
@@ -60,6 +61,7 @@
     "karma-jasmine": "~5.1.0",
     "karma-jasmine-html-reporter": "~2.1.0",
     "lint-staged": "^16.4.0",
+    "sharp": "^0.34.5",
     "typescript": "~5.9.2",
     "typescript-eslint": "8.46.4"
   }

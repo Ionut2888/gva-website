@@ -11,7 +11,7 @@ import { MatIconModule } from '@angular/material/icon';
       <div class="container">
         <div class="nav-wrapper">
           <a routerLink="/home" class="logo-section">
-            <img src="assets/logo.png" alt="GVA Verkaufer Logo" class="logo" width="38" height="38">
+            <img src="assets/logo.webp" alt="GVA Verkaufer Logo" class="logo" width="38" height="38">
             <div class="company-name">
               <h1>GVA Verkaufer</h1>
               <p>Auto Transport</p>
