@@ -6,7 +6,7 @@
 //  3. TEMPLATE_ID  → Email Templates → (your template) → Template ID
 
 export const EMAILJS_CONFIG = {
-  PUBLIC_KEY:  'YOUR_PUBLIC_KEY',   // e.g. 'abc123XYZ'
-  SERVICE_ID:  'YOUR_SERVICE_ID',   // e.g. 'service_xxxxxxx'
-  TEMPLATE_ID: 'YOUR_TEMPLATE_ID',  // e.g. 'template_xxxxxxx'
+  PUBLIC_KEY:  'n-Jp7c_2u4V0vcBwO',   // e.g. 'abc123XYZ'
+  SERVICE_ID:  'service_1ql2znu',   // e.g. 'service_xxxxxxx'
+  TEMPLATE_ID: 'template_be0o71c',  // e.g. 'template_xxxxxxx'
 } as const;
