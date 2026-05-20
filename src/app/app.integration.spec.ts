@@ -1,7 +1,8 @@
 import { TestBed } from '@angular/core/testing';
-import { Router } from '@angular/router';
-import { provideRouter } from '@angular/router';
+import { Router, provideRouter } from '@angular/router';
+import { importProvidersFrom } from '@angular/core';
 import { RouterTestingHarness } from '@angular/router/testing';
+import { TranslocoTestingModule } from '@jsverse/transloco';
 import { routes } from './app.routes';
 import { SeoService } from './services/seo.service';
 
@@ -22,6 +23,9 @@ describe('App routing (integration)', () => {
       providers: [
         provideRouter(routes),
         { provide: SeoService, useValue: seoSpy },
+        importProvidersFrom(
+          TranslocoTestingModule.forRoot({ langs: { ro: {} }, translocoConfig: { defaultLang: 'ro' } })
+        ),
       ],
     }).compileComponents();
   });

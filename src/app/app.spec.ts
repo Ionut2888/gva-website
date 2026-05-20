@@ -1,7 +1,10 @@
 import { TestBed } from '@angular/core/testing';
 import { provideRouter } from '@angular/router';
+import { TranslocoTestingModule } from '@jsverse/transloco';
 import { App } from './app';
 import { SeoService } from './services/seo.service';
+
+const translocoTesting = TranslocoTestingModule.forRoot({ langs: { ro: {} }, translocoConfig: { defaultLang: 'ro' } });
 
 describe('App', () => {
   let seoSpy: jasmine.SpyObj<SeoService>;
@@ -10,7 +13,7 @@ describe('App', () => {
     seoSpy = jasmine.createSpyObj('SeoService', ['init']);
 
     await TestBed.configureTestingModule({
-      imports: [App],
+      imports: [App, translocoTesting],
       providers: [
         provideRouter([]),
         { provide: SeoService, useValue: seoSpy },

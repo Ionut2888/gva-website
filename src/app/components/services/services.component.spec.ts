@@ -1,11 +1,14 @@
 import { TestBed } from '@angular/core/testing';
 import { provideRouter } from '@angular/router';
+import { TranslocoTestingModule } from '@jsverse/transloco';
 import { ServicesComponent } from './services.component';
+
+const translocoTesting = TranslocoTestingModule.forRoot({ langs: { ro: {} }, translocoConfig: { defaultLang: 'ro' } });
 
 describe('ServicesComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ServicesComponent],
+      imports: [ServicesComponent, translocoTesting],
       providers: [provideRouter([])],
     }).compileComponents();
   });

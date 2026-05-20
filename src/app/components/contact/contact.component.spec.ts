@@ -1,6 +1,12 @@
 import { TestBed, fakeAsync, tick, flushMicrotasks } from '@angular/core/testing';
 import emailjs from '@emailjs/browser';
+import { TranslocoTestingModule } from '@jsverse/transloco';
 import { ContactComponent } from './contact.component';
+
+const translocoTesting = TranslocoTestingModule.forRoot({
+  langs: { ro: { 'contact.success_msg': 'Succes!', 'contact.error_msg': 'Eroare!' } },
+  translocoConfig: { defaultLang: 'ro' },
+});
 
 describe('ContactComponent', () => {
   beforeEach(async () => {
@@ -11,7 +17,7 @@ describe('ContactComponent', () => {
     );
 
     await TestBed.configureTestingModule({
-      imports: [ContactComponent],
+      imports: [ContactComponent, translocoTesting],
     }).compileComponents();
   });
 

@@ -1,12 +1,15 @@
 import { TestBed, fakeAsync, tick } from '@angular/core/testing';
 import { provideRouter } from '@angular/router';
 import { PLATFORM_ID } from '@angular/core';
+import { TranslocoTestingModule } from '@jsverse/transloco';
 import { HomeComponent } from './home.component';
+
+const translocoTesting = TranslocoTestingModule.forRoot({ langs: { ro: {} }, translocoConfig: { defaultLang: 'ro' } });
 
 describe('HomeComponent', () => {
   async function createComponent(platformId = 'browser') {
     await TestBed.configureTestingModule({
-      imports: [HomeComponent],
+      imports: [HomeComponent, translocoTesting],
       providers: [
         provideRouter([]),
         { provide: PLATFORM_ID, useValue: platformId },

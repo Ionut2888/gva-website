@@ -2,11 +2,12 @@ import { Component, OnInit, OnDestroy, signal, inject, PLATFORM_ID } from '@angu
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { interval, Subscription } from 'rxjs';
+import { TranslocoModule } from '@jsverse/transloco';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule, RouterLink],
+  imports: [CommonModule, RouterLink, TranslocoModule],
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
 })
