@@ -27,10 +27,13 @@ import { LangSwitcherComponent } from '../lang-switcher/lang-switcher.component'
               <a routerLink="/services" routerLinkActive="active" class="nav-link" (click)="closeMenu()">{{ t('nav.services') }}</a>
               <a routerLink="/fleet" routerLinkActive="active" class="nav-link" (click)="closeMenu()">{{ t('nav.fleet') }}</a>
               <a routerLink="/contact" routerLinkActive="active" class="nav-link" (click)="closeMenu()">{{ t('nav.contact') }}</a>
+              <div class="mobile-lang-row">
+                <app-lang-switcher />
+              </div>
             </nav>
 
             <div class="header-actions">
-              <app-lang-switcher />
+              <app-lang-switcher class="desktop-lang" />
               <a routerLink="/contact" class="cta-btn">{{ t('nav.cta') }}</a>
               <button class="hamburger-btn" (click)="toggleMenu()" [attr.aria-label]="menuOpen() ? 'Închide meniu' : 'Deschide meniu'">
                 @if (menuOpen()) {
