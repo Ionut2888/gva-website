@@ -171,7 +171,7 @@
   p {
     font-family: var(--fb);
     font-size: 0.8125rem;
-    color: rgba(255,255,255,0.3);
+    color: rgba(255,255,255,0.55);
     margin: 0;
   }
 
@@ -189,7 +189,7 @@
   a {
     font-family: var(--fb);
     font-size: 0.8125rem;
-    color: rgba(255,255,255,0.3);
+    color: rgba(255,255,255,0.55);
     transition: color var(--t-fast);
 
     &:hover { color: rgba(255,255,255,0.7); }

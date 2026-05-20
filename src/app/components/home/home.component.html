@@ -4,7 +4,9 @@
       <div class="hero-bg">
         @for (image of images(); track image.id) {
           <div class="slide" [class.active]="image.id === currentSlide()">
-            <img [src]="image.src" [alt]="image.alt" loading="lazy">
+            <img [src]="image.src" [alt]="image.alt"
+                 [loading]="image.id === 0 ? 'eager' : 'lazy'"
+                 [attr.fetchpriority]="image.id === 0 ? 'high' : null">
           </div>
         }
       </div>
@@ -107,8 +109,9 @@
 
           <div class="efficiency-image">
             <img
-              src="assets/1a36a54a-4837-43e0-bcea-ffa4dbe6f83d.png"
-              alt="Platformă de transport auto GVA Verkaufer — lot complet">
+              src="assets/1a36a54a-4837-43e0-bcea-ffa4dbe6f83d.webp"
+              alt="Platformă de transport auto GVA Verkaufer — lot complet"
+              loading="lazy">
           </div>
 
           <div class="efficiency-text">
