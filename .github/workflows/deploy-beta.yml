@@ -1,7 +1,7 @@
 name: Deploy — Beta Environment
 
 # Environment-branch pattern:
-#   The "beta" branch is rebuilt from develop + every open PR carrying the "beta"
+#   The "beta" branch is rebuilt from main + every open PR carrying the "beta"
 #   label on every relevant event, then deployed to the Firebase beta channel.
 #   A summary email is sent after each successful deployment.
 #
@@ -70,11 +70,11 @@ jobs:
       checks: write
 
     steps:
-      # ── 1. Checkout develop ─────────────────────────────────────────────────
-      - name: Checkout develop
+      # ── 1. Checkout main ────────────────────────────────────────────────────
+      - name: Checkout main
         uses: actions/checkout@v4
         with:
-          ref: develop
+          ref: main
           fetch-depth: 0
           token: ${{ secrets.GITHUB_TOKEN }}
 
@@ -84,7 +84,7 @@ jobs:
           git config user.email "github-actions[bot]@users.noreply.github.com"
 
       # ── 2. Rebuild beta branch + capture PR details for the email ───────────
-      - name: Rebuild beta branch from main + labeled PRs
+      - name: Rebuild beta branch from main + labelled PRs
         id: rebuild
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -92,8 +92,8 @@ jobs:
           set -euo pipefail
 
           git fetch --all --prune
-          git checkout -B beta origin/develop
-          echo "✔ beta reset to $(git rev-parse --short HEAD) (origin/develop)"
+          git checkout -B beta origin/main
+          echo "✔ beta reset to $(git rev-parse --short HEAD) (origin/main)"
 
           # ── Collect open PRs with "beta" label ──
           PR_JSON=$(gh pr list \
@@ -106,7 +106,7 @@ jobs:
           SKIPPED_LIST=""
 
           if [ -z "$PR_NUMBERS" ]; then
-            echo "ℹ No open PRs with the 'beta' label — beta branch stays at develop."
+            echo "ℹ No open PRs with the 'beta' label — beta branch stays at main."
           else
             for PR_NUMBER in $PR_NUMBERS; do
               HEAD_REF=$(echo "$PR_JSON" | jq -r ".[] | select(.number==$PR_NUMBER) | .headRefName")
@@ -145,7 +145,7 @@ jobs:
             jq -r '.[] | "  • #\(.number) — \(.title) (@\(.author.login))\n    \(.url)"')
 
           if [ -z "$PR_LINES" ]; then
-            PR_LINES="  (none — beta is at develop)"
+            PR_LINES="  (none — beta is at main)"
           fi
 
           if [ -n "$SKIPPED_LIST" ]; then
