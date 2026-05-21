@@ -17,7 +17,7 @@ function preloadTranslations() {
     let lang = transloco.getDefaultLang();
     if (isPlatformBrowser(platformId)) {
       const saved = localStorage.getItem('gva-lang');
-      if (saved && ['ro', 'de', 'en'].includes(saved)) {
+      if (saved && ['ro', 'de', 'en', 'fr', 'es', 'hu', 'it', 'nl'].includes(saved)) {
         lang = saved;
         transloco.setActiveLang(lang);
       }
@@ -35,7 +35,7 @@ export const appConfig: ApplicationConfig = {
     provideHttpClient(),
     provideTransloco({
       config: {
-        availableLangs: ['ro', 'de', 'en'],
+        availableLangs: ['ro', 'de', 'en', 'fr', 'es', 'hu', 'it', 'nl'],
         defaultLang: 'ro',
         reRenderOnLangChange: true,
         prodMode: !isDevMode(),
