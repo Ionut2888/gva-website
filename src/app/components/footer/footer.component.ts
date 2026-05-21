@@ -50,7 +50,7 @@ import { TranslocoModule } from '@jsverse/transloco';
                 <li><a routerLink="/fleet">{{ t('footer.link_fleet_page') }}</a></li>
                 <li><a routerLink="/contact">{{ t('footer.link_contact') }}</a></li>
                 <li><a href="#">{{ t('footer.link_careers') }}</a></li>
-                <li><a href="#">{{ t('footer.link_privacy') }}</a></li>
+                <li><a routerLink="/privacy">{{ t('footer.link_privacy') }}</a></li>
               </ul>
             </div>
 
@@ -79,9 +79,9 @@ import { TranslocoModule } from '@jsverse/transloco';
             <div class="footer-bottom-content">
               <p>&copy; {{ currentYear }} GVA Verkaufer. {{ t('footer.rights') }}</p>
               <div class="footer-bottom-links">
-                <a href="#">{{ t('footer.terms') }}</a>
-                <a href="#">{{ t('footer.privacy') }}</a>
-                <a href="#">{{ t('footer.cookies') }}</a>
+                <a routerLink="/terms">{{ t('footer.terms') }}</a>
+                <a routerLink="/privacy">{{ t('footer.privacy') }}</a>
+                <a routerLink="/cookies">{{ t('footer.cookies') }}</a>
               </div>
             </div>
           </div>
