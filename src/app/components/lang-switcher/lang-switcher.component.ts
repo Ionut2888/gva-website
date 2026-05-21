@@ -23,6 +23,7 @@ import { Subscription } from 'rxjs';
     .lang-switcher {
       display: flex;
       align-items: center;
+      flex-wrap: wrap;
       gap: 2px;
     }
     .lang-btn {
@@ -62,6 +63,11 @@ export class LangSwitcherComponent implements OnDestroy {
     { code: 'ro', label: 'Română' },
     { code: 'de', label: 'Deutsch' },
     { code: 'en', label: 'English' },
+    { code: 'fr', label: 'Français' },
+    { code: 'es', label: 'Español' },
+    { code: 'hu', label: 'Magyar' },
+    { code: 'it', label: 'Italiano' },
+    { code: 'nl', label: 'Nederlands' },
   ];
 
   constructor() {
