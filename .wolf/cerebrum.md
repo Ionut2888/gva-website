@@ -45,6 +45,9 @@
 - [2026-05-14] CSS Grid children ALWAYS need `min-width: 0` when they contain flex/grid descendants or `width:100%` inputs. Without it, grid children can exceed their cell width and overflow the container, breaking padding symmetry on mobile. Apply to every direct child of a grid container that has complex content.
 - [2026-05-14] Responsive 2-col→1-col grid breakpoints: use `768px` not `560px`. At 560px the layout is already cramped on common mobile sizes (375px–768px). Standard mobile breakpoint is 768px.
 
+- [2026-05-21] NEVER call `translocoService.setActiveLang()` inside a component constructor. It triggers `langChanges$` → `*transloco` structural directive calls `createEmbeddedView` → new component instances are created → their constructors call `setActiveLang` again → stack overflow. Use `APP_INITIALIZER` for the initial language restore, and `langChanges$` subscription (async) inside components to stay in sync.
+- [2026-05-21] When both desktop and mobile instances of a component exist (e.g. LangSwitcher), subscribe to `transloco.langChanges$` to keep signals in sync across instances. The subscription fires async (setTimeout) so it's safe — no re-render loop.
+
 ## Decision Log
 
 - [2026-05-10] Redesigned from dark-body theme to light-body (--bg: #f7f9fb) Stitch design: dark navy banners + footer, white cards with 1px border (no shadows), blue accent #0051d5, very sharp 2px border-radius for industrial look. User provided reference design from `stitch_elite_car_carriers` folder.

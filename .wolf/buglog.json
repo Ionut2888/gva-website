@@ -6,12 +6,38 @@
       "timestamp": "2026-05-10T20:30:00Z",
       "error_message": "NG0500: During hydration Angular expected a text node but the node was not found in <textarea> inside ContactComponent. Mat-icons also rendered as plain text strings.",
       "file": "src/app/components/contact/contact.component.html",
-      "root_cause": "Textarea had whitespace (newline + spaces) between its opening and closing tags. SSR prerender creates a text node for this whitespace, but Angular hydration on the client doesn't expect it — mismatch causes NG0500 and cascading re-render that breaks mat-icon ligature rendering.",
+      "root_cause": "Textarea had whitespace (newline + spaces) between its opening and closing tags. SSR prerender creates a text node for this whitespace, but Angular hydration on the client doesn't expect it \u00e2\u20ac\u201d mismatch causes NG0500 and cascading re-render that breaks mat-icon ligature rendering.",
       "fix": "Collapsed textarea to a single line: changed `placeholder='...'>\\n                </textarea>` to `placeholder='...'></textarea>` (no whitespace between tags).",
-      "tags": ["ssr", "hydration", "ng0500", "textarea", "mat-icon", "contact"],
+      "tags": [
+        "ssr",
+        "hydration",
+        "ng0500",
+        "textarea",
+        "mat-icon",
+        "contact"
+      ],
       "related_bugs": [],
       "occurrences": 1,
       "last_seen": "2026-05-10"
+    },
+    {
+      "id": "bug-002",
+      "timestamp": "2026-05-21T14:50:00Z",
+      "error_message": "RangeError: Maximum call stack size exceeded at setActiveLang -> structuralStrategy -> createEmbeddedView -> new LangSwitcherComponent -> setActiveLang (infinite loop)",
+      "file": "src/app/components/lang-switcher/lang-switcher.component.ts",
+      "root_cause": "LangSwitcherComponent constructor called translocoService.setActiveLang(saved) when localStorage had a saved lang. This triggered Transloco langChanges$ which caused *transloco directive to call createEmbeddedView, instantiating new LangSwitcherComponent instances, each calling setActiveLang again, causing a stack overflow. APP_INITIALIZER already sets the lang before bootstrap, so the constructor call was redundant and dangerous.",
+      "fix": "Removed setActiveLang() call from constructor entirely. The component now only reads the active lang via getActiveLang() for the initial signal value, and subscribes to langChanges$ (async, no loop risk) to sync the activeLang signal across desktop/mobile instances.",
+      "tags": [
+        "transloco",
+        "infinite-loop",
+        "constructor",
+        "setActiveLang",
+        "hydration",
+        "SSR"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-05-21T14:50:00Z"
     }
   ],
   "bugs_continued": [
@@ -20,9 +46,19 @@
       "timestamp": "2026-05-14T00:00:00Z",
       "error_message": "Mobile view shows padding on left but not right on contact page and potentially other pages",
       "file": "src/app/components/contact/contact.component.scss, about.component.scss, fleet.component.scss, styles.scss",
-      "root_cause": "CSS Grid children default to min-width: auto. The .contact-info and .contact-form-container grid children of .contact-content could grow wider than their grid cell, pushing past the container's padding. Also, .form-row breakpoint was 560px (too narrow) — at 560-768px it stayed 2-column but the parent was already single-column, creating cramped fields that looked like no right padding.",
-      "fix": "1) Added min-width: 0 to .contact-info and .contact-form-container in contact.component.scss. 2) Changed .form-row breakpoint from max-width:560px to max-width:768px. 3) Applied same min-width:0 and 560px→768px fixes to about and fleet components. 4) Added overflow-x: hidden to body in styles.scss as safety net.",
-      "tags": ["responsive", "mobile", "css-grid", "min-width", "overflow", "padding", "contact", "about", "fleet"],
+      "root_cause": "CSS Grid children default to min-width: auto. The .contact-info and .contact-form-container grid children of .contact-content could grow wider than their grid cell, pushing past the container's padding. Also, .form-row breakpoint was 560px (too narrow) \u00e2\u20ac\u201d at 560-768px it stayed 2-column but the parent was already single-column, creating cramped fields that looked like no right padding.",
+      "fix": "1) Added min-width: 0 to .contact-info and .contact-form-container in contact.component.scss. 2) Changed .form-row breakpoint from max-width:560px to max-width:768px. 3) Applied same min-width:0 and 560px\u00e2\u2020\u2019768px fixes to about and fleet components. 4) Added overflow-x: hidden to body in styles.scss as safety net.",
+      "tags": [
+        "responsive",
+        "mobile",
+        "css-grid",
+        "min-width",
+        "overflow",
+        "padding",
+        "contact",
+        "about",
+        "fleet"
+      ],
       "related_bugs": [],
       "occurrences": 1,
       "last_seen": "2026-05-14"
