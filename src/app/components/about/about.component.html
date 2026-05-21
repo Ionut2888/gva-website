@@ -1,12 +1,11 @@
     <section class="about">
+      <ng-container *transloco="let t">
+
       <div class="page-banner">
         <div class="container">
           <div class="section-header">
-            <h2>Partenerul Logistic al Industriei Auto</h2>
-            <p class="section-subtitle">
-              Din 2018, GVA Verkaufer asigură transport de lot pentru dealeri, importatori
-              și companii de flotă care au nevoie de eficiență, predictibilitate și zero surprize.
-            </p>
+            <h2>{{ t('about.banner_h2') }}</h2>
+            <p class="section-subtitle">{{ t('about.banner_subtitle') }}</p>
           </div>
         </div>
       </div>
@@ -15,20 +14,9 @@
         <div class="about-content">
           <div class="about-story">
             <div class="story-text">
-              <h3>Cine Suntem și Cu Cine Lucrăm</h3>
-              <p>
-                GVA Verkaufer a fost fondată în 2018 cu un obiectiv clar: să devină partenerul de logistică
-                auto preferat al companiilor care mișcă volume mari de vehicule. Lucrăm cu dealeri auto,
-                importatori, producători și companii de leasing care au nevoie de transport regulat,
-                predictibil și fără surprize.
-              </p>
-              <p>
-                Modelul nostru de lucru se bazează pe loturi complete — minimum 8–9 vehicule per cursă.
-                Platforma plină înseamnă cost optim per unitate pentru partenerul nostru și eficiență
-                maximă pentru noi. Operăm curse tur-retur între România și principalele piețe
-                auto din Europa de Vest — Germania, Franța, Spania. Plecăm cu un lot, ne întoarcem
-                cu altul — platformă plină în ambele direcții, cost optim garantat.
-              </p>
+              <h3>{{ t('about.story_h3') }}</h3>
+              <p>{{ t('about.story_p1') }}</p>
+              <p>{{ t('about.story_p2') }}</p>
             </div>
             <div class="story-image">
               <img src="assets/50b4e409-17ee-4f74-9197-779f9aeada34.png" alt="GVA Verkaufer Auto Transport">
@@ -36,75 +24,53 @@
           </div>
 
           <div class="values-section">
-            <h3>Ce Ne Diferențiază ca Partener B2B</h3>
+            <h3>{{ t('about.values_h3') }}</h3>
             <div class="values-grid">
               <div class="value-card">
-                <div class="value-icon">
-                  <mat-icon>inventory_2</mat-icon>
-                </div>
-                <h4>Lot Complet, Cost Optim</h4>
-                <p>
-                  Platforma plină înseamnă cel mai bun cost per unitate pentru partenerul nostru.
-                  Fiecare cursă este planificată pentru eficiență maximă în ambele direcții.
-                </p>
+                <div class="value-icon"><mat-icon>inventory_2</mat-icon></div>
+                <h4>{{ t('about.v1_title') }}</h4>
+                <p>{{ t('about.v1_text') }}</p>
               </div>
               <div class="value-card">
-                <div class="value-icon">
-                  <mat-icon>handshake</mat-icon>
-                </div>
-                <h4>Contract și Predictibilitate</h4>
-                <p>
-                  Lucrăm pe bază de contract cu prețuri fixe, termene clare și program stabilit.
-                  Fără surprize de preț, fără întârzieri neexplicate — un parteneriat profesional real.
-                </p>
+                <div class="value-icon"><mat-icon>handshake</mat-icon></div>
+                <h4>{{ t('about.v2_title') }}</h4>
+                <p>{{ t('about.v2_text') }}</p>
               </div>
               <div class="value-card">
-                <div class="value-icon">
-                  <mat-icon>security</mat-icon>
-                </div>
-                <h4>Zero Daune în 7 Ani</h4>
-                <p>
-                  Fiecare vehicul este fixat profesional și asigurat CMR pe toată durata
-                  transportului. Înregistrăm zero daune de la înființare — în 2018.
-                </p>
+                <div class="value-icon"><mat-icon>security</mat-icon></div>
+                <h4>{{ t('about.v3_title') }}</h4>
+                <p>{{ t('about.v3_text') }}</p>
               </div>
               <div class="value-card">
-                <div class="value-icon">
-                  <mat-icon>verified_user</mat-icon>
-                </div>
-                <h4>Relație pe Termen Lung</h4>
-                <p>
-                  Clienții noștri devin parteneri recurenți. Adaptăm capacitatea, rutele
-                  și programul în jurul nevoilor lor operaționale — pe termen lung.
-                </p>
+                <div class="value-icon"><mat-icon>verified_user</mat-icon></div>
+                <h4>{{ t('about.v4_title') }}</h4>
+                <p>{{ t('about.v4_text') }}</p>
               </div>
             </div>
           </div>
 
           <div class="team-section">
-            <h3>Echipa Operațională GVA</h3>
+            <h3>{{ t('about.team_h3') }}</h3>
             <div class="team-info">
-              <p>
-                Echipa GVA Verkaufer reunește șoferi cu experiență pe platforme auto și un departament
-                de operațiuni care gestionează planificarea loturilor, rutelor și documentației.
-                Fiecare cursă este coordonată de la confirmare până la livrare.
-              </p>
+              <p>{{ t('about.team_p') }}</p>
               <div class="team-highlights">
                 <div class="highlight">
-                  <strong>Șoferi Certificați pe Platforme Auto</strong>
-                  <span>Experiență în manipularea și fixarea corectă a vehiculelor de toate tipurile</span>
+                  <strong>{{ t('about.h1_title') }}</strong>
+                  <span>{{ t('about.h1_text') }}</span>
                 </div>
                 <div class="highlight">
-                  <strong>Coordonatori de Lot și Rută</strong>
-                  <span>Planifică fiecare cursă pentru eficiență maximă și respectarea termenelor</span>
+                  <strong>{{ t('about.h2_title') }}</strong>
+                  <span>{{ t('about.h2_text') }}</span>
                 </div>
                 <div class="highlight">
-                  <strong>Account Management B2B</strong>
-                  <span>Punct unic de contact pentru partenerii cu contracte recurente</span>
+                  <strong>{{ t('about.h3_title') }}</strong>
+                  <span>{{ t('about.h3_text') }}</span>
                 </div>
               </div>
             </div>
           </div>
         </div>
       </div>
+
+      </ng-container>
     </section>

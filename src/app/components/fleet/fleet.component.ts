@@ -1,7 +1,7 @@
 import { Component, signal, inject } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DOCUMENT } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
-import { DOCUMENT } from '@angular/common';
+import { TranslocoModule } from '@jsverse/transloco';
 
 interface FleetImage {
   id: number;
@@ -14,7 +14,7 @@ interface FleetImage {
 @Component({
   selector: 'app-fleet',
   standalone: true,
-  imports: [CommonModule, MatIconModule],
+  imports: [CommonModule, MatIconModule, TranslocoModule],
   templateUrl: './fleet.component.html',
   styleUrls: ['./fleet.component.scss']
 })

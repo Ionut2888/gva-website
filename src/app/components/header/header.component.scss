@@ -153,10 +153,14 @@
   }
 }
 
+/* ── Desktop: hide mobile-only lang row ── */
+.mobile-lang-row { display: none; }
+
 /* ── Mobile ── */
 @media (max-width: 768px) {
   .hamburger-btn { display: flex; align-items: center; justify-content: center; }
   .cta-btn { display: none; }
+  .desktop-lang { display: none; }
 
   .main-nav {
     display: none;
@@ -185,5 +189,13 @@
       &:last-child { border-bottom: none; }
       &.active::after { display: none; }
     }
+  }
+
+  .mobile-lang-row {
+    display: flex;
+    justify-content: center;
+    padding: var(--s2) var(--s2) var(--s1);
+    border-top: 1px solid rgba(255,255,255,0.06);
+    margin-top: var(--s1);
   }
 }

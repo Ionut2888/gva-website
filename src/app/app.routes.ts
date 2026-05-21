@@ -22,5 +22,20 @@ export const routes: Routes = [
     path: 'contact', 
     loadComponent: () => import('./components/contact/contact.component').then(m => m.ContactComponent) 
   },
+  {
+    path: 'terms',
+    loadComponent: () => import('./components/legal/legal.component').then(m => m.LegalComponent),
+    data: { page: 'terms' }
+  },
+  {
+    path: 'privacy',
+    loadComponent: () => import('./components/legal/legal.component').then(m => m.LegalComponent),
+    data: { page: 'privacy' }
+  },
+  {
+    path: 'cookies',
+    loadComponent: () => import('./components/legal/legal.component').then(m => m.LegalComponent),
+    data: { page: 'cookies' }
+  },
   { path: '**', redirectTo: '/home' }
 ];

@@ -1,10 +1,13 @@
 import { TestBed } from '@angular/core/testing';
+import { TranslocoTestingModule } from '@jsverse/transloco';
 import { FleetComponent } from './fleet.component';
+
+const translocoTesting = TranslocoTestingModule.forRoot({ langs: { ro: {} }, translocoConfig: { defaultLang: 'ro' } });
 
 describe('FleetComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [FleetComponent],
+      imports: [FleetComponent, translocoTesting],
       // Use the real DOCUMENT so Angular Material CDK (HighContrastModeDetector) works.
     }).compileComponents();
   });

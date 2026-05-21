@@ -1,0 +1,112 @@
+<ng-container *transloco="let t">
+
+  <!-- ── Banner ── -->
+  <section class="banner">
+    <div class="container">
+      <p class="eyebrow">GVA Verkaufer · Legal</p>
+      <h1>{{ t(page() + '.title') }}</h1>
+      <p class="subtitle">{{ t(page() + '.subtitle') }}</p>
+    </div>
+  </section>
+
+  <!-- ── Content ── -->
+  <section class="legal-content">
+    <div class="container">
+      <div class="prose">
+
+        <p class="updated">{{ t(page() + '.updated') }}</p>
+
+        <!-- ── TERMS ── -->
+        @if (page() === 'terms') {
+          <div class="legal-section">
+            <h2>{{ t('terms.scope_title') }}</h2>
+            <p>{{ t('terms.scope_body') }}</p>
+          </div>
+          <div class="legal-section">
+            <h2>{{ t('terms.booking_title') }}</h2>
+            <p>{{ t('terms.booking_body') }}</p>
+          </div>
+          <div class="legal-section">
+            <h2>{{ t('terms.payment_title') }}</h2>
+            <p>{{ t('terms.payment_body') }}</p>
+          </div>
+          <div class="legal-section">
+            <h2>{{ t('terms.liability_title') }}</h2>
+            <p>{{ t('terms.liability_body') }}</p>
+          </div>
+          <div class="legal-section">
+            <h2>{{ t('terms.force_majeure_title') }}</h2>
+            <p>{{ t('terms.force_majeure_body') }}</p>
+          </div>
+          <div class="legal-section">
+            <h2>{{ t('terms.law_title') }}</h2>
+            <p>{{ t('terms.law_body') }}</p>
+          </div>
+        }
+
+        <!-- ── PRIVACY ── -->
+        @if (page() === 'privacy') {
+          <div class="legal-section">
+            <h2>{{ t('privacy.intro_title') }}</h2>
+            <p>{{ t('privacy.intro_body') }}</p>
+          </div>
+          <div class="legal-section">
+            <h2>{{ t('privacy.collected_title') }}</h2>
+            <p>{{ t('privacy.collected_body') }}</p>
+          </div>
+          <div class="legal-section">
+            <h2>{{ t('privacy.purpose_title') }}</h2>
+            <p>{{ t('privacy.purpose_body') }}</p>
+          </div>
+          <div class="legal-section">
+            <h2>{{ t('privacy.retention_title') }}</h2>
+            <p>{{ t('privacy.retention_body') }}</p>
+          </div>
+          <div class="legal-section">
+            <h2>{{ t('privacy.rights_title') }}</h2>
+            <p>{{ t('privacy.rights_body') }}</p>
+          </div>
+          <div class="legal-section">
+            <h2>{{ t('privacy.security_title') }}</h2>
+            <p>{{ t('privacy.security_body') }}</p>
+          </div>
+        }
+
+        <!-- ── COOKIES ── -->
+        @if (page() === 'cookies') {
+          <div class="legal-section">
+            <h2>{{ t('cookies.what_title') }}</h2>
+            <p>{{ t('cookies.what_body') }}</p>
+          </div>
+          <div class="legal-section">
+            <h2>{{ t('cookies.essential_title') }}</h2>
+            <p>{{ t('cookies.essential_body') }}</p>
+          </div>
+          <div class="legal-section">
+            <h2>{{ t('cookies.analytics_title') }}</h2>
+            <p>{{ t('cookies.analytics_body') }}</p>
+          </div>
+          <div class="legal-section">
+            <h2>{{ t('cookies.manage_title') }}</h2>
+            <p>{{ t('cookies.manage_body') }}</p>
+          </div>
+          <div class="legal-section">
+            <h2>{{ t('cookies.contact_title') }}</h2>
+            <p>{{ t('cookies.contact_body') }}</p>
+          </div>
+        }
+
+        <!-- ── Footer nav ── -->
+        <div class="legal-footer-nav">
+          <a routerLink="/terms">{{ t('footer.terms') }}</a>
+          <span class="sep">·</span>
+          <a routerLink="/privacy">{{ t('footer.privacy') }}</a>
+          <span class="sep">·</span>
+          <a routerLink="/cookies">{{ t('footer.cookies') }}</a>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+</ng-container>

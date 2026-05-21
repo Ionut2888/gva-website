@@ -1,4 +1,5 @@
     <section class="hero">
+      <ng-container *transloco="let t">
 
       <!-- Full-bleed background slideshow -->
       <div class="hero-bg">
@@ -19,19 +20,15 @@
         <div class="hero-content">
 
           <div class="hero-badge">
-            <span class="badge-text">Logistică Auto B2B · Loturi Complete</span>
+            <span class="badge-text">{{ t('home.hero.badge') }}</span>
           </div>
 
           <h1>
-            Transport Industrial de Lot<br>
-            <span class="gradient-text">pentru Dealeri și Importatori.</span>
+            {{ t('home.hero.h1_1') }}<br>
+            <span class="gradient-text">{{ t('home.hero.h1_2') }}</span>
           </h1>
 
-          <p class="hero-subtitle">
-            Transportăm loturi de minimum 8–9 vehicule per cursă — platformă completă,
-            cost optim per unitate, livrare punctuală. Curse tur-retur RO ↔ DE · FR · ES
-            și transport intern pentru dealeri, importatori și exportatori.
-          </p>
+          <p class="hero-subtitle">{{ t('home.hero.subtitle') }}</p>
 
           <div class="hero-features">
             <div class="feature">
@@ -40,7 +37,7 @@
                   <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                 </svg>
               </div>
-              <span>Minim 8–9 vehicule/cursă — platformă completă, cost optim</span>
+              <span>{{ t('home.hero.f1') }}</span>
             </div>
             <div class="feature">
               <div class="feature-icon">
@@ -48,7 +45,7 @@
                   <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                 </svg>
               </div>
-              <span>Contracte B2B cu prețuri fixe și program regulat</span>
+              <span>{{ t('home.hero.f2') }}</span>
             </div>
             <div class="feature">
               <div class="feature-icon">
@@ -56,55 +53,58 @@
                   <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                 </svg>
               </div>
-              <span>România și Europa de Vest — Germania, Franța, Spania și altele</span>
+              <span>{{ t('home.hero.f3') }}</span>
             </div>
           </div>
 
           <div class="hero-buttons">
             <a routerLink="/contact" class="btn btn-primary">
-              <span>Solicită Ofertă de Lot</span>
+              <span>{{ t('home.hero.cta_primary') }}</span>
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
                 <path d="M5 12h14m-7-7l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
               </svg>
             </a>
             <a routerLink="/fleet" class="btn btn-secondary">
-              <span>Capacitatea Flotei</span>
+              <span>{{ t('home.hero.cta_secondary') }}</span>
             </a>
           </div>
 
         </div>
       </div>
 
-
+      </ng-container>
     </section>
 
     <!-- Floating Stats Card -->
     <div class="stats-float-wrapper">
       <section class="quick-stats">
+        <ng-container *transloco="let t">
         <div class="stats-grid">
           <div class="stat-item">
             <div class="stat-number">7+</div>
-            <div class="stat-label">Ani de Parteneriate B2B</div>
+            <div class="stat-label">{{ t('home.stats.s1_label') }}</div>
           </div>
           <div class="stat-item">
             <div class="stat-number">8–9</div>
-            <div class="stat-label">Vehicule per Cursă, Lot Complet</div>
+            <div class="stat-label">{{ t('home.stats.s2_label') }}</div>
           </div>
           <div class="stat-item">
             <div class="stat-number">5.000+</div>
-            <div class="stat-label">Vehicule Livrate</div>
+            <div class="stat-label">{{ t('home.stats.s3_label') }}</div>
           </div>
           <div class="stat-item">
             <div class="stat-number">0</div>
-            <div class="stat-label">Daune Înregistrate</div>
+            <div class="stat-label">{{ t('home.stats.s4_label') }}</div>
           </div>
         </div>
+        </ng-container>
       </section>
     </div>
 
     <!-- Efficiency Feature Section -->
     <section class="efficiency">
       <div class="container">
+        <ng-container *transloco="let t">
         <div class="efficiency-grid">
 
           <div class="efficiency-image">
@@ -121,32 +121,32 @@
                 <circle cx="7" cy="19" r="1.5" stroke="currentColor" stroke-width="1.5"/>
                 <circle cx="16" cy="19" r="1.5" stroke="currentColor" stroke-width="1.5"/>
               </svg>
-              Capacitate Ridicată
+              {{ t('home.efficiency.eyebrow') }}
             </span>
-            <h2>Inginerită pentru 8–9 Vehicule per Cursă.</h2>
-            <p>Nu transportăm doar mașini — optimizăm logistica. Platforma noastră este proiectată să maximizeze capacitatea la fiecare cursă, fără compromisuri privind siguranța vehiculelor. Transportând minim 8–9 unități per trip, reducem costul per unitate și accelerăm termenele de livrare pentru partenerii B2B.</p>
+            <h2>{{ t('home.efficiency.h2') }}</h2>
+            <p>{{ t('home.efficiency.body') }}</p>
             <ul class="efficiency-list">
               <li>
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
                   <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                 </svg>
-                <span><strong>Dealeri:</strong> Reaprovizionare rapidă a parcului auto cu tarife de lot avantajoase.</span>
+                <span><strong>{{ t('home.efficiency.li1_strong') }}</strong> {{ t('home.efficiency.li1_text') }}</span>
               </li>
               <li>
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
                   <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                 </svg>
-                <span><strong>Importatori:</strong> Transit port–destinație scalat pentru volume mari, documentație completă.</span>
+                <span><strong>{{ t('home.efficiency.li2_strong') }}</strong> {{ t('home.efficiency.li2_text') }}</span>
               </li>
               <li>
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
                   <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                 </svg>
-                <span><strong>Producători:</strong> Pipeline constant, capacitate garantată, zero surprize în planificare.</span>
+                <span><strong>{{ t('home.efficiency.li3_strong') }}</strong> {{ t('home.efficiency.li3_text') }}</span>
               </li>
             </ul>
             <a routerLink="/contact" class="btn btn-primary efficiency-cta">
-              <span>Solicită Ofertă B2B</span>
+              <span>{{ t('home.efficiency.cta') }}</span>
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
                 <path d="M5 12h14m-7-7l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
               </svg>
@@ -154,5 +154,6 @@
           </div>
 
         </div>
+        </ng-container>
       </div>
     </section>
