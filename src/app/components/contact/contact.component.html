@@ -1,12 +1,11 @@
     <section class="contact">
+      <ng-container *transloco="let t">
+
       <div class="page-banner">
         <div class="container">
           <div class="section-header">
-            <h2>Hai să Discutăm despre Lotul Tău</h2>
-            <p class="section-subtitle">
-              Partenerii noștri sunt dealeri, importatori și companii de flotă care au nevoie
-              de transport regulat, contractual și fără surprize. Trimiteți-ne detaliile și revenim în 4 ore.
-            </p>
+            <h2>{{ t('contact.banner_h2') }}</h2>
+            <p class="section-subtitle">{{ t('contact.banner_subtitle') }}</p>
           </div>
         </div>
       </div>
@@ -15,153 +14,145 @@
         <div class="contact-content">
           <div class="contact-info">
             <div class="info-card">
-              <div class="info-icon">
-                <mat-icon>inventory_2</mat-icon>
-              </div>
+              <div class="info-icon"><mat-icon>inventory_2</mat-icon></div>
               <div class="info-content">
-                <h3>Specializare Comercială</h3>
-                <p>Loturi de 8–9 vehicule per cursă</p>
-                <p>Capacitate dedicată businessului dvs.</p>
+                <h3>{{ t('contact.commercial_title') }}</h3>
+                <p>{{ t('contact.commercial_p1') }}</p>
+                <p>{{ t('contact.commercial_p2') }}</p>
               </div>
             </div>
 
             <div class="info-card">
-              <div class="info-icon">
-                <mat-icon>phone</mat-icon>
-              </div>
+              <div class="info-icon"><mat-icon>phone</mat-icon></div>
               <div class="info-content">
-                <h3>Telefon B2B</h3>
+                <h3>{{ t('contact.phone_title') }}</h3>
                 <p><a href="tel:+40745852977">+40 745 852 977</a></p>
-                <p>Luni–Vineri, 08:00–18:00</p>
+                <p>{{ t('contact.phone_hours') }}</p>
               </div>
             </div>
 
             <div class="info-card">
-              <div class="info-icon">
-                <mat-icon>email</mat-icon>
-              </div>
+              <div class="info-icon"><mat-icon>email</mat-icon></div>
               <div class="info-content">
-                <h3>Email Oferte</h3>
+                <h3>{{ t('contact.email_title') }}</h3>
                 <p><a href="mailto:auto@gvaverkaufer.ro">auto&#64;gvaverkaufer.ro</a></p>
-                <p>Răspuns ofertă în maximum 4 ore</p>
+                <p>{{ t('contact.email_response') }}</p>
               </div>
             </div>
 
             <div class="info-card">
-              <div class="info-icon">
-                <mat-icon>location_on</mat-icon>
-              </div>
+              <div class="info-icon"><mat-icon>location_on</mat-icon></div>
               <div class="info-content">
-                <h3>Acoperire</h3>
-                <p>România + Europa de Vest</p>
-                <p>Germania, Franța, Spania și altele</p>
+                <h3>{{ t('contact.coverage_title') }}</h3>
+                <p>{{ t('contact.coverage_p1') }}</p>
+                <p>{{ t('contact.coverage_p2') }}</p>
               </div>
             </div>
           </div>
 
           <div class="contact-form-container">
             <div class="form-header">
-              <h3>Solicită Ofertă de Lot</h3>
-              <p>Completează formularul cu detaliile lotului — număr vehicule, origine, destinație — și revenim în 4 ore</p>
+              <h3>{{ t('contact.form_h3') }}</h3>
+              <p>{{ t('contact.form_subtitle') }}</p>
             </div>
 
             <form class="contact-form" (ngSubmit)="submitForm()" #contactForm="ngForm">
               <div class="form-row">
                 <div class="form-group">
-                  <label for="name">Nume Complet *</label>
-                  <input 
-                    type="text" 
+                  <label for="name">{{ t('contact.name_label') }}</label>
+                  <input
+                    type="text"
                     id="name"
                     name="name"
                     [(ngModel)]="formData().name"
                     required
-                    placeholder="Numele dumneavoastră"
+                    [placeholder]="t('contact.name_placeholder')"
                     #name="ngModel">
                   @if (name.invalid && name.touched) {
-                    <span class="error">Numele este obligatoriu</span>
+                    <span class="error">{{ t('contact.name_error') }}</span>
                   }
                 </div>
                 <div class="form-group">
-                  <label for="company">Companie / Dealer *</label>
+                  <label for="company">{{ t('contact.company_label') }}</label>
                   <input
                     type="text"
                     id="company"
                     name="company"
                     [(ngModel)]="formData().company"
                     required
-                    placeholder="Numele companiei">
+                    [placeholder]="t('contact.company_placeholder')">
                 </div>
               </div>
 
               <div class="form-row">
                 <div class="form-group">
-                  <label for="email">Email *</label>
-                  <input 
-                    type="email" 
+                  <label for="email">{{ t('contact.email_label') }}</label>
+                  <input
+                    type="email"
                     id="email"
                     name="email"
                     [(ngModel)]="formData().email"
                     required
                     email
-                    placeholder="adresa@email.ro"
+                    [placeholder]="t('contact.email_placeholder')"
                     #email="ngModel">
                   @if (email.invalid && email.touched) {
                     <span class="error">
                       @if (email.errors?.['required']) {
-                        Email-ul este obligatoriu
+                        {{ t('contact.email_error_required') }}
                       } @else if (email.errors?.['email']) {
-                        Format email invalid
+                        {{ t('contact.email_error_invalid') }}
                       }
                     </span>
                   }
                 </div>
                 <div class="form-group">
-                  <label for="phone">Telefon *</label>
-                  <input 
-                    type="tel" 
+                  <label for="phone">{{ t('contact.phone_label') }}</label>
+                  <input
+                    type="tel"
                     id="phone"
                     name="phone"
                     [(ngModel)]="formData().phone"
                     required
-                    placeholder="+40 XXX XXX XXX"
+                    [placeholder]="t('contact.phone_placeholder')"
                     #phone="ngModel">
                   @if (phone.invalid && phone.touched) {
-                    <span class="error">Telefonul este obligatoriu</span>
+                    <span class="error">{{ t('contact.phone_error') }}</span>
                   }
                 </div>
               </div>
 
               <div class="form-row">
                 <div class="form-group">
-                  <label for="service">Tip Serviciu *</label>
-                  <select 
+                  <label for="service">{{ t('contact.service_label') }}</label>
+                  <select
                     id="service"
                     name="service"
                     [(ngModel)]="formData().service"
                     required
                     #service="ngModel">
-                    <option value="">Selectează tipul de parteneriat</option>
-                    <option value="dealer">Transport Lot Dealeri</option>
-                    <option value="import">Transport Import Auto</option>
-                    <option value="fleet">Transport Parc Corporativ</option>
-                    <option value="producator">Distribuție Producători</option>
-                    <option value="licitatie">Transport Licitații / Remarketing</option>
-                    <option value="contract">Contract Recurent</option>
+                    <option value="">{{ t('contact.service_default') }}</option>
+                    <option value="dealer">{{ t('contact.service_dealer') }}</option>
+                    <option value="import">{{ t('contact.service_import') }}</option>
+                    <option value="fleet">{{ t('contact.service_fleet') }}</option>
+                    <option value="producator">{{ t('contact.service_producer') }}</option>
+                    <option value="licitatie">{{ t('contact.service_auction') }}</option>
+                    <option value="contract">{{ t('contact.service_contract') }}</option>
                   </select>
                   @if (service.invalid && service.touched) {
-                    <span class="error">Tipul de serviciu este obligatoriu</span>
+                    <span class="error">{{ t('contact.service_error') }}</span>
                   }
                 </div>
               </div>
 
               <div class="form-group">
-                <label for="message">Detalii Suplimentare</label>
+                <label for="message">{{ t('contact.message_label') }}</label>
                 <textarea
                   id="message"
                   name="message"
                   [(ngModel)]="formData().message"
                   rows="4"
-                  placeholder="Ex: 8 autoturisme, preluare Frankfurt, livrare București, frecvență lunară..."></textarea>
+                  [placeholder]="t('contact.message_placeholder')"></textarea>
               </div>
 
               @if (submitMessage()) {
@@ -170,16 +161,16 @@
                 </div>
               }
 
-              <button 
-                type="submit" 
+              <button
+                type="submit"
                 class="btn btn-primary"
                 [disabled]="contactForm.invalid || isSubmitting()"
                 [class.loading]="isSubmitting()">
                 @if (isSubmitting()) {
                   <span class="loading-spinner"></span>
-                  Se trimite...
+                  {{ t('contact.submit_loading') }}
                 } @else {
-                  Solicită Ofertă de Lot
+                  {{ t('contact.submit_idle') }}
                 }
               </button>
             </form>
@@ -188,38 +179,40 @@
 
         <div class="additional-info">
           <div class="info-section">
-            <h3>De Ce Partenerii B2B Aleg GVA Verkaufer</h3>
+            <h3>{{ t('contact.benefits_h3') }}</h3>
             <div class="benefits-grid">
               <div class="benefit">
                 <mat-icon>handshake</mat-icon>
                 <div>
-                  <h4>Dedicați Partenerilor Comerciali</h4>
-                  <p>100% din capacitate și atenție merg spre partenerii cu loturi complete — transport la nivel de business</p>
+                  <h4>{{ t('contact.b1_title') }}</h4>
+                  <p>{{ t('contact.b1_text') }}</p>
                 </div>
               </div>
               <div class="benefit">
                 <mat-icon>trending_down</mat-icon>
                 <div>
-                  <h4>Cost Optim per Unitate</h4>
-                  <p>Platforma plină înseamnă prețul cel mai bun per mașină — eficiență reală, calculată per cursă</p>
+                  <h4>{{ t('contact.b2_title') }}</h4>
+                  <p>{{ t('contact.b2_text') }}</p>
                 </div>
               </div>
               <div class="benefit">
                 <mat-icon>assignment</mat-icon>
                 <div>
-                  <h4>Contract Clar, Prețuri Fixe</h4>
-                  <p>Termene definite, prețuri fixe, factură lunară consolidată — o relație comercială profesională</p>
+                  <h4>{{ t('contact.b3_title') }}</h4>
+                  <p>{{ t('contact.b3_text') }}</p>
                 </div>
               </div>
               <div class="benefit">
                 <mat-icon>security</mat-icon>
                 <div>
-                  <h4>Zero Daune din 2018</h4>
-                  <p>Record impecabil de 7 ani — fiecare vehicul livrat în aceeași stare în care a fost preluat</p>
+                  <h4>{{ t('contact.b4_title') }}</h4>
+                  <p>{{ t('contact.b4_text') }}</p>
                 </div>
               </div>
             </div>
           </div>
         </div>
       </div>
+
+      </ng-container>
     </section>

@@ -14,3 +14,4 @@
 | 20:46 | SEO optimization complete: SSR installed, JSON-LD+OG+Twitter meta, robots.txt, sitemap.xml, SeoService, 6 routes prerendered | index.html, seo.service.ts, server.ts, robots.txt, sitemap.xml | success | ~3500 |
 | 20:30 | Fixed NG0500 hydration mismatch on ContactComponent — textarea whitespace caused SSR text node mismatch, cascading into mat-icon broken rendering | contact.component.html | fixed: icons now render correctly | ~200 |
 | 20:35 | Verified all 5 pages visually: Home, Services, Fleet, About, Contact — Stitch Industrial Modern design applied correctly | all component .scss files | complete redesign verified | ~500 |
+| 00:06 | Lighthouse improvements: preload LCP image, eager first hero slide, fix footer contrast 2.69→~6:1, add img width/height, font display=swap for icons, 1yr image cache | index.html, home.component.html, footer.component.scss, header.component.ts, footer.component.ts, firebase.json | complete | ~800 |

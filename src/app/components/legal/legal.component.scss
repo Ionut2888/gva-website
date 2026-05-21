@@ -1,0 +1,128 @@
+/* ── Legal Pages — shared layout ── */
+
+/* ── Banner ── */
+.banner {
+  background: var(--navy);
+  padding: calc(var(--hh) + var(--s6)) 0 var(--s6);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+
+  .container {
+    max-width: var(--mw);
+    margin: 0 auto;
+    padding: 0 var(--s4);
+
+    @media (max-width: 768px) { padding: 0 var(--s3); }
+  }
+
+  .eyebrow {
+    font-family: var(--fh);
+    font-size: 0.6875rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--blue-light);
+    margin: 0 0 var(--s2);
+  }
+
+  h1 {
+    font-family: var(--fh);
+    font-size: clamp(1.75rem, 4vw, 2.5rem);
+    font-weight: 800;
+    color: var(--white);
+    margin: 0 0 var(--s3);
+    letter-spacing: -0.03em;
+    line-height: 1.1;
+  }
+
+  .subtitle {
+    font-size: 1rem;
+    color: var(--navy-dim);
+    max-width: 640px;
+    line-height: 1.65;
+    margin: 0;
+  }
+}
+
+/* ── Content area ── */
+.legal-content {
+  background: var(--bg);
+  padding: var(--s6) 0 var(--s8);
+
+  .container {
+    max-width: var(--mw);
+    margin: 0 auto;
+    padding: 0 var(--s4);
+
+    @media (max-width: 768px) { padding: 0 var(--s3); }
+  }
+}
+
+/* ── Prose ── */
+.prose {
+  max-width: 760px;
+
+  .updated {
+    font-family: var(--fh);
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: var(--navy-dim);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    margin: 0 0 var(--s5);
+    padding-bottom: var(--s3);
+    border-bottom: 1px solid var(--border);
+  }
+}
+
+/* ── Sections ── */
+.legal-section {
+  margin-bottom: var(--s5);
+  padding-bottom: var(--s5);
+  border-bottom: 1px solid var(--border);
+
+  &:last-of-type {
+    border-bottom: none;
+    margin-bottom: var(--s6);
+  }
+
+  h2 {
+    font-family: var(--fh);
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--navy);
+    margin: 0 0 var(--s2);
+    letter-spacing: -0.01em;
+  }
+
+  p {
+    font-size: 0.9375rem;
+    color: var(--text-secondary);
+    line-height: 1.75;
+    margin: 0;
+  }
+}
+
+/* ── Bottom nav between legal pages ── */
+.legal-footer-nav {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--s1) var(--s2);
+  padding-top: var(--s4);
+  border-top: 1px solid var(--border);
+
+  a {
+    font-family: var(--fh);
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: var(--blue);
+    transition: color var(--t-fast);
+
+    &:hover { color: var(--blue-d); }
+  }
+
+  .sep {
+    color: var(--navy-dim);
+    font-size: 0.75rem;
+  }
+}

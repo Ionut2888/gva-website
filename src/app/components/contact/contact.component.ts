@@ -1,9 +1,10 @@
-import { Component, signal, OnInit, ViewChild } from '@angular/core';
+import { Component, signal, OnInit, ViewChild, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, NgForm } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
 import emailjs from '@emailjs/browser';
 import { EMAILJS_CONFIG } from '../../emailjs.config';
+import { TranslocoModule, TranslocoService } from '@jsverse/transloco';
 
 interface ContactForm {
   name: string;
@@ -17,12 +18,13 @@ interface ContactForm {
 @Component({
   selector: 'app-contact',
   standalone: true,
-  imports: [CommonModule, FormsModule, MatIconModule],
+  imports: [CommonModule, FormsModule, MatIconModule, TranslocoModule],
   templateUrl: './contact.component.html',
   styleUrls: ['./contact.component.scss']
 })
 export class ContactComponent implements OnInit {
   @ViewChild('contactForm') private contactForm!: NgForm;
+  private transloco = inject(TranslocoService);
 
   protected formData = signal<ContactForm>({
     name: '',
@@ -65,7 +67,7 @@ export class ContactComponent implements OnInit {
 
       this.submitMessage.set({
         type: 'success',
-        text: 'Mesajul a fost trimis cu succes! Vă vom contacta în cel mai scurt timp.'
+        text: this.transloco.translate('contact.success_msg')
       });
 
       // Reset signal values (always works, including in unit tests)
@@ -78,7 +80,7 @@ export class ContactComponent implements OnInit {
     } catch {
       this.submitMessage.set({
         type: 'error',
-        text: 'A apărut o eroare la trimiterea mesajului. Vă rugăm să ne contactați direct la auto@gvaverkaufer.ro.'
+        text: this.transloco.translate('contact.error_msg')
       });
     } finally {
       this.isSubmitting.set(false);

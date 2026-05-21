@@ -1,12 +1,11 @@
     <section class="services">
+      <ng-container *transloco="let t">
+
       <div class="page-banner">
         <div class="container">
           <div class="section-header">
-            <h2>Soluții Logistice pentru Industria Auto</h2>
-            <p class="section-subtitle">
-              De la transferuri de stoc între dealeri până la distribuție din fabrică și import european —
-              fiecare serviciu este construit în jurul unui singur principiu: platformă completă, eficiență maximă.
-            </p>
+            <h2>{{ t('services.banner_h2') }}</h2>
+            <p class="section-subtitle">{{ t('services.banner_subtitle') }}</p>
           </div>
         </div>
       </div>
@@ -14,146 +13,118 @@
       <div class="container">
         <div class="services-grid">
           <div class="service-card featured">
-            <div class="service-icon">
-              <mat-icon>store</mat-icon>
-            </div>
-            <h3>Transport Lot Dealeri Auto</h3>
-            <p>
-              Transferuri de stoc între rețele de dealeri, livrări din import sau redistribuire
-              inter-showroom — platformă completă, preț fix per lot, program adaptat rotației de stoc.
-            </p>
+            <div class="service-icon"><mat-icon>store</mat-icon></div>
+            <h3>{{ t('services.c1_title') }}</h3>
+            <p>{{ t('services.c1_text') }}</p>
             <ul class="service-features">
-              <li><mat-icon>check_circle</mat-icon> Minim 8–9 vehicule per cursă</li>
-              <li><mat-icon>check_circle</mat-icon> Contract cu prețuri fixe anuale</li>
-              <li><mat-icon>check_circle</mat-icon> Program regulat adaptat stockului</li>
-              <li><mat-icon>check_circle</mat-icon> Asigurare CMR inclusă</li>
+              <li><mat-icon>check_circle</mat-icon> {{ t('services.c1_f1') }}</li>
+              <li><mat-icon>check_circle</mat-icon> {{ t('services.c1_f2') }}</li>
+              <li><mat-icon>check_circle</mat-icon> {{ t('services.c1_f3') }}</li>
+              <li><mat-icon>check_circle</mat-icon> {{ t('services.c1_f4') }}</li>
             </ul>
           </div>
 
           <div class="service-card">
-            <div class="service-icon">
-              <mat-icon>flight_land</mat-icon>
-            </div>
-            <h3>Transport Internațional RO ↔ EU</h3>
-            <p>
-              Curse tur-retur între România și principalele piețe auto europene — Germania, Franța,
-              Spania. Ducere cu lot de export, întoarcere cu lot de import. Fără curse goale.
-            </p>
+            <div class="service-icon"><mat-icon>flight_land</mat-icon></div>
+            <h3>{{ t('services.c2_title') }}</h3>
+            <p>{{ t('services.c2_text') }}</p>
             <ul class="service-features">
-              <li><mat-icon>check_circle</mat-icon> Rute regulate RO ↔ DE · FR · ES</li>
-              <li><mat-icon>check_circle</mat-icon> Optimizare tur-retur — cost redus per cursă</li>
-              <li><mat-icon>check_circle</mat-icon> Coordonare cu agenții vamale</li>
-              <li><mat-icon>check_circle</mat-icon> Documentație completă per vehicul</li>
+              <li><mat-icon>check_circle</mat-icon> {{ t('services.c2_f1') }}</li>
+              <li><mat-icon>check_circle</mat-icon> {{ t('services.c2_f2') }}</li>
+              <li><mat-icon>check_circle</mat-icon> {{ t('services.c2_f3') }}</li>
+              <li><mat-icon>check_circle</mat-icon> {{ t('services.c2_f4') }}</li>
             </ul>
           </div>
 
           <div class="service-card">
-            <div class="service-icon">
-              <mat-icon>corporate_fare</mat-icon>
-            </div>
-            <h3>Transport Parc Corporativ</h3>
-            <p>
-              Relocare de flote auto pentru companii de leasing, multinationale sau companii care
-              reînnoiesc sau redistribuie parcul auto intern.
-            </p>
+            <div class="service-icon"><mat-icon>corporate_fare</mat-icon></div>
+            <h3>{{ t('services.c3_title') }}</h3>
+            <p>{{ t('services.c3_text') }}</p>
             <ul class="service-features">
-              <li><mat-icon>check_circle</mat-icon> Relocare inter-județeană de flotă</li>
-              <li><mat-icon>check_circle</mat-icon> Coordonare cu departamentul fleet</li>
-              <li><mat-icon>check_circle</mat-icon> Raportare per vehicul</li>
-              <li><mat-icon>check_circle</mat-icon> Flexibilitate la volume variabile</li>
+              <li><mat-icon>check_circle</mat-icon> {{ t('services.c3_f1') }}</li>
+              <li><mat-icon>check_circle</mat-icon> {{ t('services.c3_f2') }}</li>
+              <li><mat-icon>check_circle</mat-icon> {{ t('services.c3_f3') }}</li>
+              <li><mat-icon>check_circle</mat-icon> {{ t('services.c3_f4') }}</li>
             </ul>
           </div>
 
           <div class="service-card">
-            <div class="service-icon">
-              <mat-icon>precision_manufacturing</mat-icon>
-            </div>
-            <h3>Distribuție Producători Auto</h3>
-            <p>
-              Transport din fabrică sau depozit central către rețeaua de dealeri — curse regulate,
-              capacitate garantată și procesare rapidă la punctele de livrare.
-            </p>
+            <div class="service-icon"><mat-icon>precision_manufacturing</mat-icon></div>
+            <h3>{{ t('services.c4_title') }}</h3>
+            <p>{{ t('services.c4_text') }}</p>
             <ul class="service-features">
-              <li><mat-icon>check_circle</mat-icon> Curse regulate din depozit central</li>
-              <li><mat-icon>check_circle</mat-icon> Capacitate rezervată contractual</li>
-              <li><mat-icon>check_circle</mat-icon> Timp de staționare minim la livrare</li>
-              <li><mat-icon>check_circle</mat-icon> Confirmare digitală de predare</li>
+              <li><mat-icon>check_circle</mat-icon> {{ t('services.c4_f1') }}</li>
+              <li><mat-icon>check_circle</mat-icon> {{ t('services.c4_f2') }}</li>
+              <li><mat-icon>check_circle</mat-icon> {{ t('services.c4_f3') }}</li>
+              <li><mat-icon>check_circle</mat-icon> {{ t('services.c4_f4') }}</li>
             </ul>
           </div>
 
           <div class="service-card">
-            <div class="service-icon">
-              <mat-icon>gavel</mat-icon>
-            </div>
-            <h3>Transport Licitații și Remarketing</h3>
-            <p>
-              Ridicare și livrare de loturi adjudecate din licitații auto, platforme de remarketing
-              sau companii de leasing care returnează vehicule.
-            </p>
+            <div class="service-icon"><mat-icon>gavel</mat-icon></div>
+            <h3>{{ t('services.c5_title') }}</h3>
+            <p>{{ t('services.c5_text') }}</p>
             <ul class="service-features">
-              <li><mat-icon>check_circle</mat-icon> Ridicare rapidă post-licitație</li>
-              <li><mat-icon>check_circle</mat-icon> Consolidare loturi din locații multiple</li>
-              <li><mat-icon>check_circle</mat-icon> Inspecție vizuală la preluare</li>
-              <li><mat-icon>check_circle</mat-icon> Livrare la depozit sau dealer</li>
+              <li><mat-icon>check_circle</mat-icon> {{ t('services.c5_f1') }}</li>
+              <li><mat-icon>check_circle</mat-icon> {{ t('services.c5_f2') }}</li>
+              <li><mat-icon>check_circle</mat-icon> {{ t('services.c5_f3') }}</li>
+              <li><mat-icon>check_circle</mat-icon> {{ t('services.c5_f4') }}</li>
             </ul>
           </div>
 
           <div class="service-card">
-            <div class="service-icon">
-              <mat-icon>assignment</mat-icon>
-            </div>
-            <h3>Contract de Transport Recurent</h3>
-            <p>
-              Pentru partenerii cu nevoi regulate de transport — contract anual cu tarife fixe,
-              capacitate rezervată și prioritate la planificarea curselor.
-            </p>
+            <div class="service-icon"><mat-icon>assignment</mat-icon></div>
+            <h3>{{ t('services.c6_title') }}</h3>
+            <p>{{ t('services.c6_text') }}</p>
             <ul class="service-features">
-              <li><mat-icon>check_circle</mat-icon> Tarife fixe, fără fluctuații</li>
-              <li><mat-icon>check_circle</mat-icon> Capacitate garantată lunar</li>
-              <li><mat-icon>check_circle</mat-icon> Account manager dedicat</li>
-              <li><mat-icon>check_circle</mat-icon> Facturare lunară consolidată</li>
+              <li><mat-icon>check_circle</mat-icon> {{ t('services.c6_f1') }}</li>
+              <li><mat-icon>check_circle</mat-icon> {{ t('services.c6_f2') }}</li>
+              <li><mat-icon>check_circle</mat-icon> {{ t('services.c6_f3') }}</li>
+              <li><mat-icon>check_circle</mat-icon> {{ t('services.c6_f4') }}</li>
             </ul>
           </div>
         </div>
 
         <div class="service-process">
-          <h3>Cum Funcționează un Transport de Lot</h3>
+          <h3>{{ t('services.process_h3') }}</h3>
           <div class="process-steps">
             <div class="step">
               <div class="step-number">1</div>
               <div class="step-content">
-                <h4>Cerere de Lot</h4>
-                <p>Transmiteți-ne lista vehiculelor (tip, număr, locație origine și destinație) — vă trimitem oferta în 4 ore</p>
+                <h4>{{ t('services.s1_title') }}</h4>
+                <p>{{ t('services.s1_text') }}</p>
               </div>
             </div>
             <div class="step">
               <div class="step-number">2</div>
               <div class="step-content">
-                <h4>Confirmare și Planificare</h4>
-                <p>Confirmăm capacitatea, stabilim data și ora încărcării și alocăm platforma potrivită</p>
+                <h4>{{ t('services.s2_title') }}</h4>
+                <p>{{ t('services.s2_text') }}</p>
               </div>
             </div>
             <div class="step">
               <div class="step-number">3</div>
               <div class="step-content">
-                <h4>Încărcare și Transport</h4>
-                <p>Preluăm lotul, fixăm profesional fiecare vehicul și pornim — cu tracking GPS activ pe toată durata</p>
+                <h4>{{ t('services.s3_title') }}</h4>
+                <p>{{ t('services.s3_text') }}</p>
               </div>
             </div>
             <div class="step">
               <div class="step-number">4</div>
               <div class="step-content">
-                <h4>Livrare Confirmată</h4>
-                <p>Predăm lotul la destinație cu confirmare de primire per vehicul și documentație completă</p>
+                <h4>{{ t('services.s4_title') }}</h4>
+                <p>{{ t('services.s4_text') }}</p>
               </div>
             </div>
           </div>
         </div>
 
         <div class="cta-section">
-          <h3>Gata să Discutăm despre Lotul Dvs.?</h3>
-          <p>Transmiteți-ne detaliile lotului — număr de vehicule, origine, destinație și frecvența estimată — și vă pregătim o ofertă în câteva ore.</p>
-          <a routerLink="/contact" class="btn btn-primary">Solicită Ofertă de Lot</a>
+          <h3>{{ t('services.cta_h3') }}</h3>
+          <p>{{ t('services.cta_text') }}</p>
+          <a routerLink="/contact" class="btn btn-primary">{{ t('services.cta_btn') }}</a>
         </div>
       </div>
+
+      </ng-container>
     </section>

@@ -8,6 +8,7 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "serve:ssr:gva-website": "node dist/gva-website/server/server.mjs",
+    "optimize-images": "node scripts/optimize-images.mjs",
     "lint": "ng lint",
     "prepare": "husky"
   },
@@ -37,6 +38,7 @@
     "@angular/router": "^20.3.0",
     "@angular/ssr": "^20.3.4",
     "@emailjs/browser": "^4.4.1",
+    "@jsverse/transloco": "^8.3.0",
     "express": "^5.1.0",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
@@ -60,6 +62,7 @@
     "karma-jasmine": "~5.1.0",
     "karma-jasmine-html-reporter": "~2.1.0",
     "lint-staged": "^16.4.0",
+    "sharp": "^0.34.5",
     "typescript": "~5.9.2",
     "typescript-eslint": "8.46.4"
   }

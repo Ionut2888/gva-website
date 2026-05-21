@@ -84,7 +84,7 @@ jobs:
           git config user.email "github-actions[bot]@users.noreply.github.com"
 
       # ── 2. Rebuild beta branch + capture PR details for the email ───────────
-      - name: Rebuild beta branch from main + labeled PRs
+      - name: Rebuild beta branch from main + labelled PRs
         id: rebuild
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
