@@ -1,6 +1,7 @@
-import { Component, inject, PLATFORM_ID, signal } from '@angular/core';
+import { Component, inject, OnDestroy, PLATFORM_ID, signal } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { TranslocoService } from '@jsverse/transloco';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-lang-switcher',
@@ -50,9 +51,10 @@ import { TranslocoService } from '@jsverse/transloco';
     }
   `]
 })
-export class LangSwitcherComponent {
+export class LangSwitcherComponent implements OnDestroy {
   private translocoService = inject(TranslocoService);
   private platformId = inject(PLATFORM_ID);
+  private sub: Subscription;
 
   protected activeLang = signal(this.translocoService.getActiveLang());
 
@@ -63,13 +65,21 @@ export class LangSwitcherComponent {
   ];
 
   constructor() {
-    if (isPlatformBrowser(this.platformId)) {
-      const saved = localStorage.getItem('gva-lang');
-      if (saved && this.langs.some(l => l.code === saved)) {
-        this.translocoService.setActiveLang(saved);
-        this.activeLang.set(saved);
-      }
-    }
+    // IMPORTANT: Do NOT call setActiveLang here.
+    // APP_INITIALIZER (app.config.ts) already restores the saved language before
+    // Angular bootstraps. Calling setActiveLang inside the constructor triggers
+    // Transloco's langChanges$ → *transloco re-creates embedded views →
+    // new LangSwitcherComponent instances → setActiveLang again → stack overflow.
+    //
+    // Subscribe to langChanges$ (emits async via setTimeout) so the signal stays
+    // in sync when the other instance of this component (desktop/mobile) switches.
+    this.sub = this.translocoService.langChanges$.subscribe(lang => {
+      this.activeLang.set(lang);
+    });
+  }
+
+  ngOnDestroy(): void {
+    this.sub.unsubscribe();
   }
 
   protected switchLang(lang: string): void {
