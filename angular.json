@@ -35,6 +35,7 @@
               }
             ],
             "styles": [
+              "node_modules/flag-icons/css/flag-icons.min.css",
               "src/styles.scss"
             ],
             "server": "src/main.server.ts",
