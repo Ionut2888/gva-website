@@ -70,10 +70,10 @@ describe('LangSwitcherComponent', () => {
     expect(inst.open()).toBe(false);
   });
 
-  it('should list all 8 languages with flags', () => {
-    const inst = component as unknown as { langs: { code: string; flag: string }[] };
+  it('should list all 8 languages with flag codes', () => {
+    const inst = component as unknown as { langs: { code: string; flagCode: string }[] };
     expect(inst.langs.length).toBe(8);
-    expect(inst.langs.every(l => l.flag.length > 0)).toBeTrue();
+    expect(inst.langs.every(l => l.flagCode.length > 0)).toBeTrue();
   });
 
   it('should render pills layout when variant is pills', async () => {

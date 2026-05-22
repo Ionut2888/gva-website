@@ -15,7 +15,7 @@ import { Subscription } from 'rxjs';
           (click)="toggle()"
           [attr.aria-expanded]="open()"
           [attr.aria-label]="'Language: ' + activeLang().toUpperCase()">
-          <span class="flag">{{ activeLangObj().flag }}</span>
+          <span class="fi" [class]="'fi fi-' + activeLangObj().flagCode"></span>
           <span class="lang-code">{{ activeLang().toUpperCase() }}</span>
           <svg class="chevron" width="10" height="6" viewBox="0 0 10 6" fill="none" aria-hidden="true">
             <path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
@@ -31,7 +31,7 @@ import { Subscription } from 'rxjs';
                 (click)="select(lang.code)"
                 role="menuitem"
                 [attr.aria-label]="lang.label">
-                <span class="opt-flag">{{ lang.flag }}</span>
+                <span class="fi opt-flag" [class]="'fi fi-' + lang.flagCode"></span>
                 <span class="opt-code">{{ lang.code.toUpperCase() }}</span>
                 <span class="opt-name">{{ lang.label }}</span>
               </button>
@@ -51,7 +51,7 @@ import { Subscription } from 'rxjs';
             (click)="select(lang.code)"
             [attr.aria-label]="lang.label"
             [attr.aria-pressed]="activeLang() === lang.code">
-            <span class="pill-flag">{{ lang.flag }}</span>
+            <span class="fi pill-flag" [class]="'fi fi-' + lang.flagCode"></span>
             <span class="pill-code">{{ lang.code.toUpperCase() }}</span>
           </button>
         }
@@ -75,7 +75,8 @@ import { Subscription } from 'rxjs';
       cursor: pointer;
       transition: border-color var(--t-fast), background var(--t-fast);
 
-      .flag { font-size: 1rem; line-height: 1; }
+      /* flag-icons: fi class sets background-image; needs explicit size */
+      .fi { width: 1.1em; height: 0.8em; background-size: cover; flex-shrink: 0; border-radius: 1px; }
 
       .lang-code {
         font-family: var(--fh);
@@ -138,7 +139,7 @@ import { Subscription } from 'rxjs';
       transition: background var(--t-fast);
       text-align: left;
 
-      .opt-flag { font-size: 1rem; line-height: 1; flex-shrink: 0; }
+      .opt-flag { width: 1.15em; height: 0.85em; background-size: cover; flex-shrink: 0; border-radius: 1px; }
 
       .opt-code {
         font-family: var(--fh);
@@ -202,7 +203,7 @@ import { Subscription } from 'rxjs';
       cursor: pointer;
       transition: background var(--t-fast), border-color var(--t-fast);
 
-      .pill-flag { font-size: 1.25rem; line-height: 1; }
+      .pill-flag { width: 1.5em; height: 1.1em; background-size: cover; border-radius: 1px; }
 
       .pill-code {
         font-family: var(--fh);
@@ -240,14 +241,14 @@ export class LangSwitcherComponent implements OnDestroy {
   protected activeLang = signal(this.translocoService.getActiveLang());
 
   protected langs = [
-    { code: 'ro', label: 'Română',     flag: '🇷🇴' },
-    { code: 'de', label: 'Deutsch',    flag: '🇩🇪' },
-    { code: 'en', label: 'English',    flag: '🇬🇧' },
-    { code: 'fr', label: 'Français',   flag: '🇫🇷' },
-    { code: 'es', label: 'Español',    flag: '🇪🇸' },
-    { code: 'hu', label: 'Magyar',     flag: '🇭🇺' },
-    { code: 'it', label: 'Italiano',   flag: '🇮🇹' },
-    { code: 'nl', label: 'Nederlands', flag: '🇳🇱' },
+    { code: 'ro', label: 'Română',     flagCode: 'ro' },
+    { code: 'de', label: 'Deutsch',    flagCode: 'de' },
+    { code: 'en', label: 'English',    flagCode: 'gb' },
+    { code: 'fr', label: 'Français',   flagCode: 'fr' },
+    { code: 'es', label: 'Español',    flagCode: 'es' },
+    { code: 'hu', label: 'Magyar',     flagCode: 'hu' },
+    { code: 'it', label: 'Italiano',   flagCode: 'it' },
+    { code: 'nl', label: 'Nederlands', flagCode: 'nl' },
   ];
 
   protected activeLangObj() {
