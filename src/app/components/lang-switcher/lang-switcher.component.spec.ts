@@ -70,8 +70,17 @@ describe('LangSwitcherComponent', () => {
     expect(inst.open()).toBe(false);
   });
 
-  it('should list all 8 languages', () => {
-    const inst = component as unknown as { langs: { code: string }[] };
+  it('should list all 8 languages with flags', () => {
+    const inst = component as unknown as { langs: { code: string; flag: string }[] };
     expect(inst.langs.length).toBe(8);
+    expect(inst.langs.every(l => l.flag.length > 0)).toBeTrue();
+  });
+
+  it('should render pills layout when variant is pills', async () => {
+    const pillsFixture = TestBed.createComponent(LangSwitcherComponent);
+    pillsFixture.componentRef.setInput('variant', 'pills');
+    pillsFixture.detectChanges();
+    const pills = pillsFixture.nativeElement.querySelectorAll('.lang-pill');
+    expect(pills.length).toBe(8);
   });
 });

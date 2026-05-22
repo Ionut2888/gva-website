@@ -28,7 +28,7 @@ import { LangSwitcherComponent } from '../lang-switcher/lang-switcher.component'
               <a routerLink="/fleet" routerLinkActive="active" class="nav-link" (click)="closeMenu()">{{ t('nav.fleet') }}</a>
               <a routerLink="/contact" routerLinkActive="active" class="nav-link" (click)="closeMenu()">{{ t('nav.contact') }}</a>
               <div class="mobile-lang-row">
-                <app-lang-switcher />
+                <app-lang-switcher variant="pills" />
               </div>
             </nav>
 

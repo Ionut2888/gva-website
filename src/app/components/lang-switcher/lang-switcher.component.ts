@@ -1,4 +1,4 @@
-import { Component, ElementRef, HostListener, inject, OnDestroy, PLATFORM_ID, signal } from '@angular/core';
+import { Component, ElementRef, HostListener, inject, input, OnDestroy, PLATFORM_ID, signal } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { TranslocoService } from '@jsverse/transloco';
 import { Subscription } from 'rxjs';
@@ -7,41 +7,63 @@ import { Subscription } from 'rxjs';
   selector: 'app-lang-switcher',
   standalone: true,
   template: `
-    <div class="lang-dropdown" [class.open]="open()">
-      <button
-        class="lang-trigger"
-        (click)="toggle()"
-        [attr.aria-expanded]="open()"
-        [attr.aria-label]="'Language: ' + activeLang().toUpperCase()">
-        <span class="lang-code">{{ activeLang().toUpperCase() }}</span>
-        <svg class="chevron" width="10" height="6" viewBox="0 0 10 6" fill="none" aria-hidden="true">
-          <path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-      </button>
+    <!-- ── Desktop: compact dropdown ── -->
+    @if (variant() === 'dropdown') {
+      <div class="lang-dropdown" [class.open]="open()">
+        <button
+          class="lang-trigger"
+          (click)="toggle()"
+          [attr.aria-expanded]="open()"
+          [attr.aria-label]="'Language: ' + activeLang().toUpperCase()">
+          <span class="flag">{{ activeLangObj().flag }}</span>
+          <span class="lang-code">{{ activeLang().toUpperCase() }}</span>
+          <svg class="chevron" width="10" height="6" viewBox="0 0 10 6" fill="none" aria-hidden="true">
+            <path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
 
-      @if (open()) {
-        <div class="lang-menu" role="menu">
-          @for (lang of langs; track lang.code) {
-            <button
-              class="lang-option"
-              [class.active]="activeLang() === lang.code"
-              (click)="select(lang.code)"
-              role="menuitem"
-              [attr.aria-label]="lang.label">
-              <span class="opt-code">{{ lang.code.toUpperCase() }}</span>
-              <span class="opt-name">{{ lang.label }}</span>
-            </button>
-          }
-        </div>
-      }
-    </div>
-  `,
-  styles: [`
-    .lang-dropdown {
-      position: relative;
+        @if (open()) {
+          <div class="lang-menu" role="menu">
+            @for (lang of langs; track lang.code) {
+              <button
+                class="lang-option"
+                [class.active]="activeLang() === lang.code"
+                (click)="select(lang.code)"
+                role="menuitem"
+                [attr.aria-label]="lang.label">
+                <span class="opt-flag">{{ lang.flag }}</span>
+                <span class="opt-code">{{ lang.code.toUpperCase() }}</span>
+                <span class="opt-name">{{ lang.label }}</span>
+              </button>
+            }
+          </div>
+        }
+      </div>
     }
 
-    /* ── Trigger button ── */
+    <!-- ── Mobile: flat pill grid ── -->
+    @if (variant() === 'pills') {
+      <div class="lang-pills" role="group" aria-label="Select language">
+        @for (lang of langs; track lang.code) {
+          <button
+            class="lang-pill"
+            [class.active]="activeLang() === lang.code"
+            (click)="select(lang.code)"
+            [attr.aria-label]="lang.label"
+            [attr.aria-pressed]="activeLang() === lang.code">
+            <span class="pill-flag">{{ lang.flag }}</span>
+            <span class="pill-code">{{ lang.code.toUpperCase() }}</span>
+          </button>
+        }
+      </div>
+    }
+  `,
+  styles: [`
+    /* ══════════════════════════════════════
+       DROPDOWN (desktop)
+    ══════════════════════════════════════ */
+    .lang-dropdown { position: relative; }
+
     .lang-trigger {
       display: flex;
       align-items: center;
@@ -52,6 +74,8 @@ import { Subscription } from 'rxjs';
       padding: 0.3rem 0.5rem;
       cursor: pointer;
       transition: border-color var(--t-fast), background var(--t-fast);
+
+      .flag { font-size: 1rem; line-height: 1; }
 
       .lang-code {
         font-family: var(--fh);
@@ -72,26 +96,22 @@ import { Subscription } from 'rxjs';
       &:hover {
         border-color: rgba(255, 255, 255, 0.25);
         background: rgba(255, 255, 255, 0.05);
-
         .lang-code, .chevron { color: var(--white); }
       }
     }
 
-    /* Rotate chevron when open */
     .lang-dropdown.open .lang-trigger {
       border-color: rgba(255, 255, 255, 0.25);
       background: rgba(255, 255, 255, 0.05);
-
       .lang-code, .chevron { color: var(--white); }
       .chevron { transform: rotate(180deg); }
     }
 
-    /* ── Dropdown panel ── */
     .lang-menu {
       position: absolute;
       top: calc(100% + 6px);
       right: 0;
-      min-width: 148px;
+      min-width: 160px;
       background: var(--navy);
       border: 1px solid rgba(255, 255, 255, 0.1);
       border-radius: var(--r-sm);
@@ -106,11 +126,10 @@ import { Subscription } from 'rxjs';
       to   { opacity: 1; transform: translateY(0); }
     }
 
-    /* ── Option rows ── */
     .lang-option {
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 8px;
       width: 100%;
       background: none;
       border: none;
@@ -119,13 +138,15 @@ import { Subscription } from 'rxjs';
       transition: background var(--t-fast);
       text-align: left;
 
+      .opt-flag { font-size: 1rem; line-height: 1; flex-shrink: 0; }
+
       .opt-code {
         font-family: var(--fh);
         font-size: 0.6875rem;
         font-weight: 700;
         letter-spacing: 0.08em;
         color: var(--navy-dim);
-        width: 24px;
+        width: 22px;
         flex-shrink: 0;
         transition: color var(--t-fast);
       }
@@ -144,8 +165,55 @@ import { Subscription } from 'rxjs';
 
       &.active {
         background: rgba(0, 81, 213, 0.18);
+        .opt-flag { filter: brightness(1.1); }
         .opt-code { color: var(--blue-light); }
         .opt-name { color: var(--white); }
+      }
+    }
+
+    /* ══════════════════════════════════════
+       PILLS (mobile nav)
+    ══════════════════════════════════════ */
+    .lang-pills {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 6px;
+      width: 100%;
+    }
+
+    .lang-pill {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 3px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: var(--r-sm);
+      padding: 0.5rem 0.25rem;
+      cursor: pointer;
+      transition: background var(--t-fast), border-color var(--t-fast);
+
+      .pill-flag { font-size: 1.25rem; line-height: 1; }
+
+      .pill-code {
+        font-family: var(--fh);
+        font-size: 0.5625rem;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        color: var(--navy-dim);
+        transition: color var(--t-fast);
+      }
+
+      &:hover {
+        background: rgba(255, 255, 255, 0.08);
+        border-color: rgba(255, 255, 255, 0.18);
+        .pill-code { color: var(--white); }
+      }
+
+      &.active {
+        background: rgba(0, 81, 213, 0.22);
+        border-color: rgba(0, 81, 213, 0.5);
+        .pill-code { color: var(--blue-light); }
       }
     }
   `]
@@ -156,19 +224,26 @@ export class LangSwitcherComponent implements OnDestroy {
   private elRef = inject(ElementRef);
   private sub: Subscription;
 
+  /** 'dropdown' = desktop trigger+panel; 'pills' = mobile flat grid */
+  readonly variant = input<'dropdown' | 'pills'>('dropdown');
+
   protected open = signal(false);
   protected activeLang = signal(this.translocoService.getActiveLang());
 
   protected langs = [
-    { code: 'ro', label: 'Română' },
-    { code: 'de', label: 'Deutsch' },
-    { code: 'en', label: 'English' },
-    { code: 'fr', label: 'Français' },
-    { code: 'es', label: 'Español' },
-    { code: 'hu', label: 'Magyar' },
-    { code: 'it', label: 'Italiano' },
-    { code: 'nl', label: 'Nederlands' },
+    { code: 'ro', label: 'Română',     flag: '🇷🇴' },
+    { code: 'de', label: 'Deutsch',    flag: '🇩🇪' },
+    { code: 'en', label: 'English',    flag: '🇬🇧' },
+    { code: 'fr', label: 'Français',   flag: '🇫🇷' },
+    { code: 'es', label: 'Español',    flag: '🇪🇸' },
+    { code: 'hu', label: 'Magyar',     flag: '🇭🇺' },
+    { code: 'it', label: 'Italiano',   flag: '🇮🇹' },
+    { code: 'nl', label: 'Nederlands', flag: '🇳🇱' },
   ];
+
+  protected activeLangObj() {
+    return this.langs.find(l => l.code === this.activeLang()) ?? this.langs[0];
+  }
 
   constructor() {
     // IMPORTANT: Do NOT call setActiveLang here — causes infinite re-render loop.
