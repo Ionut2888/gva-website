@@ -172,16 +172,25 @@ import { Subscription } from 'rxjs';
     }
 
     /* ══════════════════════════════════════
-       PILLS (mobile nav)
+       PILLS (mobile nav) — horizontal scroll
     ══════════════════════════════════════ */
     .lang-pills {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
+      display: flex;
       gap: 6px;
       width: 100%;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+      padding-bottom: 2px; /* prevent clipping active border */
+
+      &::-webkit-scrollbar { display: none; }
     }
 
     .lang-pill {
+      /* exactly 4 visible at once: (100% - 3×6px gap) / 4 */
+      flex: 0 0 calc(25% - 4.5px);
+      scroll-snap-align: start;
       display: flex;
       flex-direction: column;
       align-items: center;
