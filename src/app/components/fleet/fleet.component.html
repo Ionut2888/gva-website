@@ -1,39 +1,39 @@
-    <section class="fleet">
+﻿    <section class="fleet">
       <ng-container *transloco="let t">
 
       <div class="page-banner">
         <div class="container">
           <div class="section-header">
-            <h2>{{ t('fleet.banner_h2') }}</h2>
-            <p class="section-subtitle">{{ t('fleet.banner_subtitle') }}</p>
+            <h2 appAos="fade-up" [aosDuration]="800">{{ t('fleet.banner_h2') }}</h2>
+            <p class="section-subtitle" appAos="fade-up" [aosDelay]="150" [aosDuration]="700">{{ t('fleet.banner_subtitle') }}</p>
           </div>
         </div>
       </div>
 
       <div class="container">
         <div class="fleet-stats">
-          <div class="stat-card">
+          <div class="stat-card" appAos="scale-up" [aosDelay]="0" [aosDuration]="700">
             <div class="stat-icon"><mat-icon>directions_car</mat-icon></div>
             <div class="stat-content">
               <h3>4</h3>
               <p>{{ t('fleet.stat1') }}</p>
             </div>
           </div>
-          <div class="stat-card">
+          <div class="stat-card" appAos="scale-up" [aosDelay]="100" [aosDuration]="700">
             <div class="stat-icon"><mat-icon>inventory_2</mat-icon></div>
             <div class="stat-content">
               <h3>8–9</h3>
               <p>{{ t('fleet.stat2') }}</p>
             </div>
           </div>
-          <div class="stat-card">
+          <div class="stat-card" appAos="scale-up" [aosDelay]="200" [aosDuration]="700">
             <div class="stat-icon"><mat-icon>gps_fixed</mat-icon></div>
             <div class="stat-content">
               <h3>24/7</h3>
               <p>{{ t('fleet.stat3') }}</p>
             </div>
           </div>
-          <div class="stat-card">
+          <div class="stat-card" appAos="scale-up" [aosDelay]="300" [aosDuration]="700">
             <div class="stat-icon"><mat-icon>verified_user</mat-icon></div>
             <div class="stat-content">
               <h3>CMR</h3>
@@ -43,7 +43,7 @@
         </div>
 
         <div class="fleet-gallery">
-          <div class="gallery-header">
+          <div class="gallery-header" appAos="fade-up" [aosDelay]="50" [aosDuration]="750">
             <h3>{{ t('fleet.gallery_h3') }}</h3>
             <p>{{ t('fleet.gallery_subtitle') }}</p>
           </div>

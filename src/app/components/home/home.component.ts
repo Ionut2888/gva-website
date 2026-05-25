@@ -1,19 +1,27 @@
-import { Component, OnInit, OnDestroy, signal, inject, PLATFORM_ID } from '@angular/core';
+import {
+  AfterViewInit, Component, ElementRef, OnInit, OnDestroy,
+  signal, inject, PLATFORM_ID, ViewChild
+} from '@angular/core';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { interval, Subscription } from 'rxjs';
 import { TranslocoModule } from '@jsverse/transloco';
+import { AnimateOnScrollDirective } from '../../directives/animate-on-scroll.directive';
+import { MagneticDirective } from '../../directives/magnetic.directive';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule, RouterLink, TranslocoModule],
+  imports: [CommonModule, RouterLink, TranslocoModule, AnimateOnScrollDirective, MagneticDirective],
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
 })
-export class HomeComponent implements OnInit, OnDestroy {
+export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
   private platformId = inject(PLATFORM_ID);
   private subscription?: Subscription;
+  private scrollHandler?: () => void;
+
+  @ViewChild('heroBg') heroBgRef?: ElementRef<HTMLElement>;
 
   protected currentSlide = signal(0);
 
@@ -31,13 +39,32 @@ export class HomeComponent implements OnInit, OnDestroy {
     }
   }
 
+  ngAfterViewInit(): void {
+    if (isPlatformBrowser(this.platformId)) {
+      this.initParallax();
+    }
+  }
+
   ngOnDestroy(): void {
     this.subscription?.unsubscribe();
+    if (this.scrollHandler) {
+      window.removeEventListener('scroll', this.scrollHandler);
+    }
   }
 
   private startSlideshow(): void {
     this.subscription = interval(5000).subscribe(() => {
       this.currentSlide.update(i => (i + 1) % this.images().length);
     });
+  }
+
+  /** Subtle parallax: hero background drifts at 22% of scroll speed */
+  private initParallax(): void {
+    const el = this.heroBgRef?.nativeElement;
+    if (!el) return;
+    this.scrollHandler = () => {
+      el.style.transform = `translateY(${window.scrollY * 0.22}px)`;
+    };
+    window.addEventListener('scroll', this.scrollHandler, { passive: true });
   }
 }

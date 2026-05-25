@@ -1,18 +1,18 @@
-    <section class="services">
+﻿    <section class="services">
       <ng-container *transloco="let t">
 
       <div class="page-banner">
         <div class="container">
           <div class="section-header">
-            <h2>{{ t('services.banner_h2') }}</h2>
-            <p class="section-subtitle">{{ t('services.banner_subtitle') }}</p>
+            <h2 appAos="fade-up" [aosDuration]="800">{{ t('services.banner_h2') }}</h2>
+            <p class="section-subtitle" appAos="fade-up" [aosDelay]="150" [aosDuration]="700">{{ t('services.banner_subtitle') }}</p>
           </div>
         </div>
       </div>
 
       <div class="container">
         <div class="services-grid">
-          <div class="service-card featured">
+          <div class="service-card featured" appAos="scale-up" [aosDuration]="750">
             <div class="service-icon"><mat-icon>store</mat-icon></div>
             <h3>{{ t('services.c1_title') }}</h3>
             <p>{{ t('services.c1_text') }}</p>
@@ -24,7 +24,7 @@
             </ul>
           </div>
 
-          <div class="service-card">
+          <div class="service-card" appAos="scale-up" [aosDelay]="100" [aosDuration]="750">
             <div class="service-icon"><mat-icon>flight_land</mat-icon></div>
             <h3>{{ t('services.c2_title') }}</h3>
             <p>{{ t('services.c2_text') }}</p>
@@ -36,7 +36,7 @@
             </ul>
           </div>
 
-          <div class="service-card">
+          <div class="service-card" appAos="scale-up" [aosDelay]="200" [aosDuration]="750">
             <div class="service-icon"><mat-icon>corporate_fare</mat-icon></div>
             <h3>{{ t('services.c3_title') }}</h3>
             <p>{{ t('services.c3_text') }}</p>
@@ -48,7 +48,7 @@
             </ul>
           </div>
 
-          <div class="service-card">
+          <div class="service-card" appAos="scale-up" [aosDelay]="300" [aosDuration]="750">
             <div class="service-icon"><mat-icon>precision_manufacturing</mat-icon></div>
             <h3>{{ t('services.c4_title') }}</h3>
             <p>{{ t('services.c4_text') }}</p>
@@ -60,7 +60,7 @@
             </ul>
           </div>
 
-          <div class="service-card">
+          <div class="service-card" appAos="scale-up" [aosDelay]="400" [aosDuration]="750">
             <div class="service-icon"><mat-icon>gavel</mat-icon></div>
             <h3>{{ t('services.c5_title') }}</h3>
             <p>{{ t('services.c5_text') }}</p>

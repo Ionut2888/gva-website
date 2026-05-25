@@ -3,11 +3,12 @@ import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { RouterLink } from '@angular/router';
 import { TranslocoModule } from '@jsverse/transloco';
+import { AnimateOnScrollDirective } from '../../directives/animate-on-scroll.directive';
 
 @Component({
   selector: 'app-services',
   standalone: true,
-  imports: [CommonModule, MatIconModule, RouterLink, TranslocoModule],
+  imports: [CommonModule, MatIconModule, RouterLink, TranslocoModule, AnimateOnScrollDirective],
   templateUrl: './services.component.html',
   styleUrls: ['./services.component.scss']
 })

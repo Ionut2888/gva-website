@@ -1,11 +1,11 @@
-    <section class="about">
+﻿    <section class="about">
       <ng-container *transloco="let t">
 
       <div class="page-banner">
         <div class="container">
           <div class="section-header">
-            <h2>{{ t('about.banner_h2') }}</h2>
-            <p class="section-subtitle">{{ t('about.banner_subtitle') }}</p>
+            <h2 appAos="fade-up" [aosDuration]="800">{{ t('about.banner_h2') }}</h2>
+            <p class="section-subtitle" appAos="fade-up" [aosDelay]="150" [aosDuration]="700">{{ t('about.banner_subtitle') }}</p>
           </div>
         </div>
       </div>
@@ -13,35 +13,35 @@
       <div class="container">
         <div class="about-content">
           <div class="about-story">
-            <div class="story-text">
+            <div class="story-text" appAos="fade-right" [aosDuration]="900">
               <h3>{{ t('about.story_h3') }}</h3>
               <p>{{ t('about.story_p1') }}</p>
               <p>{{ t('about.story_p2') }}</p>
             </div>
-            <div class="story-image">
+            <div class="story-image" appAos="fade-left" [aosDelay]="100" [aosDuration]="900">
               <img src="assets/50b4e409-17ee-4f74-9197-779f9aeada34.png" alt="GVA Verkaufer Auto Transport">
             </div>
           </div>
 
           <div class="values-section">
-            <h3>{{ t('about.values_h3') }}</h3>
+            <h3 appAos="fade-up" [aosDuration]="750">{{ t('about.values_h3') }}</h3>
             <div class="values-grid">
-              <div class="value-card">
+              <div class="value-card" appAos="scale-up" [aosDelay]="0"   [aosDuration]="700">
                 <div class="value-icon"><mat-icon>inventory_2</mat-icon></div>
                 <h4>{{ t('about.v1_title') }}</h4>
                 <p>{{ t('about.v1_text') }}</p>
               </div>
-              <div class="value-card">
+              <div class="value-card" appAos="scale-up" [aosDelay]="100" [aosDuration]="700">
                 <div class="value-icon"><mat-icon>handshake</mat-icon></div>
                 <h4>{{ t('about.v2_title') }}</h4>
                 <p>{{ t('about.v2_text') }}</p>
               </div>
-              <div class="value-card">
+              <div class="value-card" appAos="scale-up" [aosDelay]="200" [aosDuration]="700">
                 <div class="value-icon"><mat-icon>security</mat-icon></div>
                 <h4>{{ t('about.v3_title') }}</h4>
                 <p>{{ t('about.v3_text') }}</p>
               </div>
-              <div class="value-card">
+              <div class="value-card" appAos="scale-up" [aosDelay]="300" [aosDuration]="700">
                 <div class="value-icon"><mat-icon>verified_user</mat-icon></div>
                 <h4>{{ t('about.v4_title') }}</h4>
                 <p>{{ t('about.v4_text') }}</p>

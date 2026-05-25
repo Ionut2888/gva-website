@@ -2,6 +2,7 @@ import { Component, signal, inject } from '@angular/core';
 import { CommonModule, DOCUMENT } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { TranslocoModule } from '@jsverse/transloco';
+import { AnimateOnScrollDirective } from '../../directives/animate-on-scroll.directive';
 
 interface FleetImage {
   id: number;
@@ -14,7 +15,7 @@ interface FleetImage {
 @Component({
   selector: 'app-fleet',
   standalone: true,
-  imports: [CommonModule, MatIconModule, TranslocoModule],
+  imports: [CommonModule, MatIconModule, TranslocoModule, AnimateOnScrollDirective],
   templateUrl: './fleet.component.html',
   styleUrls: ['./fleet.component.scss']
 })

@@ -1,4 +1,23 @@
 /* ═══════════════════════
+   HERO ENTRANCE — staggered CSS-only (above the fold, no IntersectionObserver needed)
+   ═══════════════════════ */
+@keyframes gva-up {
+  from { opacity: 0; transform: translateY(36px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes gva-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+.hero-badge      { animation: gva-up  0.65s cubic-bezier(0.22,1,0.36,1) 0.05s both; }
+.hero-content h1 { animation: gva-up  0.80s cubic-bezier(0.22,1,0.36,1) 0.18s both; }
+.hero-subtitle   { animation: gva-up  0.65s cubic-bezier(0.22,1,0.36,1) 0.33s both; }
+.hero-features   { animation: gva-up  0.65s cubic-bezier(0.22,1,0.36,1) 0.48s both; }
+.hero-buttons    { animation: gva-up  0.65s cubic-bezier(0.22,1,0.36,1) 0.62s both; }
+
+/* ═══════════════════════
    HOME — HERO (full-bleed background)
    ═══════════════════════ */
 

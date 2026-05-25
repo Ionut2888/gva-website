@@ -5,6 +5,7 @@ import { MatIconModule } from '@angular/material/icon';
 import emailjs from '@emailjs/browser';
 import { EMAILJS_CONFIG } from '../../emailjs.config';
 import { TranslocoModule, TranslocoService } from '@jsverse/transloco';
+import { AnimateOnScrollDirective } from '../../directives/animate-on-scroll.directive';
 
 interface ContactForm {
   name: string;
@@ -18,7 +19,7 @@ interface ContactForm {
 @Component({
   selector: 'app-contact',
   standalone: true,
-  imports: [CommonModule, FormsModule, MatIconModule, TranslocoModule],
+  imports: [CommonModule, FormsModule, MatIconModule, TranslocoModule, AnimateOnScrollDirective],
   templateUrl: './contact.component.html',
   styleUrls: ['./contact.component.scss']
 })
