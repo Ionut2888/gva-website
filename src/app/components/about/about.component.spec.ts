@@ -1,4 +1,5 @@
 import { TestBed } from '@angular/core/testing';
+import { provideHttpClient } from '@angular/common/http';
 import { TranslocoTestingModule } from '@jsverse/transloco';
 import { AboutComponent } from './about.component';
 
@@ -8,6 +9,7 @@ describe('AboutComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [AboutComponent, translocoTesting],
+      providers: [provideHttpClient()],
     }).compileComponents();
   });
 

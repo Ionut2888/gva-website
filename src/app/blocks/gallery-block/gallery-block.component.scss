@@ -1,0 +1,95 @@
+.container {
+  max-width: var(--mw);
+  margin: 0 auto;
+  padding: 0 var(--s4);
+  @media (max-width: 768px) { padding: 0 var(--s3); }
+}
+
+.fleet-gallery { margin-bottom: var(--s10); }
+
+.gallery-header {
+  text-align: center;
+  margin-bottom: var(--s6);
+
+  h3 {
+    font-family: var(--fh);
+    font-size: clamp(1.375rem, 2vw, 1.875rem);
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: var(--s2);
+    letter-spacing: -0.02em;
+  }
+
+  p { font-family: var(--fb); color: var(--text-muted); font-size: 1rem; }
+}
+
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--s3);
+  > * { min-width: 0; }
+  @media (max-width: 900px) { grid-template-columns: repeat(2, 1fr); }
+  @media (max-width: 768px) { grid-template-columns: 1fr; }
+}
+
+.gallery-item {
+  border: 1px solid var(--border);
+  border-radius: var(--r-sm);
+  overflow: hidden;
+  cursor: zoom-in;
+  transition: border-color var(--t-base);
+  background: var(--white);
+
+  &:hover { border-color: var(--blue); img { transform: scale(1.03); } }
+
+  img { width: 100%; height: 240px; object-fit: cover; display: block; transition: transform 0.35s ease; }
+}
+
+.lightbox-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.9);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+  padding: var(--s4);
+  backdrop-filter: blur(4px);
+}
+
+.lightbox-content {
+  max-width: 90vw;
+  max-height: 90vh;
+  background: var(--white);
+  border-radius: var(--r-sm);
+  overflow: hidden;
+  position: relative;
+  border: 1px solid var(--border);
+}
+
+.close-btn {
+  position: absolute;
+  top: var(--s2); right: var(--s2);
+  background: rgba(16,28,46,0.7);
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: var(--r-sm);
+  width: 36px; height: 36px;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer;
+  z-index: 1;
+  transition: background var(--t-fast);
+
+  &:hover { background: var(--navy); }
+
+  mat-icon {
+    font-size: 18px !important; width: 18px !important;
+    height: 18px !important; color: var(--white);
+  }
+}
+
+.lightbox-content img {
+  width: 100%;
+  height: auto;
+  max-height: 85vh;
+  object-fit: contain;
+}

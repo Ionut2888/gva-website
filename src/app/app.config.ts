@@ -5,7 +5,7 @@ import { provideRouter, withInMemoryScrolling } from '@angular/router';
 import { routes } from './app.routes';
 import { provideClientHydration, withEventReplay } from '@angular/platform-browser';
 import { provideHttpClient } from '@angular/common/http';
-import { TranslocoHttpLoader } from './transloco-loader';
+import { SanityTranslocoLoader } from './sanity-transloco.loader';
 import { provideTransloco, TranslocoService } from '@jsverse/transloco';
 
 /** Preload the active language before Angular hydrates so *transloco renders
@@ -40,7 +40,7 @@ export const appConfig: ApplicationConfig = {
         reRenderOnLangChange: true,
         prodMode: !isDevMode(),
       },
-      loader: TranslocoHttpLoader,
+      loader: SanityTranslocoLoader,
     }),
     { provide: APP_INITIALIZER, useFactory: preloadTranslations, multi: true },
   ]

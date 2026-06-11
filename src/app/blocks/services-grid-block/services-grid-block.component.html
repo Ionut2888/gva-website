@@ -1,0 +1,19 @@
+<div class="container">
+  <div class="services-grid">
+    @for (card of block.cards; track card._key; let i = $index) {
+      <div class="service-card" [class.featured]="card.featured"
+           appAos="scale-up" [aosDelay]="i * 100" [aosDuration]="1500">
+        <div class="service-icon"><mat-icon>{{ card.icon }}</mat-icon></div>
+        <h3>{{ card.title }}</h3>
+        <p>{{ card.text }}</p>
+        @if (card.features?.length) {
+          <ul class="service-features">
+            @for (f of card.features; track f._key) {
+              <li><mat-icon>check_circle</mat-icon> {{ f.text }}</li>
+            }
+          </ul>
+        }
+      </div>
+    }
+  </div>
+</div>
