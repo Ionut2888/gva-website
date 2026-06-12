@@ -90,6 +90,19 @@ export class SeoService {
       });
   }
 
+  /** Merges CMS seo fields from a Sanity page document with the static fallback. */
+  applyFromPage(page: { seo?: { metaTitle?: string; metaDescription?: string; keywords?: string }; title?: string } | null | undefined, route: string): void {
+    const staticConfig = PAGE_SEO[route];
+    if (!staticConfig && !page?.seo) return;
+    const merged: PageSeoConfig = {
+      ...(staticConfig ?? { title: page?.title ?? '', description: '' }),
+      ...(page?.seo?.metaTitle ? { title: page.seo.metaTitle } : {}),
+      ...(page?.seo?.metaDescription ? { description: page.seo.metaDescription } : {}),
+      ...(page?.seo?.keywords ? { keywords: page.seo.keywords } : {}),
+    };
+    this.apply(merged);
+  }
+
   apply(config: PageSeoConfig): void {
     this.title.setTitle(config.title);
     this.meta.updateTag({ name: 'description', content: config.description });

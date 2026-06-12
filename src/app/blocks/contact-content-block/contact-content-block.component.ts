@@ -1,11 +1,12 @@
-﻿import { Component, Input, OnInit, ViewChild, signal, inject, ViewEncapsulation } from '@angular/core';
+﻿import { Component, Input, ViewChild, signal, inject, ViewEncapsulation } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 import { SanityBlock } from '../block.types';
 import { FormsModule, NgForm } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
 import { TranslocoModule, TranslocoService } from '@jsverse/transloco';
-import emailjs from '@emailjs/browser';
-import { EMAILJS_CONFIG } from '../../emailjs.config';
 import { AnimateOnScrollDirective } from '../../directives/animate-on-scroll.directive';
+import { environment } from '../../../environments/environment';
+import { firstValueFrom } from 'rxjs';
 
 interface ContactForm {
   name: string; email: string; phone: string;
@@ -20,17 +21,16 @@ interface ContactForm {
   styleUrls: ['./contact-content-block.component.scss'],
   encapsulation: ViewEncapsulation.None,
 })
-export class ContactContentBlockComponent implements OnInit {
+export class ContactContentBlockComponent {
   @Input() block: SanityBlock;
   @ViewChild('contactForm') private contactForm!: NgForm;
 
+  private http = inject(HttpClient);
   private transloco = inject(TranslocoService);
 
   protected formData = signal<ContactForm>({ name: '', email: '', phone: '', company: '', service: '', message: '' });
   protected isSubmitting = signal(false);
   protected submitMessage = signal<{ type: string; text: string } | null>(null);
-
-  ngOnInit(): void { emailjs.init(EMAILJS_CONFIG.PUBLIC_KEY); }
 
   protected async submitForm(): Promise<void> {
     if (this.isSubmitting()) return;
@@ -38,11 +38,12 @@ export class ContactContentBlockComponent implements OnInit {
     this.submitMessage.set(null);
     const data = this.formData();
     try {
-      await emailjs.send(EMAILJS_CONFIG.SERVICE_ID, EMAILJS_CONFIG.TEMPLATE_ID, {
-        from_name: data.name, from_email: data.email, phone: data.phone,
-        company: data.company, service_type: data.service, message: data.message,
-        to_email: 'ionutgardu28@gmail.com',
-      });
+      await firstValueFrom(
+        this.http.post(`${environment.functionsBaseUrl}/contactForm`, {
+          name: data.name, email: data.email, phone: data.phone,
+          company: data.company, service: data.service, message: data.message,
+        })
+      );
       this.submitMessage.set({ type: 'success', text: this.transloco.translate('contact.success_msg') });
       const empty = { name: '', email: '', phone: '', company: '', service: '', message: '' };
       this.formData.set(empty);

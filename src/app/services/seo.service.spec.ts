@@ -180,4 +180,38 @@ describe('SeoService', () => {
       );
     });
   });
+
+  describe('applyFromPage()', () => {
+    it('should use CMS metaTitle when provided', () => {
+      const applySpy = spyOn(service, 'apply');
+      service.applyFromPage({ seo: { metaTitle: 'CMS Title' } }, '/home');
+      expect(applySpy).toHaveBeenCalledWith(jasmine.objectContaining({ title: 'CMS Title' }));
+    });
+
+    it('should use CMS metaDescription when provided', () => {
+      const applySpy = spyOn(service, 'apply');
+      service.applyFromPage({ seo: { metaDescription: 'CMS Desc' } }, '/home');
+      expect(applySpy).toHaveBeenCalledWith(jasmine.objectContaining({ description: 'CMS Desc' }));
+    });
+
+    it('should fall back to static config when no CMS seo provided', () => {
+      const applySpy = spyOn(service, 'apply');
+      service.applyFromPage({ title: 'Page' }, '/home');
+      expect(applySpy).toHaveBeenCalledWith(
+        jasmine.objectContaining({ canonical: 'https://www.gvaverkaufer.ro/home' })
+      );
+    });
+
+    it('should do nothing when no static config and no seo', () => {
+      const applySpy = spyOn(service, 'apply');
+      service.applyFromPage({ title: 'Page' }, '/unknown');
+      expect(applySpy).not.toHaveBeenCalled();
+    });
+
+    it('should handle null page gracefully', () => {
+      const applySpy = spyOn(service, 'apply');
+      service.applyFromPage(null, '/home');
+      expect(applySpy).toHaveBeenCalled();
+    });
+  });
 });

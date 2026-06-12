@@ -3,11 +3,12 @@ import { RouterOutlet } from '@angular/router';
 import { MatIconModule } from '@angular/material/icon';
 import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
+import { CookieConsentComponent } from './components/cookie-consent/cookie-consent.component';
 import { SeoService } from './services/seo.service';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, MatIconModule, HeaderComponent, FooterComponent],
+  imports: [RouterOutlet, MatIconModule, HeaderComponent, FooterComponent, CookieConsentComponent],
   templateUrl: './app.html',
   styleUrl: './app.scss'
 })
