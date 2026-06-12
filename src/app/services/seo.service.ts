@@ -130,6 +130,13 @@ export class SeoService {
     });
   }
 
+  injectBusinessSchema(data: Record<string, unknown>): void {
+    const script = this.doc.createElement('script');
+    script.setAttribute('type', 'application/ld+json');
+    script.textContent = JSON.stringify({ '@context': 'https://schema.org', ...data });
+    this.doc.head.appendChild(script);
+  }
+
   private updateCanonical(url: string): void {
     if (!isPlatformBrowser(this.platformId)) return;
     const existing = this.doc.querySelector('link[rel="canonical"]');

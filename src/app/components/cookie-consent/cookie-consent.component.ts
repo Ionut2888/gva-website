@@ -1,6 +1,8 @@
 import { Component, signal, inject, PLATFORM_ID, OnInit } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { RouterLink } from '@angular/router';
+import { AnalyticsService } from '../../services/analytics.service';
+import { environment } from '../../../environments/environment';
 
 const CONSENT_KEY = 'gva-cookie-consent';
 
@@ -13,6 +15,7 @@ const CONSENT_KEY = 'gva-cookie-consent';
 })
 export class CookieConsentComponent implements OnInit {
   private platformId = inject(PLATFORM_ID);
+  private analytics = inject(AnalyticsService);
   protected visible = signal(false);
 
   ngOnInit(): void {
@@ -26,6 +29,7 @@ export class CookieConsentComponent implements OnInit {
     if (!isPlatformBrowser(this.platformId)) return;
     localStorage.setItem(CONSENT_KEY, 'accepted');
     this.visible.set(false);
+    this.analytics.load(environment.googleAnalyticsId);
   }
 
   protected decline(): void {

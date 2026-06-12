@@ -10,7 +10,7 @@ describe('App', () => {
   let seoSpy: jasmine.SpyObj<SeoService>;
 
   beforeEach(async () => {
-    seoSpy = jasmine.createSpyObj('SeoService', ['init']);
+    seoSpy = jasmine.createSpyObj('SeoService', ['init', 'injectBusinessSchema']);
 
     await TestBed.configureTestingModule({
       imports: [App, translocoTesting],

@@ -26,7 +26,12 @@ describe('SeoService', () => {
 
     mockDoc = {
       querySelector: jasmine.createSpy('querySelector').and.returnValue(null),
-    };
+      createElement: jasmine.createSpy('createElement').and.callFake(() => ({
+        setAttribute: jasmine.createSpy('setAttribute'),
+        textContent: '',
+      })),
+      head: { appendChild: jasmine.createSpy('appendChild') } as unknown as HTMLHeadElement,
+    } as unknown as Partial<Document>;
 
     TestBed.configureTestingModule({
       providers: [
@@ -178,6 +183,25 @@ describe('SeoService', () => {
       expect(applySpy).toHaveBeenCalledOnceWith(
         jasmine.objectContaining({ canonical: 'https://www.gvaverkaufer.ro/contact' })
       );
+    });
+  });
+
+  describe('injectBusinessSchema()', () => {
+    it('should create a script element with type application/ld+json', () => {
+      service.injectBusinessSchema({ '@type': 'LocalBusiness', name: 'Test Co' });
+      expect(mockDoc.createElement).toHaveBeenCalledWith('script');
+    });
+
+    it('should append the script to document head', () => {
+      service.injectBusinessSchema({ '@type': 'LocalBusiness', name: 'Test Co' });
+      expect(mockDoc.head?.appendChild).toHaveBeenCalled();
+    });
+
+    it('should set @context to https://schema.org', () => {
+      const el = { setAttribute: jasmine.createSpy(), textContent: '' };
+      (mockDoc.createElement as jasmine.Spy).and.returnValue(el);
+      service.injectBusinessSchema({ '@type': 'LocalBusiness' });
+      expect(JSON.parse(el.textContent)['@context']).toBe('https://schema.org');
     });
   });
 
