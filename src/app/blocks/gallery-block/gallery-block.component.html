@@ -12,7 +12,9 @@
              (click)="openLightbox(image)"
              (keyup.enter)="openLightbox(image)"
              (keyup.space)="openLightbox(image)">
-          <img [src]="image.src" [alt]="image.alt" loading="lazy">
+          <img [src]="image.src | sanitySrc:768" [srcset]="image.src | sanitySrcset"
+               sizes="(max-width: 600px) 100vw, (max-width: 1024px) 50vw, 33vw"
+               [alt]="image.alt" loading="lazy" decoding="async">
         </div>
       }
     </div>
@@ -30,7 +32,7 @@
         <button class="close-btn" (click)="closeLightbox()">
           <mat-icon>close</mat-icon>
         </button>
-        <img [src]="selectedImage()!.src" [alt]="selectedImage()!.alt">
+        <img [src]="selectedImage()!.src | sanitySrc:1366" [alt]="selectedImage()!.alt" decoding="async">
       </div>
     </div>
   }

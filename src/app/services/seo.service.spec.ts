@@ -237,5 +237,31 @@ describe('SeoService', () => {
       service.applyFromPage(null, '/home');
       expect(applySpy).toHaveBeenCalled();
     });
+
+    it('should resolve CMS ogImage ref to an og:image URL', () => {
+      const applySpy = spyOn(service, 'apply');
+      service.applyFromPage(
+        { seo: { ogImage: { asset: { _ref: 'image-abc123-1200x630-jpg' } } } },
+        '/home',
+      );
+      expect(applySpy).toHaveBeenCalledWith(
+        jasmine.objectContaining({ ogImage: jasmine.stringMatching(/abc123-1200x630\.jpg$/) }),
+      );
+    });
+
+    it('should not set ogImage when CMS ref is absent', () => {
+      const applySpy = spyOn(service, 'apply');
+      service.applyFromPage({ seo: { metaTitle: 'X' } }, '/home');
+      const arg = applySpy.calls.mostRecent().args[0];
+      expect(arg.ogImage).toBeUndefined();
+    });
+  });
+
+  describe('apply() og:image', () => {
+    it('sets og:image and twitter:image when ogImage provided', () => {
+      service.apply({ title: 'T', description: 'D', ogImage: 'https://cdn.sanity.io/x.jpg' });
+      expect(metaSpy.updateTag).toHaveBeenCalledWith({ property: 'og:image', content: 'https://cdn.sanity.io/x.jpg' });
+      expect(metaSpy.updateTag).toHaveBeenCalledWith({ name: 'twitter:image', content: 'https://cdn.sanity.io/x.jpg' });
+    });
   });
 });

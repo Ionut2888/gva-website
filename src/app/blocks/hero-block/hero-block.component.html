@@ -3,7 +3,8 @@
   <div class="hero-bg" #heroBg>
     @for (slide of block.slides; track slide._key; let i = $index) {
       <div class="slide" [class.active]="i === currentSlide()">
-        <img [src]="slide.src" [alt]="slide.alt"
+        <img [src]="slide.src | sanitySrc:1920" [srcset]="slide.src | sanitySrcset"
+             sizes="100vw" [alt]="slide.alt" decoding="async"
              [loading]="i === 0 ? 'eager' : 'lazy'"
              [attr.fetchpriority]="i === 0 ? 'high' : null">
       </div>
