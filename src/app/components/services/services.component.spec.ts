@@ -1,4 +1,5 @@
 import { TestBed } from '@angular/core/testing';
+import { provideHttpClient } from '@angular/common/http';
 import { provideRouter } from '@angular/router';
 import { TranslocoTestingModule } from '@jsverse/transloco';
 import { ServicesComponent } from './services.component';
@@ -9,7 +10,7 @@ describe('ServicesComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [ServicesComponent, translocoTesting],
-      providers: [provideRouter([])],
+      providers: [provideHttpClient(), provideRouter([])],
     }).compileComponents();
   });
 

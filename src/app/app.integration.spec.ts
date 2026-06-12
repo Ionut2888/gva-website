@@ -1,6 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 import { Router, provideRouter } from '@angular/router';
 import { importProvidersFrom } from '@angular/core';
+import { provideHttpClient } from '@angular/common/http';
 import { RouterTestingHarness } from '@angular/router/testing';
 import { TranslocoTestingModule } from '@jsverse/transloco';
 import { routes } from './app.routes';
@@ -22,6 +23,7 @@ describe('App routing (integration)', () => {
     await TestBed.configureTestingModule({
       providers: [
         provideRouter(routes),
+        provideHttpClient(),
         { provide: SeoService, useValue: seoSpy },
         importProvidersFrom(
           TranslocoTestingModule.forRoot({ langs: { ro: {} }, translocoConfig: { defaultLang: 'ro' } })

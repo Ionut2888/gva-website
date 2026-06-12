@@ -8,8 +8,14 @@
 
 # Node
 /node_modules
+**/node_modules
 npm-debug.log
 yarn-error.log
+
+# Sanity Studio generated/cache files
+studio/.sanity/
+studio/dist/
+studio/.env.local
 
 # IDEs and editors
 .idea/

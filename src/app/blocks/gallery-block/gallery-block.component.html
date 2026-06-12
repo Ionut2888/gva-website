@@ -1,0 +1,37 @@
+<div class="container">
+  <div class="fleet-gallery">
+    <div class="gallery-header" appAos="fade-up" [aosDelay]="50" [aosDuration]="1500">
+      <h3>{{ block.heading }}</h3>
+      <p>{{ block.subtitle }}</p>
+    </div>
+
+    <div class="gallery-grid">
+      @for (image of block.images; track image._key) {
+        <div class="gallery-item"
+             role="button" tabindex="0"
+             (click)="openLightbox(image)"
+             (keyup.enter)="openLightbox(image)"
+             (keyup.space)="openLightbox(image)">
+          <img [src]="image.src" [alt]="image.alt" loading="lazy">
+        </div>
+      }
+    </div>
+  </div>
+
+  @if (selectedImage()) {
+    <div class="lightbox-overlay"
+         role="button" tabindex="0"
+         (click)="closeLightbox()"
+         (keyup.escape)="closeLightbox()">
+      <div class="lightbox-content"
+           role="document" tabindex="0"
+           (click)="$event.stopPropagation()"
+           (keyup)="$event.stopPropagation()">
+        <button class="close-btn" (click)="closeLightbox()">
+          <mat-icon>close</mat-icon>
+        </button>
+        <img [src]="selectedImage()!.src" [alt]="selectedImage()!.alt">
+      </div>
+    </div>
+  }
+</div>

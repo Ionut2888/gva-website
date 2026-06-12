@@ -1,0 +1,146 @@
+<ng-container *transloco="let t">
+<div class="container">
+  <div class="contact-content">
+    <!-- Info cards (content from Sanity block) -->
+    <div class="contact-info" appAos="fade-right" [aosDuration]="1800">
+      <div class="info-card">
+        <div class="info-icon"><mat-icon>inventory_2</mat-icon></div>
+        <div class="info-content">
+          <h3>{{ block.commercialTitle }}</h3>
+          <p>{{ block.commercialP1 }}</p>
+          <p>{{ block.commercialP2 }}</p>
+        </div>
+      </div>
+      <div class="info-card">
+        <div class="info-icon"><mat-icon>phone</mat-icon></div>
+        <div class="info-content">
+          <h3>{{ block.phoneTitle }}</h3>
+          <p><a href="tel:+40745852977">+40 745 852 977</a></p>
+          <p>{{ block.phoneHours }}</p>
+        </div>
+      </div>
+      <div class="info-card">
+        <div class="info-icon"><mat-icon>email</mat-icon></div>
+        <div class="info-content">
+          <h3>{{ block.emailTitle }}</h3>
+          <p><a href="mailto:auto@gvaverkaufer.ro">auto&#64;gvaverkaufer.ro</a></p>
+          <p>{{ block.emailResponse }}</p>
+        </div>
+      </div>
+      <div class="info-card">
+        <div class="info-icon"><mat-icon>location_on</mat-icon></div>
+        <div class="info-content">
+          <h3>{{ block.coverageTitle }}</h3>
+          <p>{{ block.coverageP1 }}</p>
+          <p>{{ block.coverageP2 }}</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Contact form (UI strings from Transloco) -->
+    <div class="contact-form-container" appAos="fade-left" [aosDelay]="120" [aosDuration]="1800">
+      <div class="form-header">
+        <h3>{{ block.formHeading }}</h3>
+        <p>{{ block.formSubtitle }}</p>
+      </div>
+
+      <form class="contact-form" (ngSubmit)="submitForm()" #contactForm="ngForm">
+        <div class="form-row">
+          <div class="form-group">
+            <label for="name">{{ t('contact.name_label') }}</label>
+            <input type="text" id="name" name="name" [(ngModel)]="formData().name"
+                   required [placeholder]="t('contact.name_placeholder')" #name="ngModel">
+            @if (name.invalid && name.touched) {
+              <span class="error">{{ t('contact.name_error') }}</span>
+            }
+          </div>
+          <div class="form-group">
+            <label for="company">{{ t('contact.company_label') }}</label>
+            <input type="text" id="company" name="company" [(ngModel)]="formData().company"
+                   required [placeholder]="t('contact.company_placeholder')">
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="email">{{ t('contact.email_label') }}</label>
+            <input type="email" id="email" name="email" [(ngModel)]="formData().email"
+                   required email [placeholder]="t('contact.email_placeholder')" #email="ngModel">
+            @if (email.invalid && email.touched) {
+              <span class="error">
+                @if (email.errors?.['required']) { {{ t('contact.email_error_required') }} }
+                @else if (email.errors?.['email']) { {{ t('contact.email_error_invalid') }} }
+              </span>
+            }
+          </div>
+          <div class="form-group">
+            <label for="phone">{{ t('contact.phone_label') }}</label>
+            <input type="tel" id="phone" name="phone" [(ngModel)]="formData().phone"
+                   required [placeholder]="t('contact.phone_placeholder')" #phone="ngModel">
+            @if (phone.invalid && phone.touched) {
+              <span class="error">{{ t('contact.phone_error') }}</span>
+            }
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="service">{{ t('contact.service_label') }}</label>
+            <select id="service" name="service" [(ngModel)]="formData().service"
+                    required #service="ngModel">
+              <option value="">{{ t('contact.service_default') }}</option>
+              <option value="dealer">{{ t('contact.service_dealer') }}</option>
+              <option value="import">{{ t('contact.service_import') }}</option>
+              <option value="fleet">{{ t('contact.service_fleet') }}</option>
+              <option value="producator">{{ t('contact.service_producer') }}</option>
+              <option value="licitatie">{{ t('contact.service_auction') }}</option>
+              <option value="contract">{{ t('contact.service_contract') }}</option>
+            </select>
+            @if (service.invalid && service.touched) {
+              <span class="error">{{ t('contact.service_error') }}</span>
+            }
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="message">{{ t('contact.message_label') }}</label>
+          <textarea id="message" name="message" [(ngModel)]="formData().message"
+                    rows="4" [placeholder]="t('contact.message_placeholder')"></textarea>
+        </div>
+
+        @if (submitMessage()) {
+          <div class="submit-message" [class]="submitMessage()?.type">{{ submitMessage()?.text }}</div>
+        }
+
+        <button type="submit" class="btn btn-primary"
+                [disabled]="contactForm.invalid || isSubmitting()"
+                [class.loading]="isSubmitting()">
+          @if (isSubmitting()) {
+            <span class="loading-spinner"></span> {{ t('contact.submit_loading') }}
+          } @else {
+            {{ t('contact.submit_idle') }}
+          }
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Benefits (content from Sanity block) -->
+  <div class="additional-info">
+    <div class="info-section">
+      <h3>{{ block.benefitsHeading }}</h3>
+      <div class="benefits-grid">
+        @for (b of block.benefits; track b._key) {
+          <div class="benefit">
+            <mat-icon>{{ b.icon }}</mat-icon>
+            <div>
+              <h4>{{ b.title }}</h4>
+              <p>{{ b.text }}</p>
+            </div>
+          </div>
+        }
+      </div>
+    </div>
+  </div>
+</div>
+</ng-container>

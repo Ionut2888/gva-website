@@ -1,16 +1,16 @@
-import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { MatIconModule } from '@angular/material/icon';
-import { RouterLink } from '@angular/router';
-import { TranslocoModule } from '@jsverse/transloco';
+import { Component, inject } from '@angular/core';
+import { toSignal } from '@angular/core/rxjs-interop';
+import { PageService } from '../../services/page.service';
+import { BlockRendererComponent } from '../../blocks/block-renderer.component';
 
 @Component({
   selector: 'app-services',
   standalone: true,
-  imports: [CommonModule, MatIconModule, RouterLink, TranslocoModule],
+  imports: [BlockRendererComponent],
   templateUrl: './services.component.html',
-  styleUrls: ['./services.component.scss']
+  styleUrls: ['./services.component.scss'],
 })
 export class ServicesComponent {
-
+  private pageService = inject(PageService);
+  protected readonly page = toSignal(this.pageService.getPageOnLangChange('services'));
 }

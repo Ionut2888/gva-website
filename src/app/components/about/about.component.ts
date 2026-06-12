@@ -1,13 +1,16 @@
-import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { MatIconModule } from '@angular/material/icon';
-import { TranslocoModule } from '@jsverse/transloco';
+import { Component, inject } from '@angular/core';
+import { toSignal } from '@angular/core/rxjs-interop';
+import { PageService } from '../../services/page.service';
+import { BlockRendererComponent } from '../../blocks/block-renderer.component';
 
 @Component({
   selector: 'app-about',
   standalone: true,
-  imports: [CommonModule, MatIconModule, TranslocoModule],
+  imports: [BlockRendererComponent],
   templateUrl: './about.component.html',
-  styleUrls: ['./about.component.scss']
+  styleUrls: ['./about.component.scss'],
 })
-export class AboutComponent {}
+export class AboutComponent {
+  private pageService = inject(PageService);
+  protected readonly page = toSignal(this.pageService.getPageOnLangChange('about'));
+}
