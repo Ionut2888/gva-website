@@ -8,11 +8,12 @@ import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { interval, Subscription } from 'rxjs';
 import { MagneticDirective } from '../../directives/magnetic.directive';
+import { SanitySrcPipe, SanitySrcsetPipe } from '../../pipes/sanity-img.pipe';
 
 @Component({
   selector: 'app-hero-block',
   standalone: true,
-  imports: [CommonModule, RouterLink, MagneticDirective],
+  imports: [CommonModule, RouterLink, MagneticDirective, SanitySrcPipe, SanitySrcsetPipe],
   templateUrl: './hero-block.component.html',
   styleUrls: ['./hero-block.component.scss'],
   encapsulation: ViewEncapsulation.None,

@@ -1,0 +1,18 @@
+@if (visible()) {
+  <div class="cookie-banner" role="dialog" aria-label="Cookie consent">
+    <div class="cookie-banner__content">
+      <p class="cookie-banner__text">
+        Folosim cookie-uri pentru a îmbunătăți experiența dvs. Continuând navigarea, acceptați utilizarea cookie-urilor.
+        <a routerLink="/cookies" class="cookie-banner__link">Politică cookie</a>
+      </p>
+      <div class="cookie-banner__actions">
+        <button class="cookie-banner__btn cookie-banner__btn--decline" (click)="decline()">
+          Doar esențiale
+        </button>
+        <button class="cookie-banner__btn cookie-banner__btn--accept" (click)="accept()">
+          Accept toate
+        </button>
+      </div>
+    </div>
+  </div>
+}

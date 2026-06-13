@@ -26,7 +26,12 @@ describe('SeoService', () => {
 
     mockDoc = {
       querySelector: jasmine.createSpy('querySelector').and.returnValue(null),
-    };
+      createElement: jasmine.createSpy('createElement').and.callFake(() => ({
+        setAttribute: jasmine.createSpy('setAttribute'),
+        textContent: '',
+      })),
+      head: { appendChild: jasmine.createSpy('appendChild') } as unknown as HTMLHeadElement,
+    } as unknown as Partial<Document>;
 
     TestBed.configureTestingModule({
       providers: [
@@ -178,6 +183,85 @@ describe('SeoService', () => {
       expect(applySpy).toHaveBeenCalledOnceWith(
         jasmine.objectContaining({ canonical: 'https://www.gvaverkaufer.ro/contact' })
       );
+    });
+  });
+
+  describe('injectBusinessSchema()', () => {
+    it('should create a script element with type application/ld+json', () => {
+      service.injectBusinessSchema({ '@type': 'LocalBusiness', name: 'Test Co' });
+      expect(mockDoc.createElement).toHaveBeenCalledWith('script');
+    });
+
+    it('should append the script to document head', () => {
+      service.injectBusinessSchema({ '@type': 'LocalBusiness', name: 'Test Co' });
+      expect(mockDoc.head?.appendChild).toHaveBeenCalled();
+    });
+
+    it('should set @context to https://schema.org', () => {
+      const el = { setAttribute: jasmine.createSpy(), textContent: '' };
+      (mockDoc.createElement as jasmine.Spy).and.returnValue(el);
+      service.injectBusinessSchema({ '@type': 'LocalBusiness' });
+      expect(JSON.parse(el.textContent)['@context']).toBe('https://schema.org');
+    });
+  });
+
+  describe('applyFromPage()', () => {
+    it('should use CMS metaTitle when provided', () => {
+      const applySpy = spyOn(service, 'apply');
+      service.applyFromPage({ seo: { metaTitle: 'CMS Title' } }, '/home');
+      expect(applySpy).toHaveBeenCalledWith(jasmine.objectContaining({ title: 'CMS Title' }));
+    });
+
+    it('should use CMS metaDescription when provided', () => {
+      const applySpy = spyOn(service, 'apply');
+      service.applyFromPage({ seo: { metaDescription: 'CMS Desc' } }, '/home');
+      expect(applySpy).toHaveBeenCalledWith(jasmine.objectContaining({ description: 'CMS Desc' }));
+    });
+
+    it('should fall back to static config when no CMS seo provided', () => {
+      const applySpy = spyOn(service, 'apply');
+      service.applyFromPage({ title: 'Page' }, '/home');
+      expect(applySpy).toHaveBeenCalledWith(
+        jasmine.objectContaining({ canonical: 'https://www.gvaverkaufer.ro/home' })
+      );
+    });
+
+    it('should do nothing when no static config and no seo', () => {
+      const applySpy = spyOn(service, 'apply');
+      service.applyFromPage({ title: 'Page' }, '/unknown');
+      expect(applySpy).not.toHaveBeenCalled();
+    });
+
+    it('should handle null page gracefully', () => {
+      const applySpy = spyOn(service, 'apply');
+      service.applyFromPage(null, '/home');
+      expect(applySpy).toHaveBeenCalled();
+    });
+
+    it('should resolve CMS ogImage ref to an og:image URL', () => {
+      const applySpy = spyOn(service, 'apply');
+      service.applyFromPage(
+        { seo: { ogImage: { asset: { _ref: 'image-abc123-1200x630-jpg' } } } },
+        '/home',
+      );
+      expect(applySpy).toHaveBeenCalledWith(
+        jasmine.objectContaining({ ogImage: jasmine.stringMatching(/abc123-1200x630\.jpg$/) }),
+      );
+    });
+
+    it('should not set ogImage when CMS ref is absent', () => {
+      const applySpy = spyOn(service, 'apply');
+      service.applyFromPage({ seo: { metaTitle: 'X' } }, '/home');
+      const arg = applySpy.calls.mostRecent().args[0];
+      expect(arg.ogImage).toBeUndefined();
+    });
+  });
+
+  describe('apply() og:image', () => {
+    it('sets og:image and twitter:image when ogImage provided', () => {
+      service.apply({ title: 'T', description: 'D', ogImage: 'https://cdn.sanity.io/x.jpg' });
+      expect(metaSpy.updateTag).toHaveBeenCalledWith({ property: 'og:image', content: 'https://cdn.sanity.io/x.jpg' });
+      expect(metaSpy.updateTag).toHaveBeenCalledWith({ name: 'twitter:image', content: 'https://cdn.sanity.io/x.jpg' });
     });
   });
 });

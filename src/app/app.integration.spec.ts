@@ -68,9 +68,11 @@ describe('App routing (integration)', () => {
     expect(harness.routeDebugElement?.componentInstance).toBeInstanceOf(ContactComponent);
   });
 
-  it('navigating to an unknown route should redirect to "/home"', async () => {
-    await RouterTestingHarness.create('/this-route-does-not-exist');
+  it('navigating to an unknown route should show the 404 page (URL preserved)', async () => {
+    const { NotFoundComponent } = await import('./components/not-found/not-found.component');
+    const harness = await RouterTestingHarness.create('/this-route-does-not-exist');
     const router = TestBed.inject(Router);
-    expect(router.url).toBe('/home');
+    expect(harness.routeDebugElement?.componentInstance).toBeInstanceOf(NotFoundComponent);
+    expect(router.url).toBe('/this-route-does-not-exist');
   });
 });

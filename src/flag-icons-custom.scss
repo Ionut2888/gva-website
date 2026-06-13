@@ -1,0 +1,4 @@
+@use 'flag-icons/sass/flag-icons' with (
+  $flag-icons-use-square: false,
+  $flag-icons-included-countries: ('xx', 'ro', 'de', 'gb', 'fr', 'es', 'hu', 'it', 'nl')
+);

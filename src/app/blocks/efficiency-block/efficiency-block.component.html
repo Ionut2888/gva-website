@@ -3,7 +3,9 @@
     <div class="efficiency-grid">
 
       <div class="efficiency-image" appAos="fade-right" [aosDuration]="1800">
-        <img [src]="block.imageSrc" [alt]="block.imageAlt" loading="lazy">
+        <img [src]="block.imageSrc | sanitySrc:1024" [srcset]="block.imageSrc | sanitySrcset"
+             sizes="(max-width: 768px) 100vw, 50vw"
+             [alt]="block.imageAlt" loading="lazy" decoding="async">
       </div>
 
       <div class="efficiency-text" appAos="fade-left" [aosDelay]="120" [aosDuration]="1800">

@@ -3,11 +3,12 @@ import { SanityBlock } from '../block.types';
 import { DOCUMENT } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { AnimateOnScrollDirective } from '../../directives/animate-on-scroll.directive';
+import { SanitySrcPipe, SanitySrcsetPipe } from '../../pipes/sanity-img.pipe';
 
 @Component({
   selector: 'app-gallery-block',
   standalone: true,
-  imports: [MatIconModule, AnimateOnScrollDirective],
+  imports: [MatIconModule, AnimateOnScrollDirective, SanitySrcPipe, SanitySrcsetPipe],
   templateUrl: './gallery-block.component.html',
   styleUrls: ['./gallery-block.component.scss'],
   encapsulation: ViewEncapsulation.None,

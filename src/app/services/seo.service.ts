@@ -4,6 +4,8 @@ import { Title, Meta } from '@angular/platform-browser';
 import { DOCUMENT } from '@angular/common';
 import { Router, NavigationEnd } from '@angular/router';
 import { filter } from 'rxjs/operators';
+import { SANITY_CONFIG } from '../sanity.config';
+import { sanityImageUrlFromRef } from '../utils/sanity-image.util';
 
 export interface PageSeoConfig {
   title: string;
@@ -12,6 +14,11 @@ export interface PageSeoConfig {
   canonical?: string;
   ogTitle?: string;
   ogDescription?: string;
+  ogImage?: string;
+}
+
+interface SanityImageRef {
+  asset?: { _ref?: string };
 }
 
 const PAGE_SEO: Record<string, PageSeoConfig> = {
@@ -90,6 +97,25 @@ export class SeoService {
       });
   }
 
+  /** Merges CMS seo fields from a Sanity page document with the static fallback. */
+  applyFromPage(page: { seo?: { metaTitle?: string; metaDescription?: string; keywords?: string; ogImage?: SanityImageRef }; title?: string } | null | undefined, route: string): void {
+    const staticConfig = PAGE_SEO[route];
+    if (!staticConfig && !page?.seo) return;
+    const ogImageUrl = sanityImageUrlFromRef(
+      page?.seo?.ogImage?.asset?._ref,
+      SANITY_CONFIG.projectId,
+      SANITY_CONFIG.dataset,
+    );
+    const merged: PageSeoConfig = {
+      ...(staticConfig ?? { title: page?.title ?? '', description: '' }),
+      ...(page?.seo?.metaTitle ? { title: page.seo.metaTitle } : {}),
+      ...(page?.seo?.metaDescription ? { description: page.seo.metaDescription } : {}),
+      ...(page?.seo?.keywords ? { keywords: page.seo.keywords } : {}),
+      ...(ogImageUrl ? { ogImage: ogImageUrl } : {}),
+    };
+    this.apply(merged);
+  }
+
   apply(config: PageSeoConfig): void {
     this.title.setTitle(config.title);
     this.meta.updateTag({ name: 'description', content: config.description });
@@ -108,6 +134,9 @@ export class SeoService {
       this.meta.updateTag({ property: 'og:url', content: config.canonical });
       this.updateCanonical(config.canonical);
     }
+    if (config.ogImage) {
+      this.meta.updateTag({ property: 'og:image', content: config.ogImage });
+    }
 
     // Twitter
     this.meta.updateTag({ name: 'twitter:title', content: config.ogTitle ?? config.title });
@@ -115,6 +144,16 @@ export class SeoService {
       name: 'twitter:description',
       content: config.ogDescription ?? config.description,
     });
+    if (config.ogImage) {
+      this.meta.updateTag({ name: 'twitter:image', content: config.ogImage });
+    }
+  }
+
+  injectBusinessSchema(data: Record<string, unknown>): void {
+    const script = this.doc.createElement('script');
+    script.setAttribute('type', 'application/ld+json');
+    script.textContent = JSON.stringify({ '@context': 'https://schema.org', ...data });
+    this.doc.head.appendChild(script);
   }
 
   private updateCanonical(url: string): void {

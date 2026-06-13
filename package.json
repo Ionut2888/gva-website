@@ -4,6 +4,9 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
+    "generate:sitemap": "node scripts/generate-sitemap.mjs",
+    "scaffold:block": "node scripts/scaffold-block.mjs",
+    "prebuild": "node scripts/generate-sitemap.mjs",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
@@ -39,6 +42,7 @@
     "@angular/ssr": "^20.3.4",
     "@emailjs/browser": "^4.4.1",
     "@jsverse/transloco": "^8.3.0",
+    "@sentry/angular": "^10.57.0",
     "express": "^5.1.0",
     "flag-icons": "^7.5.0",
     "rxjs": "~7.8.0",

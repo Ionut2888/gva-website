@@ -37,5 +37,8 @@ export const routes: Routes = [
     loadComponent: () => import('./components/legal/legal.component').then(m => m.LegalComponent),
     data: { page: 'cookies' }
   },
-  { path: '**', redirectTo: '/home' }
+  {
+    path: '**',
+    loadComponent: () => import('./components/not-found/not-found.component').then(m => m.NotFoundComponent)
+  }
 ];

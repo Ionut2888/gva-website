@@ -34,13 +34,14 @@ import { AnimateOnScrollDirective } from '../../directives/animate-on-scroll.dir
     }
     .page-banner .container { position: relative; z-index: 2; }
     .page-banner .section-header { margin-bottom: 0; text-align: center; }
-    .page-banner .section-header h2 {
+    .page-banner .section-header h1 {
       color: var(--white);
       font-size: clamp(2rem, 4vw, 3.25rem);
       letter-spacing: -0.03em;
       font-weight: 800;
+      margin: 0;
     }
-    .page-banner .section-header h2::after { display: none; }
+    .page-banner .section-header h1::after { display: none; }
     .page-banner .section-subtitle {
       color: var(--navy-dim);
       max-width: 580px;
@@ -51,7 +52,7 @@ import { AnimateOnScrollDirective } from '../../directives/animate-on-scroll.dir
     <div class="page-banner">
       <div class="container">
         <div class="section-header">
-          <h2 appAos="fade-up" [aosDuration]="1600">{{ block.heading }}</h2>
+          <h1 appAos="fade-up" [aosDuration]="1600">{{ block.heading }}</h1>
           <p class="section-subtitle" appAos="fade-up" [aosDelay]="150" [aosDuration]="1400">{{ block.subtitle }}</p>
         </div>
       </div>

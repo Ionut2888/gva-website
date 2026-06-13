@@ -51,8 +51,9 @@ Thumbs.db
 # Exclude embedded git repository
 GVA/
 
-# Claude Code session data
-.claude/
+# Claude Code session data (keep shared agents, ignore local settings/state)
+.claude/*
+!.claude/agents/
 
 # OpenWolf design captures (generated, not source)
 .wolf/designqc-captures/

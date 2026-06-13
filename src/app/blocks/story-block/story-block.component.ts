@@ -1,11 +1,12 @@
 ﻿import { Component, Input, ViewEncapsulation } from '@angular/core';
 import { SanityBlock } from '../block.types';
 import { AnimateOnScrollDirective } from '../../directives/animate-on-scroll.directive';
+import { SanitySrcPipe, SanitySrcsetPipe } from '../../pipes/sanity-img.pipe';
 
 @Component({
   selector: 'app-story-block',
   standalone: true,
-  imports: [AnimateOnScrollDirective],
+  imports: [AnimateOnScrollDirective, SanitySrcPipe, SanitySrcsetPipe],
   encapsulation: ViewEncapsulation.None,
   styles: [`
     .about-story {
@@ -51,7 +52,9 @@ import { AnimateOnScrollDirective } from '../../directives/animate-on-scroll.dir
           <p>{{ block.p2 }}</p>
         </div>
         <div class="story-image" appAos="fade-left" [aosDelay]="100" [aosDuration]="1800">
-          <img [src]="block.imageSrc" [alt]="block.imageAlt" loading="lazy">
+          <img [src]="block.imageSrc | sanitySrc:1024" [srcset]="block.imageSrc | sanitySrcset"
+               sizes="(max-width: 768px) 100vw, 50vw"
+               [alt]="block.imageAlt" loading="lazy" decoding="async">
         </div>
       </div>
     </div>

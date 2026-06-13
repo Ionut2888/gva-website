@@ -1,12 +1,22 @@
-import { ApplicationConfig, provideBrowserGlobalErrorListeners, provideZoneChangeDetection, isDevMode, APP_INITIALIZER, inject, PLATFORM_ID } from '@angular/core';
+import { ApplicationConfig, provideBrowserGlobalErrorListeners, provideZoneChangeDetection, isDevMode, APP_INITIALIZER, inject, PLATFORM_ID, ErrorHandler } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
-import { provideRouter, withInMemoryScrolling } from '@angular/router';
+import { provideRouter, withInMemoryScrolling, Router } from '@angular/router';
+import * as Sentry from '@sentry/angular';
+import { environment } from '../environments/environment';
 
 import { routes } from './app.routes';
 import { provideClientHydration, withEventReplay } from '@angular/platform-browser';
 import { provideHttpClient } from '@angular/common/http';
 import { SanityTranslocoLoader } from './sanity-transloco.loader';
 import { provideTransloco, TranslocoService } from '@jsverse/transloco';
+
+if (environment.sentryDsn) {
+  Sentry.init({
+    dsn: environment.sentryDsn,
+    tracesSampleRate: 0.1,
+    integrations: [Sentry.browserTracingIntegration()],
+  });
+}
 
 /** Preload the active language before Angular hydrates so *transloco renders
  *  synchronously and matches the SSR DOM — preventing hydration crashes. */
@@ -28,6 +38,12 @@ function preloadTranslations() {
 
 export const appConfig: ApplicationConfig = {
   providers: [
+    ...(environment.sentryDsn ? [
+      { provide: ErrorHandler, useValue: Sentry.createErrorHandler() },
+      { provide: Sentry.TraceService, deps: [Router] },
+      // eslint-disable-next-line @typescript-eslint/no-empty-function
+      { provide: APP_INITIALIZER, useFactory: () => () => {}, deps: [Sentry.TraceService], multi: true },
+    ] : []),
     provideBrowserGlobalErrorListeners(),
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(routes, withInMemoryScrolling({ scrollPositionRestoration: 'top' })),
