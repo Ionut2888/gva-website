@@ -11,16 +11,29 @@
  * Idempotent: skips a file that already references the block. If an anchor has
  * moved, it prints the exact snippet to paste instead of corrupting the file.
  *
+ * Two modes:
+ *   Full (default) — generates a GENERIC placeholder block (heading + items)
+ *     plus its schema, plus all 4 registrations. Good for a quick start you
+ *     then heavily edit.
+ *   --wire-only   — does ONLY the registration of an EXISTING block (index +
+ *     pageSchema + block-renderer). Use this when you (or the @new-block agent)
+ *     have already hand-written a CUSTOM component + schema and just need the
+ *     error-prone wiring done reliably. Does NOT touch blockSchemas.ts or
+ *     create component/spec files.
+ *
  * Usage:  node scripts/scaffold-block.mjs <block-name>
+ *         node scripts/scaffold-block.mjs --wire-only <block-name>
  *   e.g.  node scripts/scaffold-block.mjs testimonials
- *         node scripts/scaffold-block.mjs "Logo Wall"
+ *         node scripts/scaffold-block.mjs --wire-only testimonials
  */
 
 import { readFileSync, writeFileSync, existsSync, mkdirSync } from 'fs';
 
-const raw = process.argv[2];
+const args = process.argv.slice(2);
+const wireOnly = args.includes('--wire-only');
+const raw = args.find((a) => !a.startsWith('--'));
 if (!raw) {
-  console.error('Usage: node scripts/scaffold-block.mjs <block-name>');
+  console.error('Usage: node scripts/scaffold-block.mjs [--wire-only] <block-name>');
   process.exit(1);
 }
 
@@ -43,32 +56,40 @@ const title = words.map((w) => w[0].toUpperCase() + w.slice(1)).join(' ') + ' Bl
 const DIR = `src/app/blocks/${folder}`;
 const report = [];
 
-// ── 1. Component + spec ───────────────────────────────────────────────────────
-if (existsSync(DIR)) {
-  report.push(`• component dir ${DIR} already exists — skipped`);
+// ── 1. Component + spec + schema (full mode only) ─────────────────────────────
+if (!wireOnly) {
+  if (existsSync(DIR)) {
+    report.push(`• component dir ${DIR} already exists — skipped`);
+  } else {
+    mkdirSync(DIR, { recursive: true });
+    writeFileSync(`${DIR}/${folder}.component.ts`, componentSrc());
+    writeFileSync(`${DIR}/${folder}.component.spec.ts`, specSrc());
+    report.push(`✔ created ${DIR}/${folder}.component.ts`);
+    report.push(`✔ created ${DIR}/${folder}.component.spec.ts`);
+  }
+  registerSchema();
 } else {
-  mkdirSync(DIR, { recursive: true });
-  writeFileSync(`${DIR}/${folder}.component.ts`, componentSrc());
-  writeFileSync(`${DIR}/${folder}.component.spec.ts`, specSrc());
-  report.push(`✔ created ${DIR}/${folder}.component.ts`);
-  report.push(`✔ created ${DIR}/${folder}.component.spec.ts`);
+  report.push(`• --wire-only: skipping component/spec/schema generation`);
 }
 
-// ── 2–4. Registrations ────────────────────────────────────────────────────────
-registerSchema();
+// ── Registrations (both modes) ────────────────────────────────────────────────
 registerSchemaIndex();
 registerPageSchema();
 registerRenderer();
 
 // ── Report ────────────────────────────────────────────────────────────────────
-console.log(`\nScaffolded "${schemaName}"\n${'─'.repeat(40)}`);
+console.log(`\n${wireOnly ? 'Wired' : 'Scaffolded'} "${schemaName}"\n${'─'.repeat(40)}`);
 report.forEach((r) => console.log(r));
 console.log(`\nSelf-verify checklist:`);
-console.log(`  [ ] Fill in the schema fields in blockSchemas.ts for your content shape`);
+if (wireOnly) {
+  console.log(`  [ ] Confirm the custom component, spec, and blockSchemas entry exist`);
+} else {
+  console.log(`  [ ] Fill in the schema fields in blockSchemas.ts for your content shape`);
+  console.log(`  [ ] Flesh out the component template + styles`);
+}
 console.log(`  [ ] Add all 8 langs (ro/de/en/fr/es/hu/it/nl) for any localized field`);
-console.log(`  [ ] Flesh out the component template + styles`);
 console.log(`  [ ] If it renders Sanity images, use the sanitySrc/sanitySrcset pipes`);
-console.log(`  [ ] npm test  (the generated spec must pass / extend it)`);
+console.log(`  [ ] npm test  (the spec must pass)`);
 console.log(`  [ ] cd studio && npx sanity deploy  (publish the schema)`);
 
 // ── Helpers ───────────────────────────────────────────────────────────────────
