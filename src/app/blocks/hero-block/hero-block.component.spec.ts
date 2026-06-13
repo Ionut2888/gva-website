@@ -1,18 +1,14 @@
-import { TestBed } from '@angular/core/testing';
+import { TestBed, fakeAsync, tick } from '@angular/core/testing';
 import { provideRouter } from '@angular/router';
 import { PLATFORM_ID } from '@angular/core';
 import { HeroBlockComponent } from './hero-block.component';
 
-const BLOCK = {
-  slides: [
-    { _key: 's1', src: '/assets/lead.jpg', alt: 'Lead truck' },
-    { _key: 's2', src: '/assets/2.jpg', alt: 'Slide 2' },
-  ],
-  badge: 'B2B', h1_1: 'Transport', h1_2: 'Auto', subtitle: 'Sub',
-  f1: 'One', f2: 'Two', f3: 'Three',
-  ctaPrimaryLabel: 'Contact', ctaPrimaryLink: '/contact',
-  ctaSecondaryLabel: 'Fleet', ctaSecondaryLink: '/fleet',
-};
+const SLIDES = [
+  { _key: 's1', image: '/assets/1.jpg', alt: 'Slide 1' },
+  { _key: 's2', image: '/assets/2.jpg', alt: 'Slide 2' },
+  { _key: 's3', image: '/assets/3.jpg', alt: 'Slide 3' },
+];
+const BLOCK = { slides: SLIDES, heading: 'Premium Cars', cta: 'Explore', ctaLink: '/fleet' };
 
 async function createComponent(platformId = 'browser') {
   await TestBed.configureTestingModule({
@@ -32,16 +28,54 @@ describe('HeroBlockComponent', () => {
     expect(fixture.componentInstance).toBeTruthy();
   });
 
-  it('renders a single static hero image from the first slide', async () => {
+  it('currentSlide starts at 0', async () => {
     const fixture = await createComponent();
-    fixture.detectChanges();
-    const imgs = (fixture.nativeElement as HTMLElement).querySelectorAll('.hero-bg img');
-    expect(imgs.length).toBe(1);
-    expect(imgs[0].getAttribute('alt')).toBe('Lead truck');
+    const inst = fixture.componentInstance as unknown as { currentSlide: () => number };
+    expect(inst.currentSlide()).toBe(0);
   });
 
-  it('does not throw on the server (parallax guarded)', async () => {
+  it('advances slide every 5 seconds in browser', fakeAsync(async () => {
+    const fixture = await createComponent('browser');
+    fixture.detectChanges();
+    const inst = fixture.componentInstance as unknown as { currentSlide: () => number };
+
+    tick(5000);
+    expect(inst.currentSlide()).toBe(1);
+    tick(5000);
+    expect(inst.currentSlide()).toBe(2);
+
+    fixture.destroy();
+  }));
+
+  it('does NOT start slideshow on the server', fakeAsync(async () => {
     const fixture = await createComponent('server');
-    expect(() => fixture.detectChanges()).not.toThrow();
-  });
+    fixture.detectChanges();
+    const inst = fixture.componentInstance as unknown as { currentSlide: () => number };
+
+    tick(15000);
+    expect(inst.currentSlide()).toBe(0);
+    fixture.destroy();
+  }));
+
+  it('wraps from last slide back to 0', fakeAsync(async () => {
+    const fixture = await createComponent('browser');
+    fixture.detectChanges();
+    const inst = fixture.componentInstance as unknown as { currentSlide: () => number };
+
+    tick(SLIDES.length * 5000);
+    expect(inst.currentSlide()).toBe(0);
+    fixture.destroy();
+  }));
+
+  it('unsubscribes on destroy (no timer leaks)', fakeAsync(async () => {
+    const fixture = await createComponent('browser');
+    fixture.detectChanges();
+    const inst = fixture.componentInstance as unknown as { currentSlide: () => number };
+
+    tick(5000);
+    expect(inst.currentSlide()).toBe(1);
+    fixture.destroy();
+    tick(10000);
+    expect(inst.currentSlide()).toBe(1);
+  }));
 });

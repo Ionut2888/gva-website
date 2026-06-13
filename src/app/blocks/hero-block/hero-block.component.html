@@ -1,11 +1,12 @@
 <section class="hero">
   <!-- Full-bleed background slideshow -->
   <div class="hero-bg" #heroBg>
-    @if (block.slides?.[0]; as slide) {
-      <div class="slide active">
+    @for (slide of block.slides; track slide._key; let i = $index) {
+      <div class="slide" [class.active]="i === currentSlide()">
         <img [src]="slide.src | sanitySrc:1920" [srcset]="slide.src | sanitySrcset"
              sizes="100vw" [alt]="slide.alt" decoding="async"
-             loading="eager" fetchpriority="high">
+             [loading]="i === 0 ? 'eager' : 'lazy'"
+             [attr.fetchpriority]="i === 0 ? 'high' : null">
       </div>
     }
   </div>
