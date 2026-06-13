@@ -5,6 +5,7 @@
     "ng": "ng",
     "start": "ng serve",
     "generate:sitemap": "node scripts/generate-sitemap.mjs",
+    "scaffold:block": "node scripts/scaffold-block.mjs",
     "prebuild": "node scripts/generate-sitemap.mjs",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
