@@ -1,12 +1,11 @@
-﻿import {
-  AfterViewInit, Component, Input, OnDestroy, OnInit,
-  ViewChild, ElementRef, ViewEncapsulation, signal,
+import {
+  AfterViewInit, Component, Input, OnDestroy,
+  ViewChild, ElementRef, ViewEncapsulation,
   inject, PLATFORM_ID
 } from '@angular/core';
 import { SanityBlock } from '../block.types';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { RouterLink } from '@angular/router';
-import { interval, Subscription } from 'rxjs';
 import { MagneticDirective } from '../../directives/magnetic.directive';
 import { SanitySrcPipe, SanitySrcsetPipe } from '../../pipes/sanity-img.pipe';
 
@@ -18,36 +17,20 @@ import { SanitySrcPipe, SanitySrcsetPipe } from '../../pipes/sanity-img.pipe';
   styleUrls: ['./hero-block.component.scss'],
   encapsulation: ViewEncapsulation.None,
 })
-export class HeroBlockComponent implements OnInit, AfterViewInit, OnDestroy {
+export class HeroBlockComponent implements AfterViewInit, OnDestroy {
   @Input() block: SanityBlock;
 
   @ViewChild('heroBg') heroBgRef?: ElementRef<HTMLElement>;
 
-  protected currentSlide = signal(0);
-
   private platformId = inject(PLATFORM_ID);
-  private subscription?: Subscription;
   private scrollHandler?: () => void;
-
-  ngOnInit(): void {
-    if (isPlatformBrowser(this.platformId)) this.startSlideshow();
-  }
 
   ngAfterViewInit(): void {
     if (isPlatformBrowser(this.platformId)) this.initParallax();
   }
 
   ngOnDestroy(): void {
-    this.subscription?.unsubscribe();
     if (this.scrollHandler) window.removeEventListener('scroll', this.scrollHandler);
-  }
-
-  private startSlideshow(): void {
-    const slides = this.block?.slides ?? [];
-    if (slides.length < 2) return;
-    this.subscription = interval(5000).subscribe(() => {
-      this.currentSlide.update(i => (i + 1) % slides.length);
-    });
   }
 
   private initParallax(): void {
