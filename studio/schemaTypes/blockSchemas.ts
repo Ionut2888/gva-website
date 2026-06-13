@@ -259,3 +259,20 @@ export const contactContentBlock = defineType({
   ],
   preview: { select: {}, prepare: () => ({ title: 'Contact Content Block' }) },
 });
+
+export const timelineBlock = defineType({
+  name: 'timelineBlock', title: 'Timeline Block', type: 'object',
+  fields: [
+    ls('heading'),
+    lt('subtitle'),
+    defineField({
+      name: 'items', title: 'Timeline entries', type: 'array',
+      of: [defineArrayMember({
+        type: 'object',
+        fields: [ls('year'), ls('title'), lt('text')],
+        preview: { select: { title: 'year.ro' }, prepare: ({ title }) => ({ title: title ?? 'Entry' }) },
+      })],
+    }),
+  ],
+  preview: { select: {}, prepare: () => ({ title: 'Timeline Block' }) },
+});

@@ -47,25 +47,30 @@
   --hh: 80px;        /* header height */
   --mw: 1280px;      /* max content width */
 
-  /* ── Border Radius — geometric/industrial ── */
-  --r-sm: 2px;
-  --r-md: 4px;
-  --r-lg: 4px;
-  --r-xl: 4px;
+  /* ── Border Radius — soft/modern (Kinetic Enterprise) ── */
+  --r-sm: 4px;      /* buttons, inputs */
+  --r-md: 6px;
+  --r-lg: 8px;      /* cards, media */
+  --r-xl: 12px;
   --r-f:  9999px;
+
+  /* ── Borders ── */
+  --border-subtle: #e2e8f0;  /* card & input outlines (Kinetic Enterprise) */
 
   /* ── Shadows — minimal, tonal ── */
   --sh-sm: 0 1px 3px rgba(0,0,0,0.06);
   --sh-md: 0 2px 8px rgba(0,0,0,0.08);
   --sh-press: 0 4px 0 0 rgba(0,0,0,0.20);
+  /* Ambient — diffused, navy-tinted; for hovered cards / floating media */
+  --sh-ambient: 0 10px 25px -5px rgba(83,95,116,0.15), 0 8px 10px -6px rgba(83,95,116,0.10);
 
   /* ── Transitions ── */
   --t-fast: 130ms ease-out;
   --t-base: 200ms ease-out;
 
   /* ── Fonts ── */
-  --fh: 'Barlow Semi Condensed', sans-serif; /* headings, labels, CTAs */
-  --fb: 'Inter', sans-serif;                 /* body text */
+  --fh: 'Hanken Grotesk', sans-serif; /* headings, labels, CTAs */
+  --fb: 'Inter', sans-serif;          /* body text */
 }
 
 // ── Reset ──────────────────────────────────────────────────

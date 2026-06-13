@@ -6,6 +6,7 @@ import {
   storyBlock, valuesGridBlock, teamBlock,
   fleetStatsBlock, galleryBlock, fleetFeaturesBlock,
   contactContentBlock,
+  timelineBlock,
 } from './blockSchemas';
 
 export const schemaTypes = [
@@ -16,4 +17,5 @@ export const schemaTypes = [
   storyBlock, valuesGridBlock, teamBlock,
   fleetStatsBlock, galleryBlock, fleetFeaturesBlock,
   contactContentBlock,
+  timelineBlock,
 ];

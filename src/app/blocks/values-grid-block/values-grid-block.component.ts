@@ -9,58 +9,56 @@ import { AnimateOnScrollDirective } from '../../directives/animate-on-scroll.dir
   imports: [MatIconModule, AnimateOnScrollDirective],
   encapsulation: ViewEncapsulation.None,
   styles: [`
-    .values-section { margin-top: var(--s8); }
+    .values-section { margin-top: var(--s10); }
     .values-section h3 {
       font-family: var(--fh);
       font-size: clamp(1.5rem, 2.5vw, 2rem);
       font-weight: 700;
-      color: var(--text);
-      text-align: center;
-      margin-bottom: var(--s8);
+      color: var(--navy);
+      margin-bottom: var(--s6);
       letter-spacing: -0.02em;
+      max-width: 640px;
     }
     .values-grid {
       display: grid;
-      grid-template-columns: repeat(4, 1fr);
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
       gap: var(--s3);
     }
     .values-grid > * { min-width: 0; }
-    @media (max-width: 900px) { .values-grid { grid-template-columns: repeat(2, 1fr); } }
-    @media (max-width: 768px) { .values-grid { grid-template-columns: 1fr; } }
     .value-card {
       background: var(--white);
-      border: 1px solid var(--border);
-      border-radius: var(--r-sm);
-      padding: var(--s5) var(--s4);
-      text-align: center;
-      transition: border-color var(--t-base);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--r-lg);
+      padding: var(--s4);
+      text-align: left;
+      transition: box-shadow var(--t-base), border-color var(--t-base);
     }
-    .value-card:hover { border-color: var(--blue); }
+    .value-card:hover { box-shadow: var(--sh-ambient); }
+    .value-icon {
+      width: 48px; height: 48px;
+      background: var(--bg-low);
+      border-radius: var(--r-md);
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: var(--s3);
+    }
+    .value-icon mat-icon {
+      font-size: 26px !important; width: 26px !important;
+      height: 26px !important; line-height: 26px !important;
+      color: var(--blue);
+    }
     .value-card h4 {
       font-family: var(--fh);
-      font-size: 0.9375rem; font-weight: 700;
-      color: var(--text);
-      margin: var(--s3) 0 var(--s2);
+      font-size: 1.25rem; font-weight: 600;
+      color: var(--navy);
+      margin: 0 0 var(--s2);
       letter-spacing: -0.01em;
     }
     .value-card p {
       font-family: var(--fb);
-      font-size: 0.875rem;
+      font-size: 0.9375rem;
       color: var(--text-muted);
-      line-height: 1.65;
+      line-height: 1.6;
       margin: 0;
-    }
-    .value-icon {
-      width: 52px; height: 52px;
-      margin: 0 auto;
-      background: var(--bg-mid);
-      border-radius: var(--r-sm);
-      display: flex; align-items: center; justify-content: center;
-    }
-    .value-icon mat-icon {
-      font-size: 24px !important; width: 24px !important;
-      height: 24px !important; line-height: 24px !important;
-      color: var(--blue);
     }
   `],
   template: `
