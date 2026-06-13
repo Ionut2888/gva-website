@@ -1,53 +1,57 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
-        xmlns:xhtml="http://www.w3.org/1999/xhtml">
-
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://www.gvaverkaufer.ro/</loc>
-    <xhtml:link rel="alternate" hreflang="ro" href="https://www.gvaverkaufer.ro/"/>
-    <lastmod>2026-04-19</lastmod>
+    <lastmod>2026-06-13</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
-
   <url>
-    <loc>https://www.gvaverkaufer.ro/home</loc>
-    <xhtml:link rel="alternate" hreflang="ro" href="https://www.gvaverkaufer.ro/home"/>
-    <lastmod>2026-04-19</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>1.0</priority>
+    <loc>https://www.gvaverkaufer.ro/terms</loc>
+    <lastmod>2026-06-13</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
   </url>
-
   <url>
-    <loc>https://www.gvaverkaufer.ro/services</loc>
-    <xhtml:link rel="alternate" hreflang="ro" href="https://www.gvaverkaufer.ro/services"/>
-    <lastmod>2026-04-19</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
+    <loc>https://www.gvaverkaufer.ro/privacy</loc>
+    <lastmod>2026-06-13</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
   </url>
-
   <url>
-    <loc>https://www.gvaverkaufer.ro/fleet</loc>
-    <xhtml:link rel="alternate" hreflang="ro" href="https://www.gvaverkaufer.ro/fleet"/>
-    <lastmod>2026-04-19</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <loc>https://www.gvaverkaufer.ro/cookies</loc>
+    <lastmod>2026-06-13</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
   </url>
-
   <url>
     <loc>https://www.gvaverkaufer.ro/about</loc>
-    <xhtml:link rel="alternate" hreflang="ro" href="https://www.gvaverkaufer.ro/about"/>
-    <lastmod>2026-04-19</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-
-  <url>
-    <loc>https://www.gvaverkaufer.ro/contact</loc>
-    <xhtml:link rel="alternate" hreflang="ro" href="https://www.gvaverkaufer.ro/contact"/>
-    <lastmod>2026-04-19</lastmod>
+    <lastmod>2026-06-10</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
-
+  <url>
+    <loc>https://www.gvaverkaufer.ro/contact</loc>
+    <lastmod>2026-06-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.gvaverkaufer.ro/fleet</loc>
+    <lastmod>2026-06-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.gvaverkaufer.ro/home</loc>
+    <lastmod>2026-06-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.gvaverkaufer.ro/services</loc>
+    <lastmod>2026-06-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
 </urlset>
