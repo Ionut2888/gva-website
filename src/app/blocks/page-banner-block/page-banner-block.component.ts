@@ -9,43 +9,35 @@ import { AnimateOnScrollDirective } from '../../directives/animate-on-scroll.dir
   encapsulation: ViewEncapsulation.None,
   styles: [`
     .page-banner {
-      background: var(--navy);
+      background: var(--bg);
       position: relative;
       padding: var(--s12) 0 var(--s10);
+      border-bottom: 1px solid var(--border-subtle);
       overflow: hidden;
-    }
-    .page-banner::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background-image:
-        linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
-      background-size: 64px 64px;
-      pointer-events: none;
     }
     .page-banner::after {
       content: '';
       position: absolute;
-      top: -30%; right: -10%;
-      width: 700px; height: 700px;
-      background: radial-gradient(circle, rgba(0,81,213,0.15) 0%, transparent 65%);
+      top: -40%; right: -8%;
+      width: 640px; height: 640px;
+      background: radial-gradient(circle, rgba(0,81,213,0.06) 0%, transparent 65%);
       pointer-events: none;
     }
     .page-banner .container { position: relative; z-index: 2; }
     .page-banner .section-header { margin-bottom: 0; text-align: center; }
     .page-banner .section-header h1 {
-      color: var(--white);
+      color: var(--navy);
       font-size: clamp(2rem, 4vw, 3.25rem);
       letter-spacing: -0.03em;
-      font-weight: 800;
+      font-weight: 700;
       margin: 0;
     }
     .page-banner .section-header h1::after { display: none; }
     .page-banner .section-subtitle {
-      color: var(--navy-dim);
+      color: var(--text-muted);
       max-width: 580px;
       margin: var(--s3) auto 0;
+      line-height: 1.6;
     }
   `],
   template: `

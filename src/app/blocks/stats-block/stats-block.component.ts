@@ -19,10 +19,10 @@ import { AnimateOnScrollDirective } from '../../directives/animate-on-scroll.dir
 
     .quick-stats {
       background: var(--white);
-      border: 1px solid var(--border);
-      border-radius: var(--r-sm);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--r-lg);
       overflow: hidden;
-      box-shadow: 0 4px 16px rgba(0,0,0,0.10), 0 12px 40px rgba(0,0,0,0.08);
+      box-shadow: var(--sh-ambient);
     }
 
     .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); }
@@ -32,7 +32,7 @@ import { AnimateOnScrollDirective } from '../../directives/animate-on-scroll.dir
       text-align: center;
       position: relative;
     }
-    .stat-item + .stat-item { border-left: 1px solid var(--border); }
+    .stat-item + .stat-item { border-left: 1px solid var(--border-subtle); }
 
     .stat-number {
       font-family: var(--fh);
@@ -55,8 +55,8 @@ import { AnimateOnScrollDirective } from '../../directives/animate-on-scroll.dir
 
     @media (max-width: 900px) {
       .stats-grid { grid-template-columns: repeat(2, 1fr); }
-      .stat-item:nth-child(3) { border-left: none; border-top: 1px solid var(--border); }
-      .stat-item:nth-child(4) { border-top: 1px solid var(--border); }
+      .stat-item:nth-child(3) { border-left: none; border-top: 1px solid var(--border-subtle); }
+      .stat-item:nth-child(4) { border-top: 1px solid var(--border-subtle); }
     }
     @media (max-width: 767px) {
       .stats-float-wrapper { margin-top: -2rem; }
@@ -64,7 +64,7 @@ import { AnimateOnScrollDirective } from '../../directives/animate-on-scroll.dir
       .stat-item {
         padding: var(--s3) var(--s2);
         border-left: none !important;
-        border: 1px solid var(--border);
+        border: 1px solid var(--border-subtle);
         margin: -0.5px;
       }
     }

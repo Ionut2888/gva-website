@@ -23,7 +23,7 @@ import { SanitySrcPipe, SanitySrcsetPipe } from '../../pipes/sanity-img.pipe';
     .story-text h3 {
       font-family: var(--fh);
       font-size: clamp(1.5rem, 2.5vw, 2rem);
-      color: var(--text);
+      color: var(--navy);
       margin-bottom: var(--s3);
       font-weight: 700;
       letter-spacing: -0.02em;
@@ -39,8 +39,9 @@ import { SanitySrcPipe, SanitySrcsetPipe } from '../../pipes/sanity-img.pipe';
       width: 100%;
       height: 380px;
       object-fit: cover;
-      border-radius: var(--r-sm);
-      border: 1px solid var(--border);
+      border-radius: var(--r-lg);
+      border: 1px solid var(--border-subtle);
+      box-shadow: var(--sh-ambient);
     }
   `],
   template: `

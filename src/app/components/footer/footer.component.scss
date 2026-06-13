@@ -1,9 +1,9 @@
-/* ── Footer — Industrial Modern ── */
+/* ── Footer — Kinetic Enterprise / Light ── */
 .footer {
-  background: var(--navy);
-  color: var(--white);
+  background: var(--bg-low);
+  color: var(--text);
   padding: var(--s10) 0 0;
-  border-top: 1px solid rgba(255,255,255,0.06);
+  border-top: 1px solid var(--border-subtle);
 }
 
 .container {
@@ -19,7 +19,7 @@
   grid-template-columns: 1.6fr 1fr 1fr 1.3fr;
   gap: var(--s8);
   padding-bottom: var(--s8);
-  border-bottom: 1px solid rgba(255,255,255,0.08);
+  border-bottom: 1px solid var(--border-subtle);
 
   @media (max-width: 1024px) {
     grid-template-columns: 1fr 1fr;
@@ -52,7 +52,7 @@
   font-family: var(--fh);
   font-size: 1.125rem;
   font-weight: 800;
-  color: var(--white);
+  color: var(--blue);
   margin: 0;
   letter-spacing: -0.02em;
 }
@@ -60,7 +60,7 @@
 .company-description {
   font-family: var(--fb);
   font-size: 0.875rem;
-  color: var(--navy-dim);
+  color: var(--text-muted);
   line-height: 1.7;
   margin: 0;
   max-width: 300px;
@@ -74,13 +74,13 @@
 .social-link {
   width: 36px;
   height: 36px;
-  background: rgba(255,255,255,0.06);
-  border: 1px solid rgba(255,255,255,0.1);
+  background: var(--white);
+  border: 1px solid var(--border-subtle);
   border-radius: var(--r-sm);
   display: flex;
   align-items: center;
   justify-content: center;
-  color: var(--navy-dim);
+  color: var(--text-muted);
   transition: all var(--t-fast);
 
   &:hover {
@@ -103,7 +103,7 @@
     font-family: var(--fh);
     font-size: 0.6875rem;
     font-weight: 700;
-    color: var(--white);
+    color: var(--navy);
     text-transform: uppercase;
     letter-spacing: 0.12em;
     margin-bottom: var(--s3);
@@ -118,10 +118,10 @@
   a {
     font-family: var(--fb);
     font-size: 0.875rem;
-    color: var(--navy-dim);
+    color: var(--text-muted);
     transition: color var(--t-fast);
 
-    &:hover { color: var(--white); }
+    &:hover { color: var(--blue); }
   }
 }
 
@@ -138,7 +138,7 @@
   gap: var(--s2);
   font-family: var(--fb);
   font-size: 0.875rem;
-  color: var(--navy-dim);
+  color: var(--text-muted);
 
   mat-icon {
     font-size: 15px !important;
@@ -150,9 +150,9 @@
   }
 
   a {
-    color: var(--navy-dim);
+    color: var(--text-muted);
     transition: color var(--t-fast);
-    &:hover { color: var(--white); }
+    &:hover { color: var(--blue); }
   }
 }
 
@@ -171,7 +171,7 @@
   p {
     font-family: var(--fb);
     font-size: 0.8125rem;
-    color: rgba(255,255,255,0.55);
+    color: var(--text-muted);
     margin: 0;
   }
 
@@ -189,10 +189,10 @@
   a {
     font-family: var(--fb);
     font-size: 0.8125rem;
-    color: rgba(255,255,255,0.55);
+    color: var(--text-muted);
     transition: color var(--t-fast);
 
-    &:hover { color: rgba(255,255,255,0.7); }
+    &:hover { color: var(--blue); }
   }
 
   @media (max-width: 600px) {

@@ -11,7 +11,7 @@ import { AnimateOnScrollDirective } from '../../directives/animate-on-scroll.dir
   styles: [`
     .cta-section {
       background: var(--navy);
-      border-radius: var(--r-sm);
+      border-radius: var(--r-xl);
       padding: var(--s10) var(--s8);
       text-align: center;
       margin-top: var(--s10);

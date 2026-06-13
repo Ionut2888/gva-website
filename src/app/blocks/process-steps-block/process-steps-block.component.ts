@@ -11,13 +11,13 @@ import { AnimateOnScrollDirective } from '../../directives/animate-on-scroll.dir
     .service-process {
       margin-top: var(--s12);
       padding: var(--s10) 0;
-      border-top: 1px solid var(--border);
+      border-top: 1px solid var(--border-subtle);
     }
     .service-process h3 {
       font-family: var(--fh);
       font-size: clamp(1.5rem, 2.5vw, 2rem);
       font-weight: 700;
-      color: var(--text);
+      color: var(--navy);
       margin-bottom: var(--s8);
       text-align: center;
       letter-spacing: -0.02em;
@@ -35,24 +35,30 @@ import { AnimateOnScrollDirective } from '../../directives/animate-on-scroll.dir
       left: calc(12.5% + 12px);
       right: calc(12.5% + 12px);
       height: 1px;
-      background: var(--border);
+      background: var(--border-subtle);
       z-index: 0;
     }
     .step { position: relative; z-index: 1; }
     .step-number {
       width: 48px; height: 48px;
-      background: var(--navy);
-      color: var(--white);
-      border-radius: var(--r-sm);
+      background: var(--white);
+      color: var(--blue);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--r-f);
       display: flex; align-items: center; justify-content: center;
       font-family: var(--fh);
       font-size: 1.125rem; font-weight: 800;
       margin-bottom: var(--s3);
     }
+    .step:last-child .step-number {
+      background: var(--blue);
+      color: var(--white);
+      border-color: var(--blue);
+    }
     .step-content h4 {
       font-family: var(--fh);
-      font-size: 0.9375rem; font-weight: 700;
-      color: var(--text);
+      font-size: 1rem; font-weight: 600;
+      color: var(--navy);
       margin-bottom: 0.5rem;
       letter-spacing: -0.01em;
     }
