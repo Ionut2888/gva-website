@@ -93,6 +93,7 @@ export const pageBannerBlock = defineType({
     defineField({ name: 'image', title: 'Background image (optional — turns it into a dark image hero)', type: 'string' }),
     ls('ctaLabel', 'CTA button label (optional)'),
     defineField({ name: 'ctaLink', title: 'CTA link', type: 'string', initialValue: '/contact' }),
+    defineField({ name: 'align', title: 'Light banner alignment', type: 'string', options: { list: ['center', 'left'] }, initialValue: 'center' }),
   ],
   preview: { select: { title: 'heading.ro' }, prepare: ({ title }) => ({ title: `Banner: ${title ?? ''}` }) },
 });

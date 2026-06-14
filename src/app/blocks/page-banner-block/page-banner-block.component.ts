@@ -41,6 +41,10 @@ import { SanitySrcPipe, SanitySrcsetPipe } from '../../pipes/sanity-img.pipe';
       margin: var(--s3) auto 0;
       line-height: 1.6;
     }
+    /* Left-aligned variant (e.g. Contact) — blue heading */
+    .page-banner--left .section-header { text-align: left; }
+    .page-banner--left .section-header h1 { color: var(--blue); }
+    .page-banner--left .section-subtitle { margin-left: 0; margin-right: 0; }
 
     /* ── Dark image hero (when image is set) ── */
     .page-hero {
@@ -124,7 +128,7 @@ import { SanitySrcPipe, SanitySrcsetPipe } from '../../pipes/sanity-img.pipe';
         </div>
       </section>
     } @else {
-      <div class="page-banner">
+      <div class="page-banner" [class.page-banner--left]="block.align === 'left'">
         <div class="container">
           <div class="section-header">
             <h1 appAos="fade-up" [aosDuration]="1600">{{ block.heading }}</h1>
