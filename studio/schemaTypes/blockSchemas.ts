@@ -86,7 +86,14 @@ export const efficiencyBlock = defineType({
 
 export const pageBannerBlock = defineType({
   name: 'pageBannerBlock', title: 'Page Banner Block', type: 'object',
-  fields: [ls('heading'), lt('subtitle')],
+  fields: [
+    ls('heading'),
+    lt('subtitle'),
+    ls('badge', 'Eyebrow badge (optional)'),
+    defineField({ name: 'image', title: 'Background image (optional — turns it into a dark image hero)', type: 'string' }),
+    ls('ctaLabel', 'CTA button label (optional)'),
+    defineField({ name: 'ctaLink', title: 'CTA link', type: 'string', initialValue: '/contact' }),
+  ],
   preview: { select: { title: 'heading.ro' }, prepare: ({ title }) => ({ title: `Banner: ${title ?? ''}` }) },
 });
 

@@ -1,44 +1,8 @@
 <ng-container *transloco="let t">
 <div class="container">
   <div class="contact-content">
-    <!-- Info cards (content from Sanity block) -->
-    <div class="contact-info" appAos="fade-right" [aosDuration]="1800">
-      <div class="info-card">
-        <div class="info-icon"><mat-icon>inventory_2</mat-icon></div>
-        <div class="info-content">
-          <h3>{{ block.commercialTitle }}</h3>
-          <p>{{ block.commercialP1 }}</p>
-          <p>{{ block.commercialP2 }}</p>
-        </div>
-      </div>
-      <div class="info-card">
-        <div class="info-icon"><mat-icon>phone</mat-icon></div>
-        <div class="info-content">
-          <h3>{{ block.phoneTitle }}</h3>
-          <p><a href="tel:+40745852977">+40 745 852 977</a></p>
-          <p>{{ block.phoneHours }}</p>
-        </div>
-      </div>
-      <div class="info-card">
-        <div class="info-icon"><mat-icon>email</mat-icon></div>
-        <div class="info-content">
-          <h3>{{ block.emailTitle }}</h3>
-          <p><a href="mailto:auto@gvaverkaufer.ro">auto&#64;gvaverkaufer.ro</a></p>
-          <p>{{ block.emailResponse }}</p>
-        </div>
-      </div>
-      <div class="info-card">
-        <div class="info-icon"><mat-icon>location_on</mat-icon></div>
-        <div class="info-content">
-          <h3>{{ block.coverageTitle }}</h3>
-          <p>{{ block.coverageP1 }}</p>
-          <p>{{ block.coverageP2 }}</p>
-        </div>
-      </div>
-    </div>
-
-    <!-- Contact form (UI strings from Transloco) -->
-    <div class="contact-form-container" appAos="fade-left" [aosDelay]="120" [aosDuration]="1800">
+    <!-- Form (left, larger) -->
+    <div class="contact-form-container" appAos="fade-right" [aosDuration]="1800">
       <div class="form-header">
         <h3>{{ block.formHeading }}</h3>
         <p>{{ block.formSubtitle }}</p>
@@ -123,24 +87,57 @@
         </button>
       </form>
     </div>
+
+    <!-- Sidebar (right): contact info + map -->
+    <aside class="contact-sidebar" appAos="fade-left" [aosDelay]="120" [aosDuration]="1800">
+      <div class="info-card">
+        <h3>{{ block.commercialTitle }}</h3>
+        <div class="info-row">
+          <mat-icon>phone</mat-icon>
+          <div>
+            <span class="info-label">{{ block.phoneTitle }}</span>
+            <a href="tel:+40745852977">+40 745 852 977</a>
+          </div>
+        </div>
+        <div class="info-row">
+          <mat-icon>email</mat-icon>
+          <div>
+            <span class="info-label">{{ block.emailTitle }}</span>
+            <a href="mailto:auto@gvaverkaufer.ro">auto&#64;gvaverkaufer.ro</a>
+          </div>
+        </div>
+        <div class="info-row">
+          <mat-icon>location_on</mat-icon>
+          <div>
+            <span class="info-label">{{ block.coverageTitle }}</span>
+            <span class="info-val">{{ block.coverageP1 }}</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="map-card">
+        <iframe
+          title="Hartă acoperire GVA Verkaufer"
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+          src="https://www.openstreetmap.org/export/embed.html?bbox=1.0%2C41.0%2C30.0%2C53.0&layer=mapnik&marker=45.9432%2C24.9668"></iframe>
+      </div>
+    </aside>
   </div>
 
-  <!-- Benefits (content from Sanity block) -->
-  <div class="additional-info">
-    <div class="info-section">
+  <!-- FAQ -->
+  @if (block.benefits?.length) {
+    <div class="faq-section">
       <h3>{{ block.benefitsHeading }}</h3>
-      <div class="benefits-grid">
+      <div class="faq-grid">
         @for (b of block.benefits; track b._key) {
-          <div class="benefit">
-            <mat-icon>{{ b.icon }}</mat-icon>
-            <div>
-              <h4>{{ b.title }}</h4>
-              <p>{{ b.text }}</p>
-            </div>
+          <div class="faq-card">
+            <h4>{{ b.title }}</h4>
+            <p>{{ b.text }}</p>
           </div>
         }
       </div>
     </div>
-  </div>
+  }
 </div>
 </ng-container>
