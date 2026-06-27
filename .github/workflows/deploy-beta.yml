@@ -189,7 +189,7 @@ jobs:
       # ── 5. Email notification ────────────────────────────────────────────────
       - name: Send deployment email
         continue-on-error: true
-        uses: dawidd6/action-send-mail@v3
+        uses: dawidd6/action-send-mail@v18
         with:
           server_address: smtp.gmail.com
           server_port: 465
