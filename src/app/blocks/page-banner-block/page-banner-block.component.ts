@@ -60,7 +60,8 @@ import { SanitySrcPipe, SanitySrcsetPipe } from '../../pipes/sanity-img.pipe';
     .page-hero__bg img { width: 100%; height: 100%; object-fit: cover; object-position: center; display: block; }
     .page-hero__overlay {
       position: absolute; inset: 0; z-index: 1;
-      background: linear-gradient(90deg, rgba(10,17,29,0.86) 0%, rgba(10,17,29,0.74) 50%, rgba(10,17,29,0.55) 100%);
+      /* rgb(16,28,46) = --navy, exact token match (not a hand-picked approximation) */
+      background: linear-gradient(90deg, rgba(16,28,46,0.86) 0%, rgba(16,28,46,0.74) 50%, rgba(16,28,46,0.55) 100%);
     }
     .page-hero .container { position: relative; z-index: 2; }
     .page-hero__inner { max-width: 640px; }

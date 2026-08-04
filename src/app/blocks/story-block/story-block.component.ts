@@ -41,8 +41,9 @@ import { SanitySrcPipe, SanitySrcsetPipe } from '../../pipes/sanity-img.pipe';
       object-fit: cover;
       border-radius: var(--r-lg);
       border: 1px solid var(--border-subtle);
-      box-shadow: var(--sh-ambient);
+      transition: box-shadow var(--t-base);
     }
+    .story-image:hover img { box-shadow: var(--sh-ambient); }
   `],
   template: `
     <div class="container">

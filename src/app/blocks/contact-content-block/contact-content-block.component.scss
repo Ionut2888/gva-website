@@ -20,7 +20,6 @@
 .contact-form-container {
   background: var(--white); border: 1px solid var(--border-subtle); border-radius: var(--r-lg);
   padding: var(--s6); min-width: 0;
-  box-shadow: 0 4px 24px rgba(83,95,116,0.05);
   @media (max-width: 768px) { padding: var(--s4); }
 }
 
@@ -54,14 +53,14 @@
   textarea { resize: vertical; min-height: 110px; }
 }
 
-.error { font-family: var(--fb); font-size: 0.8125rem; color: #ba1a1a; font-weight: 500; }
+.error { font-family: var(--fb); font-size: 0.8125rem; color: var(--error); font-weight: 500; }
 
 .submit-message {
   padding: var(--s2) var(--s3); border-radius: var(--r-md);
   font-family: var(--fb); font-size: 0.9375rem; font-weight: 500;
   text-align: center; border: 1px solid;
-  &.success { background: #f0fdf4; color: #15803d; border-color: #bbf7d0; }
-  &.error { background: #ffdad6; color: #93000a; border-color: #ffb4ab; }
+  &.success { background: var(--success-bg); color: var(--success); border-color: var(--success-border); }
+  &.error { background: var(--error-bg); color: var(--error); border-color: var(--error-border); }
 }
 
 .btn {
@@ -92,7 +91,6 @@
 .info-card {
   background: var(--white); border: 1px solid var(--border-subtle); border-radius: var(--r-lg);
   padding: var(--s5); display: flex; flex-direction: column; gap: var(--s3);
-  box-shadow: 0 4px 24px rgba(83,95,116,0.05);
 
   h3 { font-family: var(--fh); font-size: 1.25rem; font-weight: 600; color: var(--blue); margin: 0; letter-spacing: -0.01em; }
 }
@@ -112,7 +110,6 @@
   position: relative;
   background: var(--white); border: 1px solid var(--border-subtle); border-radius: var(--r-lg);
   overflow: hidden; min-height: 240px; flex: 1;
-  box-shadow: 0 4px 24px rgba(83,95,116,0.05);
   img { width: 100%; height: 100%; min-height: 240px; object-fit: cover; display: block; }
   .map-overlay { position: absolute; inset: 0; background: rgba(0,81,213,0.10); mix-blend-mode: multiply; pointer-events: none; }
 }

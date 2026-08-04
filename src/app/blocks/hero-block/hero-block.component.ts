@@ -28,6 +28,7 @@ export class HeroBlockComponent implements OnInit, AfterViewInit, OnDestroy {
   private platformId = inject(PLATFORM_ID);
   private subscription?: Subscription;
   private scrollHandler?: () => void;
+  private rafId?: number;
 
   ngOnInit(): void {
     if (isPlatformBrowser(this.platformId)) this.startSlideshow();
@@ -40,6 +41,7 @@ export class HeroBlockComponent implements OnInit, AfterViewInit, OnDestroy {
   ngOnDestroy(): void {
     this.subscription?.unsubscribe();
     if (this.scrollHandler) window.removeEventListener('scroll', this.scrollHandler);
+    if (this.rafId !== undefined) cancelAnimationFrame(this.rafId);
   }
 
   private startSlideshow(): void {
@@ -53,7 +55,13 @@ export class HeroBlockComponent implements OnInit, AfterViewInit, OnDestroy {
   private initParallax(): void {
     const el = this.heroBgRef?.nativeElement;
     if (!el) return;
-    this.scrollHandler = () => { el.style.transform = `translateY(${window.scrollY * 0.22}px)`; };
+    this.scrollHandler = () => {
+      if (this.rafId !== undefined) return;
+      this.rafId = requestAnimationFrame(() => {
+        el.style.transform = `translateY(${window.scrollY * 0.22}px)`;
+        this.rafId = undefined;
+      });
+    };
     window.addEventListener('scroll', this.scrollHandler, { passive: true });
   }
 }

@@ -32,6 +32,14 @@
   --border:     #c5c6cd;   /* outline-variant: cards, dividers */
   --border-d:   #75777d;   /* outline: strong borders */
 
+  /* ── Semantic Feedback Colors — form validation only ── */
+  --error:         #ba1a1a;
+  --error-bg:      #ffdad6;
+  --error-border:  #ffb4ab;
+  --success:       #15803d;
+  --success-bg:    #f0fdf4;
+  --success-border:#bbf7d0;
+
   /* ── Spacing — 8px grid ── */
   --s1:  0.5rem;    /*  8px */
   --s2:  1rem;      /* 16px */
@@ -308,7 +316,10 @@ mat-icon {
 }
 
 // ── Animate On Scroll (AOS) ────────────────────────────────────────────────
-// Shared transition applied the moment the directive stamps data-aos + aos-init.
+// Visible-by-default: SSR output, no-JS clients, and crawlers that don't
+// scroll all see full content at rest. The directive only "arms" (hides)
+// an element client-side, and only if it isn't already in the viewport —
+// the hidden state is opt-in via .aos-armed, never the CSS default.
 // The observer then adds .aos-visible to trigger the reveal.
 
 .aos-init[data-aos] {
@@ -316,52 +327,53 @@ mat-icon {
   transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
   transition-duration: var(--aos-dur, 700ms);
   transition-delay:    var(--aos-delay, 0ms);
-  will-change: opacity, transform;
 }
 
+.aos-armed[data-aos] { will-change: opacity, transform; }
+
 // ── fade-up ───────────────────────────────────────────────────────────────
-.aos-init[data-aos='fade-up'] {
+.aos-armed[data-aos='fade-up'] {
   opacity: 0;
   transform: translateY(44px);
   &.aos-visible { opacity: 1; transform: translateY(0); }
 }
 
 // ── fade-left ─────────────────────────────────────────────────────────────
-.aos-init[data-aos='fade-left'] {
+.aos-armed[data-aos='fade-left'] {
   opacity: 0;
   transform: translateX(-64px);
   &.aos-visible { opacity: 1; transform: translateX(0); }
 }
 
 // ── fade-right ────────────────────────────────────────────────────────────
-.aos-init[data-aos='fade-right'] {
+.aos-armed[data-aos='fade-right'] {
   opacity: 0;
   transform: translateX(64px);
   &.aos-visible { opacity: 1; transform: translateX(0); }
 }
 
 // ── scale-up ─────────────────────────────────────────────────────────────
-.aos-init[data-aos='scale-up'] {
+.aos-armed[data-aos='scale-up'] {
   opacity: 0;
   transform: scale(0.88) translateY(20px);
   &.aos-visible { opacity: 1; transform: scale(1) translateY(0); }
 }
 
 // ── fade-in ───────────────────────────────────────────────────────────────
-.aos-init[data-aos='fade-in'] {
+.aos-armed[data-aos='fade-in'] {
   opacity: 0;
   &.aos-visible { opacity: 1; }
 }
 
 // ── slide-up (dramatic, slower) ───────────────────────────────────────────
-.aos-init[data-aos='slide-up'] {
+.aos-armed[data-aos='slide-up'] {
   opacity: 0;
   transform: translateY(72px);
   &.aos-visible { opacity: 1; transform: translateY(0); }
 }
 
 // ── clip-reveal (horizontal wipe from left) ───────────────────────────────
-.aos-init[data-aos='clip-reveal'] {
+.aos-armed[data-aos='clip-reveal'] {
   clip-path: inset(0 100% 0 0);
   &.aos-visible { clip-path: inset(0 0% 0 0); }
 }

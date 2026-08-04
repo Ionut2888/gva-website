@@ -49,7 +49,6 @@ import { TranslocoModule } from '@jsverse/transloco';
                 <li><a routerLink="/about">{{ t('footer.link_about') }}</a></li>
                 <li><a routerLink="/fleet">{{ t('footer.link_fleet_page') }}</a></li>
                 <li><a routerLink="/contact">{{ t('footer.link_contact') }}</a></li>
-                <li><a href="#">{{ t('footer.link_careers') }}</a></li>
                 <li><a routerLink="/privacy">{{ t('footer.link_privacy') }}</a></li>
               </ul>
             </div>

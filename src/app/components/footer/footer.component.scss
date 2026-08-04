@@ -1,9 +1,8 @@
-/* ── Footer — Kinetic Enterprise / Light ── */
+/* ── Footer — Kinetic Enterprise / Navy (Punctuation Rule: structural navy band) ── */
 .footer {
-  background: var(--bg-low);
-  color: var(--text);
+  background: var(--navy);
+  color: var(--white);
   padding: var(--s10) 0 0;
-  border-top: 1px solid var(--border-subtle);
 }
 
 .container {
@@ -19,7 +18,7 @@
   grid-template-columns: 1.6fr 1fr 1fr 1.3fr;
   gap: var(--s8);
   padding-bottom: var(--s8);
-  border-bottom: 1px solid var(--border-subtle);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
 
   @media (max-width: 1024px) {
     grid-template-columns: 1fr 1fr;
@@ -52,7 +51,7 @@
   font-family: var(--fh);
   font-size: 1.125rem;
   font-weight: 800;
-  color: var(--blue);
+  color: var(--white);
   margin: 0;
   letter-spacing: -0.02em;
 }
@@ -60,7 +59,7 @@
 .company-description {
   font-family: var(--fb);
   font-size: 0.875rem;
-  color: var(--text-muted);
+  color: var(--navy-dim);
   line-height: 1.7;
   margin: 0;
   max-width: 300px;
@@ -74,13 +73,13 @@
 .social-link {
   width: 36px;
   height: 36px;
-  background: var(--white);
-  border: 1px solid var(--border-subtle);
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.18);
   border-radius: var(--r-sm);
   display: flex;
   align-items: center;
   justify-content: center;
-  color: var(--text-muted);
+  color: var(--navy-text);
   transition: all var(--t-fast);
 
   &:hover {
@@ -103,7 +102,7 @@
     font-family: var(--fh);
     font-size: 0.6875rem;
     font-weight: 700;
-    color: var(--navy);
+    color: var(--navy-text);
     text-transform: uppercase;
     letter-spacing: 0.12em;
     margin-bottom: var(--s3);
@@ -118,10 +117,10 @@
   a {
     font-family: var(--fb);
     font-size: 0.875rem;
-    color: var(--text-muted);
+    color: var(--navy-dim);
     transition: color var(--t-fast);
 
-    &:hover { color: var(--blue); }
+    &:hover { color: var(--blue-dim); }
   }
 }
 
@@ -138,27 +137,28 @@
   gap: var(--s2);
   font-family: var(--fb);
   font-size: 0.875rem;
-  color: var(--text-muted);
+  color: var(--navy-dim);
 
   mat-icon {
     font-size: 15px !important;
     width: 15px !important;
     height: 15px !important;
     line-height: 15px !important;
-    color: var(--blue);
+    color: var(--blue-light);
     flex-shrink: 0;
   }
 
   a {
-    color: var(--text-muted);
+    color: var(--navy-dim);
     transition: color var(--t-fast);
-    &:hover { color: var(--blue); }
+    &:hover { color: var(--blue-dim); }
   }
 }
 
 /* ── Footer bottom bar ── */
 .footer-bottom {
   padding: var(--s4) 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
 }
 
 .footer-bottom-content {
@@ -171,7 +171,7 @@
   p {
     font-family: var(--fb);
     font-size: 0.8125rem;
-    color: var(--text-muted);
+    color: var(--navy-dim);
     margin: 0;
   }
 
@@ -189,10 +189,10 @@
   a {
     font-family: var(--fb);
     font-size: 0.8125rem;
-    color: var(--text-muted);
+    color: var(--navy-dim);
     transition: color var(--t-fast);
 
-    &:hover { color: var(--blue); }
+    &:hover { color: var(--blue-dim); }
   }
 
   @media (max-width: 600px) {

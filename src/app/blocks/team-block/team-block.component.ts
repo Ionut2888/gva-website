@@ -45,8 +45,9 @@ import { AnimateOnScrollDirective } from '../../directives/animate-on-scroll.dir
       border: 1px solid var(--border-subtle);
       border-radius: var(--r-md);
       padding: var(--s4);
-      border-left: 3px solid var(--blue);
+      transition: border-color var(--t-fast);
     }
+    .highlight:hover { border-color: var(--blue); }
     .highlight strong {
       display: block;
       font-family: var(--fh);
