@@ -16,41 +16,41 @@
   background: var(--white);
   border: 1px solid var(--border-subtle);
   border-radius: var(--r-lg);
-  padding: var(--s4);
+  padding: var(--s5);
   display: flex;
   flex-direction: column;
-  transition: box-shadow var(--t-base);
+  transition: box-shadow var(--t-base), border-color var(--t-base), transform var(--t-base);
 
-  &:hover { box-shadow: var(--sh-ambient); }
+  &:hover { box-shadow: var(--sh-ambient); border-color: var(--blue); transform: translateY(-4px); }
 }
 
 .service-card.featured {
   grid-column: span 2;
-  h3 { font-size: 1.5rem; }
+  h3 { font-size: 1.75rem; }
   .service-features { display: grid; grid-template-columns: 1fr 1fr; gap: var(--s1) var(--s4); }
 }
 
 .service-icon {
-  width: 48px; height: 48px;
+  width: 56px; height: 56px;
   background: var(--bg-low);
   border-radius: var(--r-md);
   display: flex; align-items: center; justify-content: center;
-  margin-bottom: var(--s3);
+  margin-bottom: var(--s4);
   flex-shrink: 0;
   color: var(--blue);
 
   mat-icon {
-    font-size: 26px !important; width: 26px !important;
-    height: 26px !important; line-height: 26px !important;
+    font-size: 28px !important; width: 28px !important;
+    height: 28px !important; line-height: 28px !important;
   }
 }
 
 .service-card h3 {
   font-family: var(--fh);
-  font-size: 1.25rem; font-weight: 600;
+  font-size: 1.375rem; font-weight: 700;
   color: var(--navy);
   margin-bottom: var(--s2);
-  letter-spacing: -0.01em;
+  letter-spacing: -0.02em;
 }
 
 .service-card > p {
