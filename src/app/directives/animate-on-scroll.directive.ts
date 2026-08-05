@@ -31,11 +31,23 @@ export class AnimateOnScrollDirective implements OnInit, AfterViewInit, OnDestro
     el.style.setProperty('--aos-delay', `${this.aosDelay}ms`);
     el.style.setProperty('--aos-dur',   `${this.aosDuration}ms`);
     el.classList.add('aos-init');
+    // No 'aos-armed' here — content stays visible by default for SSR output,
+    // no-JS clients, and crawlers that never scroll. Only the browser arms it below.
   }
 
   ngAfterViewInit(): void {
     if (!isPlatformBrowser(this.pid)) return;
     const el = this.el.nativeElement as HTMLElement;
+
+    // Already in (or above) the viewport on load — reveal immediately, never arm/hide it.
+    // Avoids a visible → hidden → visible flash for above-the-fold content.
+    const rect = el.getBoundingClientRect();
+    if (rect.top < window.innerHeight && rect.bottom > 0) {
+      el.classList.add('aos-visible');
+      return;
+    }
+
+    el.classList.add('aos-armed');
 
     this.observer = new IntersectionObserver(entries => {
       entries.forEach(e => {

@@ -86,7 +86,15 @@ export const efficiencyBlock = defineType({
 
 export const pageBannerBlock = defineType({
   name: 'pageBannerBlock', title: 'Page Banner Block', type: 'object',
-  fields: [ls('heading'), lt('subtitle')],
+  fields: [
+    ls('heading'),
+    lt('subtitle'),
+    ls('badge', 'Eyebrow badge (optional)'),
+    defineField({ name: 'image', title: 'Background image (optional — turns it into a dark image hero)', type: 'string' }),
+    ls('ctaLabel', 'CTA button label (optional)'),
+    defineField({ name: 'ctaLink', title: 'CTA link', type: 'string', initialValue: '/contact' }),
+    defineField({ name: 'align', title: 'Light banner alignment', type: 'string', options: { list: ['center', 'left'] }, initialValue: 'center' }),
+  ],
   preview: { select: { title: 'heading.ro' }, prepare: ({ title }) => ({ title: `Banner: ${title ?? ''}` }) },
 });
 
@@ -258,4 +266,21 @@ export const contactContentBlock = defineType({
     }),
   ],
   preview: { select: {}, prepare: () => ({ title: 'Contact Content Block' }) },
+});
+
+export const timelineBlock = defineType({
+  name: 'timelineBlock', title: 'Timeline Block', type: 'object',
+  fields: [
+    ls('heading'),
+    lt('subtitle'),
+    defineField({
+      name: 'items', title: 'Timeline entries', type: 'array',
+      of: [defineArrayMember({
+        type: 'object',
+        fields: [ls('year'), ls('title'), lt('text')],
+        preview: { select: { title: 'year.ro' }, prepare: ({ title }) => ({ title: title ?? 'Entry' }) },
+      })],
+    }),
+  ],
+  preview: { select: {}, prepare: () => ({ title: 'Timeline Block' }) },
 });

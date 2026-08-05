@@ -32,6 +32,14 @@
   --border:     #c5c6cd;   /* outline-variant: cards, dividers */
   --border-d:   #75777d;   /* outline: strong borders */
 
+  /* ── Semantic Feedback Colors — form validation only ── */
+  --error:         #ba1a1a;
+  --error-bg:      #ffdad6;
+  --error-border:  #ffb4ab;
+  --success:       #15803d;
+  --success-bg:    #f0fdf4;
+  --success-border:#bbf7d0;
+
   /* ── Spacing — 8px grid ── */
   --s1:  0.5rem;    /*  8px */
   --s2:  1rem;      /* 16px */
@@ -47,25 +55,30 @@
   --hh: 80px;        /* header height */
   --mw: 1280px;      /* max content width */
 
-  /* ── Border Radius — geometric/industrial ── */
-  --r-sm: 2px;
-  --r-md: 4px;
-  --r-lg: 4px;
-  --r-xl: 4px;
+  /* ── Border Radius — soft/modern (Kinetic Enterprise) ── */
+  --r-sm: 4px;      /* buttons, inputs */
+  --r-md: 6px;
+  --r-lg: 8px;      /* cards, media */
+  --r-xl: 12px;
   --r-f:  9999px;
+
+  /* ── Borders ── */
+  --border-subtle: #e2e8f0;  /* card & input outlines (Kinetic Enterprise) */
 
   /* ── Shadows — minimal, tonal ── */
   --sh-sm: 0 1px 3px rgba(0,0,0,0.06);
   --sh-md: 0 2px 8px rgba(0,0,0,0.08);
-  --sh-press: 0 4px 0 0 rgba(0,0,0,0.20);
+  --sh-press: 0 5px 0 0 rgba(0,0,0,0.25);
+  /* Ambient — diffused, navy-tinted; for hovered cards / floating media */
+  --sh-ambient: 0 10px 25px -5px rgba(83,95,116,0.15), 0 8px 10px -6px rgba(83,95,116,0.10);
 
   /* ── Transitions ── */
   --t-fast: 130ms ease-out;
   --t-base: 200ms ease-out;
 
   /* ── Fonts ── */
-  --fh: 'Barlow Semi Condensed', sans-serif; /* headings, labels, CTAs */
-  --fb: 'Inter', sans-serif;                 /* body text */
+  --fh: 'Hanken Grotesk', sans-serif; /* headings, labels, CTAs */
+  --fb: 'Inter', sans-serif;          /* body text */
 }
 
 // ── Reset ──────────────────────────────────────────────────
@@ -98,16 +111,17 @@ ul, ol { list-style: none; }
 // ── Typography ─────────────────────────────────────────────
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--fh);
-  font-weight: 700;
-  line-height: 1.15;
+  font-weight: 800;
+  line-height: 1.05;
   color: var(--text);
-  letter-spacing: -0.02em;
+  letter-spacing: -0.03em;
+  text-wrap: balance;
 }
 
-h1 { font-size: clamp(2.25rem, 4.5vw, 4rem);  }
-h2 { font-size: clamp(1.75rem, 3vw, 2.75rem); letter-spacing: -0.01em; }
-h3 { font-size: clamp(1.25rem, 2.2vw, 2rem);  }
-h4 { font-size: 1.125rem; font-weight: 600;   }
+h1 { font-size: clamp(2.75rem, 7vw, 6rem);  }
+h2 { font-size: clamp(2.25rem, 4.5vw, 4rem); letter-spacing: -0.025em; }
+h3 { font-size: clamp(1.375rem, 2.6vw, 2.25rem); font-weight: 700; }
+h4 { font-size: 1.1875rem; font-weight: 700; letter-spacing: -0.015em; }
 
 p {
   font-family: var(--fb);
@@ -141,43 +155,95 @@ mat-icon {
 }
 
 // ── Section Overline ───────────────────────────────────────
-// Used above section headings: small blue uppercase label
+// Waybill-style route marker above section headings: a dashed tick
+// instead of a bare eyebrow — ties every section back to the fleet's
+// route lines rather than reading as a generic AI kicker.
 .section-overline {
-  display: flex;
+  display: inline-flex;
   align-items: center;
-  gap: var(--s1);
+  gap: var(--s2);
   font-family: var(--fh);
   font-size: 0.8125rem;
-  font-weight: 600;
+  font-weight: 700;
   color: var(--blue);
   text-transform: uppercase;
-  letter-spacing: 0.1em;
-  margin-bottom: var(--s2);
+  letter-spacing: 0.14em;
+  margin-bottom: var(--s3);
+
+  &::before {
+    content: '';
+    display: inline-block;
+    width: 28px;
+    height: 2px;
+    background: var(--blue);
+  }
 }
 
 // ── Section Header ─────────────────────────────────────────
 .section-header {
-  max-width: 760px;
-  margin: 0 auto var(--s10);
+  max-width: 820px;
+  margin: 0 auto var(--s12);
   text-align: center;
 
   h2 {
     color: var(--text);
-    margin-bottom: var(--s2);
+    margin-bottom: var(--s3);
   }
 
   .section-subtitle {
-    font-size: 1.0625rem;
+    font-size: 1.125rem;
     color: var(--text-muted);
     line-height: 1.75;
-    margin-top: var(--s2);
+    margin-top: var(--s3);
     font-family: var(--fb);
   }
 
   @media (max-width: 768px) {
-    margin-bottom: var(--s6);
-    h2 { font-size: 1.75rem; }
+    margin-bottom: var(--s8);
+    h2 { font-size: 2rem; }
   }
+}
+
+// ── Manifest Corners ────────────────────────────────────────
+// Signature device: waybill/shipping-label corner brackets. Applied to
+// the stats card, page banners, and gallery frames — a brand-specific
+// motif (not a generic border-radius/shadow trick).
+.manifest-corners {
+  position: relative;
+
+  &::before, &::after {
+    content: '';
+    position: absolute;
+    width: 22px;
+    height: 22px;
+    border: 2px solid var(--blue);
+    pointer-events: none;
+    z-index: 3;
+  }
+  &::before {
+    top: -1px; left: -1px;
+    border-right: none; border-bottom: none;
+  }
+  &::after {
+    bottom: -1px; right: -1px;
+    border-left: none; border-top: none;
+  }
+}
+.manifest-corners--light {
+  &::before, &::after { border-color: rgba(255, 255, 255, 0.55); }
+}
+
+// ── Route Line ───────────────────────────────────────────────
+// Dashed divider motif used sparingly at section transitions —
+// suggests a mapped route rather than a decorative rule.
+.route-line {
+  display: block;
+  width: 100%;
+  height: 2px;
+  background-image: linear-gradient(90deg, var(--blue) 0 10px, transparent 10px 18px);
+  background-size: 18px 2px;
+  background-repeat: repeat-x;
+  opacity: 0.5;
 }
 
 // ── Page Banner (inner page heroes) ────────────────────────
@@ -219,8 +285,8 @@ mat-icon {
 
     h2 {
       color: var(--white);
-      font-size: clamp(2rem, 4vw, 3.25rem);
-      letter-spacing: -0.03em;
+      font-size: clamp(2.5rem, 5.5vw, 4.5rem);
+      letter-spacing: -0.035em;
       font-weight: 800;
     }
 
@@ -238,18 +304,18 @@ mat-icon {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: var(--s1);
-  padding: 0.875rem 1.75rem;
+  gap: var(--s2);
+  padding: 1.125rem 2.25rem;
   border-radius: var(--r-sm);
   font-family: var(--fh);
-  font-size: 0.875rem;
-  font-weight: 600;
+  font-size: 0.9375rem;
+  font-weight: 700;
   line-height: 1;
   cursor: pointer;
   transition: all var(--t-base);
   border: 2px solid transparent;
   white-space: nowrap;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.05em;
   text-transform: uppercase;
   text-decoration: none;
 
@@ -265,13 +331,15 @@ mat-icon {
   background: var(--blue);
   color: var(--white);
   border-color: var(--blue);
+  box-shadow: 0 5px 0 rgba(0,0,0,0.25);
 
   &:hover:not(:disabled) {
     background: var(--blue-d);
     border-color: var(--blue-d);
-    transform: translateY(-2px);
-    box-shadow: var(--sh-press);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 0 rgba(0,0,0,0.25);
   }
+  &:active:not(:disabled) { transform: translateY(2px); box-shadow: 0 2px 0 rgba(0,0,0,0.25); }
 
   &:disabled {
     opacity: 0.55;
@@ -303,7 +371,10 @@ mat-icon {
 }
 
 // ── Animate On Scroll (AOS) ────────────────────────────────────────────────
-// Shared transition applied the moment the directive stamps data-aos + aos-init.
+// Visible-by-default: SSR output, no-JS clients, and crawlers that don't
+// scroll all see full content at rest. The directive only "arms" (hides)
+// an element client-side, and only if it isn't already in the viewport —
+// the hidden state is opt-in via .aos-armed, never the CSS default.
 // The observer then adds .aos-visible to trigger the reveal.
 
 .aos-init[data-aos] {
@@ -311,52 +382,53 @@ mat-icon {
   transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
   transition-duration: var(--aos-dur, 700ms);
   transition-delay:    var(--aos-delay, 0ms);
-  will-change: opacity, transform;
 }
 
+.aos-armed[data-aos] { will-change: opacity, transform; }
+
 // ── fade-up ───────────────────────────────────────────────────────────────
-.aos-init[data-aos='fade-up'] {
+.aos-armed[data-aos='fade-up'] {
   opacity: 0;
   transform: translateY(44px);
   &.aos-visible { opacity: 1; transform: translateY(0); }
 }
 
 // ── fade-left ─────────────────────────────────────────────────────────────
-.aos-init[data-aos='fade-left'] {
+.aos-armed[data-aos='fade-left'] {
   opacity: 0;
   transform: translateX(-64px);
   &.aos-visible { opacity: 1; transform: translateX(0); }
 }
 
 // ── fade-right ────────────────────────────────────────────────────────────
-.aos-init[data-aos='fade-right'] {
+.aos-armed[data-aos='fade-right'] {
   opacity: 0;
   transform: translateX(64px);
   &.aos-visible { opacity: 1; transform: translateX(0); }
 }
 
 // ── scale-up ─────────────────────────────────────────────────────────────
-.aos-init[data-aos='scale-up'] {
+.aos-armed[data-aos='scale-up'] {
   opacity: 0;
   transform: scale(0.88) translateY(20px);
   &.aos-visible { opacity: 1; transform: scale(1) translateY(0); }
 }
 
 // ── fade-in ───────────────────────────────────────────────────────────────
-.aos-init[data-aos='fade-in'] {
+.aos-armed[data-aos='fade-in'] {
   opacity: 0;
   &.aos-visible { opacity: 1; }
 }
 
 // ── slide-up (dramatic, slower) ───────────────────────────────────────────
-.aos-init[data-aos='slide-up'] {
+.aos-armed[data-aos='slide-up'] {
   opacity: 0;
   transform: translateY(72px);
   &.aos-visible { opacity: 1; transform: translateY(0); }
 }
 
 // ── clip-reveal (horizontal wipe from left) ───────────────────────────────
-.aos-init[data-aos='clip-reveal'] {
+.aos-armed[data-aos='clip-reveal'] {
   clip-path: inset(0 100% 0 0);
   &.aos-visible { clip-path: inset(0 0% 0 0); }
 }

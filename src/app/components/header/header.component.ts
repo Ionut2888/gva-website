@@ -21,7 +21,7 @@ import { LangSwitcherComponent } from '../lang-switcher/lang-switcher.component'
               </div>
             </a>
 
-            <nav class="main-nav" [class.open]="menuOpen()">
+            <nav class="main-nav" id="primary-nav" [class.open]="menuOpen()">
               <a routerLink="/home" routerLinkActive="active" class="nav-link" (click)="closeMenu()">{{ t('nav.home') }}</a>
               <a routerLink="/about" routerLinkActive="active" class="nav-link" (click)="closeMenu()">{{ t('nav.about') }}</a>
               <a routerLink="/services" routerLinkActive="active" class="nav-link" (click)="closeMenu()">{{ t('nav.services') }}</a>
@@ -32,7 +32,9 @@ import { LangSwitcherComponent } from '../lang-switcher/lang-switcher.component'
             <div class="header-actions">
               <app-lang-switcher class="desktop-lang" />
               <a routerLink="/contact" class="cta-btn">{{ t('nav.cta') }}</a>
-              <button class="hamburger-btn" (click)="toggleMenu()" [attr.aria-label]="menuOpen() ? 'Închide meniu' : 'Deschide meniu'">
+              <button class="hamburger-btn" (click)="toggleMenu()"
+                      [attr.aria-label]="menuOpen() ? 'Închide meniu' : 'Deschide meniu'"
+                      [attr.aria-expanded]="menuOpen()" aria-controls="primary-nav">
                 @if (menuOpen()) {
                   <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
                     <path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>

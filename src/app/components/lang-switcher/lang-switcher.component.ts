@@ -69,7 +69,7 @@ import { Subscription } from 'rxjs';
       align-items: center;
       gap: 5px;
       background: none;
-      border: 1px solid rgba(255, 255, 255, 0.12);
+      border: 1px solid var(--border-subtle);
       border-radius: var(--r-sm);
       padding: 0.3rem 0.5rem;
       cursor: pointer;
@@ -83,28 +83,28 @@ import { Subscription } from 'rxjs';
         font-size: 0.6875rem;
         font-weight: 700;
         letter-spacing: 0.08em;
-        color: var(--navy-dim);
+        color: var(--text-muted);
         line-height: 1;
         transition: color var(--t-fast);
       }
 
       .chevron {
-        color: var(--navy-dim);
+        color: var(--text-muted);
         transition: transform var(--t-fast), color var(--t-fast);
         flex-shrink: 0;
       }
 
       &:hover {
-        border-color: rgba(255, 255, 255, 0.25);
-        background: rgba(255, 255, 255, 0.05);
-        .lang-code, .chevron { color: var(--white); }
+        border-color: var(--blue);
+        background: var(--bg-low);
+        .lang-code, .chevron { color: var(--blue); }
       }
     }
 
     .lang-dropdown.open .lang-trigger {
-      border-color: rgba(255, 255, 255, 0.25);
-      background: rgba(255, 255, 255, 0.05);
-      .lang-code, .chevron { color: var(--white); }
+      border-color: var(--blue);
+      background: var(--bg-low);
+      .lang-code, .chevron { color: var(--blue); }
       .chevron { transform: rotate(180deg); }
     }
 
@@ -113,10 +113,10 @@ import { Subscription } from 'rxjs';
       top: calc(100% + 6px);
       right: 0;
       min-width: 160px;
-      background: var(--navy);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      border-radius: var(--r-sm);
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+      background: var(--white);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--r-md);
+      box-shadow: var(--sh-ambient);
       overflow: hidden;
       z-index: 200;
       animation: dropIn 0.12s ease;
@@ -146,7 +146,7 @@ import { Subscription } from 'rxjs';
         font-size: 0.6875rem;
         font-weight: 700;
         letter-spacing: 0.08em;
-        color: var(--navy-dim);
+        color: var(--text-muted);
         width: 22px;
         flex-shrink: 0;
         transition: color var(--t-fast);
@@ -155,20 +155,19 @@ import { Subscription } from 'rxjs';
       .opt-name {
         font-family: var(--fb);
         font-size: 0.8125rem;
-        color: var(--navy-dim);
+        color: var(--text-muted);
         transition: color var(--t-fast);
       }
 
       &:hover {
-        background: rgba(255, 255, 255, 0.06);
-        .opt-code, .opt-name { color: var(--white); }
+        background: var(--bg-low);
+        .opt-code, .opt-name { color: var(--blue); }
       }
 
       &.active {
-        background: rgba(0, 81, 213, 0.18);
-        .opt-flag { filter: brightness(1.1); }
-        .opt-code { color: var(--blue-light); }
-        .opt-name { color: var(--white); }
+        background: var(--blue-light);
+        .opt-code { color: var(--blue-d); }
+        .opt-name { color: var(--navy); }
       }
     }
 
@@ -196,8 +195,8 @@ import { Subscription } from 'rxjs';
       flex-direction: column;
       align-items: center;
       gap: 3px;
-      background: rgba(255, 255, 255, 0.04);
-      border: 1px solid rgba(255, 255, 255, 0.08);
+      background: var(--bg-low);
+      border: 1px solid var(--border-subtle);
       border-radius: var(--r-sm);
       padding: 0.5rem 0.25rem;
       cursor: pointer;
@@ -210,20 +209,20 @@ import { Subscription } from 'rxjs';
         font-size: 0.5625rem;
         font-weight: 700;
         letter-spacing: 0.08em;
-        color: var(--navy-dim);
+        color: var(--text-muted);
         transition: color var(--t-fast);
       }
 
       &:hover {
-        background: rgba(255, 255, 255, 0.08);
-        border-color: rgba(255, 255, 255, 0.18);
-        .pill-code { color: var(--white); }
+        background: var(--bg-mid);
+        border-color: var(--blue);
+        .pill-code { color: var(--blue); }
       }
 
       &.active {
-        background: rgba(0, 81, 213, 0.22);
-        border-color: rgba(0, 81, 213, 0.5);
-        .pill-code { color: var(--blue-light); }
+        background: var(--blue-light);
+        border-color: var(--blue);
+        .pill-code { color: var(--blue-d); }
       }
     }
   `]

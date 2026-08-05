@@ -37,6 +37,7 @@ export const pageSchema = defineType({
         { type: 'galleryBlock' },
         { type: 'fleetFeaturesBlock' },
         { type: 'contactContentBlock' },
+        { type: 'timelineBlock' },
       ],
     }),
   ],
