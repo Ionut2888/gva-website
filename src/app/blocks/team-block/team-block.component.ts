@@ -10,8 +10,8 @@ import { AnimateOnScrollDirective } from '../../directives/animate-on-scroll.dir
   styles: [`
     .team-section {
       background: var(--white);
-      border: 1px solid var(--border);
-      border-radius: var(--r-sm);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--r-lg);
       padding: var(--s8);
       margin-top: var(--s8);
     }
@@ -20,7 +20,7 @@ import { AnimateOnScrollDirective } from '../../directives/animate-on-scroll.dir
       font-family: var(--fh);
       font-size: clamp(1.375rem, 2vw, 1.75rem);
       font-weight: 700;
-      color: var(--text);
+      color: var(--navy);
       text-align: center;
       margin-bottom: var(--s4);
       letter-spacing: -0.02em;
@@ -42,16 +42,17 @@ import { AnimateOnScrollDirective } from '../../directives/animate-on-scroll.dir
     @media (max-width: 900px) { .team-highlights { grid-template-columns: 1fr; } }
     .highlight {
       background: var(--bg-low);
-      border: 1px solid var(--border);
-      border-radius: var(--r-sm);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--r-md);
       padding: var(--s4);
-      border-left: 3px solid var(--blue);
+      transition: border-color var(--t-fast);
     }
+    .highlight:hover { border-color: var(--blue); }
     .highlight strong {
       display: block;
       font-family: var(--fh);
-      font-size: 0.9375rem; font-weight: 700;
-      color: var(--text);
+      font-size: 1rem; font-weight: 600;
+      color: var(--navy);
       margin-bottom: var(--s1);
     }
     .highlight span {

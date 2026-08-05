@@ -1,9 +1,8 @@
-/* ── Footer — Industrial Modern ── */
+/* ── Footer — Kinetic Enterprise / Navy (Punctuation Rule: structural navy band) ── */
 .footer {
   background: var(--navy);
   color: var(--white);
   padding: var(--s10) 0 0;
-  border-top: 1px solid rgba(255,255,255,0.06);
 }
 
 .container {
@@ -19,7 +18,7 @@
   grid-template-columns: 1.6fr 1fr 1fr 1.3fr;
   gap: var(--s8);
   padding-bottom: var(--s8);
-  border-bottom: 1px solid rgba(255,255,255,0.08);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
 
   @media (max-width: 1024px) {
     grid-template-columns: 1fr 1fr;
@@ -50,11 +49,11 @@
 
 .logo-section h3 {
   font-family: var(--fh);
-  font-size: 1.125rem;
+  font-size: 1.375rem;
   font-weight: 800;
   color: var(--white);
   margin: 0;
-  letter-spacing: -0.02em;
+  letter-spacing: -0.03em;
 }
 
 .company-description {
@@ -74,13 +73,13 @@
 .social-link {
   width: 36px;
   height: 36px;
-  background: rgba(255,255,255,0.06);
-  border: 1px solid rgba(255,255,255,0.1);
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.18);
   border-radius: var(--r-sm);
   display: flex;
   align-items: center;
   justify-content: center;
-  color: var(--navy-dim);
+  color: var(--navy-text);
   transition: all var(--t-fast);
 
   &:hover {
@@ -103,7 +102,7 @@
     font-family: var(--fh);
     font-size: 0.6875rem;
     font-weight: 700;
-    color: var(--white);
+    color: var(--navy-text);
     text-transform: uppercase;
     letter-spacing: 0.12em;
     margin-bottom: var(--s3);
@@ -121,7 +120,7 @@
     color: var(--navy-dim);
     transition: color var(--t-fast);
 
-    &:hover { color: var(--white); }
+    &:hover { color: var(--blue-dim); }
   }
 }
 
@@ -145,20 +144,32 @@
     width: 15px !important;
     height: 15px !important;
     line-height: 15px !important;
-    color: var(--blue);
+    color: var(--blue-light);
     flex-shrink: 0;
   }
 
   a {
     color: var(--navy-dim);
     transition: color var(--t-fast);
-    &:hover { color: var(--white); }
+    &:hover { color: var(--blue-dim); }
   }
 }
 
 /* ── Footer bottom bar ── */
 .footer-bottom {
   padding: var(--s4) 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+  position: relative;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: -1px; left: 0; right: 0;
+    height: 2px;
+    background-image: linear-gradient(90deg, var(--blue) 0 10px, transparent 10px 18px);
+    background-size: 18px 2px;
+    opacity: 0.6;
+  }
 }
 
 .footer-bottom-content {
@@ -171,7 +182,7 @@
   p {
     font-family: var(--fb);
     font-size: 0.8125rem;
-    color: rgba(255,255,255,0.55);
+    color: var(--navy-dim);
     margin: 0;
   }
 
@@ -189,10 +200,10 @@
   a {
     font-family: var(--fb);
     font-size: 0.8125rem;
-    color: rgba(255,255,255,0.55);
+    color: var(--navy-dim);
     transition: color var(--t-fast);
 
-    &:hover { color: rgba(255,255,255,0.7); }
+    &:hover { color: var(--blue-dim); }
   }
 
   @media (max-width: 600px) {

@@ -15,6 +15,7 @@ import { FleetStatsBlockComponent }      from './fleet-stats-block/fleet-stats-b
 import { GalleryBlockComponent }         from './gallery-block/gallery-block.component';
 import { FleetFeaturesBlockComponent }   from './fleet-features-block/fleet-features-block.component';
 import { ContactContentBlockComponent }  from './contact-content-block/contact-content-block.component';
+import { TimelineBlockComponent } from './timeline-block/timeline-block.component';
 
 @Component({
   selector: 'app-block-renderer',
@@ -35,6 +36,7 @@ import { ContactContentBlockComponent }  from './contact-content-block/contact-c
     GalleryBlockComponent,
     FleetFeaturesBlockComponent,
     ContactContentBlockComponent,
+    TimelineBlockComponent,
   ],
   template: `
     @for (block of sections; track block._key) {
@@ -53,6 +55,7 @@ import { ContactContentBlockComponent }  from './contact-content-block/contact-c
         @case ('galleryBlock')        { <app-gallery-block        [block]="block" /> }
         @case ('fleetFeaturesBlock')  { <app-fleet-features-block [block]="block" /> }
         @case ('contactContentBlock') { <app-contact-content-block [block]="block" /> }
+        @case ('timelineBlock') { <app-timeline-block [block]="block" /> }
       }
     }
   `,

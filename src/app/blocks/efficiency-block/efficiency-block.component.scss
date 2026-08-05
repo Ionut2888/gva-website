@@ -1,5 +1,5 @@
 .efficiency {
-  padding: var(--s12) 0 var(--s14, 7rem);
+  padding: var(--s12) 0 var(--s10);
   background: var(--bg);
 }
 
@@ -20,12 +20,14 @@
 .efficiency-image {
   position: relative;
   height: 500px;
-  border: 1px solid var(--border);
-  border-radius: var(--r-sm);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--r-lg);
   overflow: hidden;
   background: var(--bg-mid);
+  transition: box-shadow var(--t-base);
 
   img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.5s ease; }
+  &:hover { box-shadow: var(--sh-ambient); }
   &:hover img { transform: scale(1.03); }
 }
 
@@ -49,11 +51,11 @@
 
   h2 {
     font-family: var(--fh);
-    font-size: clamp(1.75rem, 2.8vw, 2.5rem);
-    font-weight: 700;
-    color: var(--text);
-    line-height: 1.15;
-    letter-spacing: -0.025em;
+    font-size: clamp(2rem, 3.5vw, 3.25rem);
+    font-weight: 800;
+    color: var(--navy);
+    line-height: 1.08;
+    letter-spacing: -0.03em;
     margin-bottom: var(--s4);
   }
 
@@ -111,11 +113,11 @@
   background: var(--blue);
   color: var(--white);
   border-color: var(--blue);
-  box-shadow: 0 4px 0 rgba(0,0,0,0.25);
+  box-shadow: 0 5px 0 rgba(0,0,0,0.25);
 
   &:hover {
     background: var(--blue-d); border-color: var(--blue-d);
-    transform: translateY(-2px); box-shadow: 0 6px 0 rgba(0,0,0,0.25);
+    transform: translateY(-3px); box-shadow: 0 8px 0 rgba(0,0,0,0.25);
   }
   &:active { transform: translateY(2px); box-shadow: 0 2px 0 rgba(0,0,0,0.25); }
 }

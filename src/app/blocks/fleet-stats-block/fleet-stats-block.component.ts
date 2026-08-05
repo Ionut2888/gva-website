@@ -13,8 +13,8 @@ import { AnimateOnScrollDirective } from '../../directives/animate-on-scroll.dir
       display: grid;
       grid-template-columns: repeat(4, 1fr);
       background: var(--white);
-      border: 1px solid var(--border);
-      border-radius: var(--r-sm);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--r-lg);
       margin-top: var(--s8);
       margin-bottom: var(--s10);
       overflow: hidden;
@@ -24,25 +24,25 @@ import { AnimateOnScrollDirective } from '../../directives/animate-on-scroll.dir
     .stat-card {
       padding: var(--s5) var(--s4);
       display: flex; align-items: center; gap: var(--s3);
-      border-right: 1px solid var(--border);
+      border-right: 1px solid var(--border-subtle);
       transition: background var(--t-base);
     }
     .stat-card:last-child { border-right: none; }
     .stat-card:hover { background: var(--bg-low); }
     @media (max-width: 900px) {
-      .stat-card { border-right: none; border-bottom: 1px solid var(--border); }
-      .stat-card:nth-child(odd) { border-right: 1px solid var(--border); }
+      .stat-card { border-right: none; border-bottom: 1px solid var(--border-subtle); }
+      .stat-card:nth-child(odd) { border-right: 1px solid var(--border-subtle); }
       .stat-card:last-child, .stat-card:nth-last-child(2):nth-child(odd) { border-bottom: none; }
     }
     .stat-icon {
       width: 48px; height: 48px;
-      border-radius: var(--r-sm);
-      background: var(--bg-mid);
+      border-radius: var(--r-md);
+      background: var(--bg-low);
       display: flex; align-items: center; justify-content: center; flex-shrink: 0;
     }
     .stat-icon mat-icon {
-      font-size: 22px !important; width: 22px !important;
-      height: 22px !important; line-height: 22px !important;
+      font-size: 24px !important; width: 24px !important;
+      height: 24px !important; line-height: 24px !important;
       color: var(--blue);
     }
     .stat-content h3 {
